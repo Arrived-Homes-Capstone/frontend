@@ -7,9 +7,7 @@ const options = [
     { value: 'new2old', label: 'Date Listed (newest)' },
 ];
 
-// TODO: Make this look more like Figma
-// TODO: Make the UX of clicking to close out of it more intuitive
-const SortBy = () => {
+const SortBy = ({ sortType, setSortType }) => {
     // Create a ref that we add to the element for which we want to detect outside clicks
     const ref = useRef();
     // State for our modal
@@ -19,15 +17,29 @@ const SortBy = () => {
 
     const renderOptions = () => {
         return options.map(option => (
-            <button className="filter-sort-option" onClick={()=>console.log("option chosen")}>
+            <button className={sortType === option.value ? "filter-sort-option option-chosen" : "filter-sort-option"}
+                onClick={() => chooseSort(option)} key={option.value}>
                 <p className="sort-option-text">{option.label}</p>
             </button>
         ))
     }
 
+    const chooseSort = (option) => {
+        setSortType(option.value);
+        setIsOpen(false);
+    }
+
+    const handleCloseOpen = () => {
+        if (!isOpen) {
+            setIsOpen(true);
+        } else {
+            setIsOpen(false);
+        }
+    }
+
     return (
         <div>
-            <button className="flex-row filter-sort-container" onClick={() => setIsOpen(!isOpen)}>
+            <button className="flex-row filter-sort-container" onClick={() => handleCloseOpen()}>
                 <img src={'/images/sort.png'} className="filter-sort" alt="sort" />
                 <p className="filter-sort-text">SORT BY</p>
             </button>
@@ -41,16 +53,20 @@ const SortBy = () => {
 };
 
 function useOnClickOutside(ref, handler) {
-  useEffect(
-    () => {
-      const listener = event => {
-        // Do nothing if clicking ref's element or descendent elements
-        if (!ref.current || ref.current.contains(event.target)) {
-          return;
-        }
+    useEffect(() => {
+            const listener = event => {
+            // Do nothing if clicking ref's element or descendent elements
+            if (!ref.current || ref.current.contains(event.target)) {
+                return;
+            }
+            
+            // Do not close if clicking "Sort By" button
+            if (event.target.className && event.target.className.includes('filter-sort-text')) {
+                return;
+            }
 
-        handler(event);
-      };
+            handler(event);
+        };
 
       document.addEventListener('mousedown', listener);
       document.addEventListener('touchstart', listener);

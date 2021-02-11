@@ -4,12 +4,7 @@ import PropTypes from 'prop-types';
 import '../styles.css';
 
 const FilterBar = () => {
-    const [selectOpen, setSelectOpen] = useState(false);
-    //const [selectedSort, setSelectedSort] = useState('chocolate');
-
-    // const handleChange = (selectedOption) => {
-    //     setSelectedSort(selectedOption);
-    // };
+    const [sortType, setSortType] = useState('relevant');
 
     return (
         <div className="filter-container">
@@ -21,7 +16,7 @@ const FilterBar = () => {
             </div>
 
             {/* Sort By */}
-            <SortBy />
+            <SortBy sortType={sortType} setSortType={setSortType} />
         </div>
     );
 };
