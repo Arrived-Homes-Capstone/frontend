@@ -6,7 +6,7 @@ import '../styles.css'
 
 const Map = () => {
     const [center, setCenter] = useState({ lat: 36.082157, lng: -94.71852 });
-    const [zoom, setZoom] = useState(14);
+    const [zoom, setZoom] = useState(10);
 
     return (
         <div className="map-container">

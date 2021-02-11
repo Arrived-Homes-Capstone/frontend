@@ -5,6 +5,10 @@
   align-items: center;
 }
 
+.flex-start {
+  align-items: start;
+}
+
 /* Filter Bar */
 .filter-container {
   display: flex;
@@ -122,4 +126,37 @@
   height: 100vh;
   width: 50vw;
   z-index: 1;
+}
+
+/* Property  */
+.prop-container {
+  margin-top: 24px;
+  align-items: flex-start;
+}
+
+.prop-col-1 {
+  width: 40%;
+  padding-left: 16px;
+}
+
+.prop-col-2 {
+  width: 60%;
+}
+
+.prop-image {
+  width: 90%;
+}
+
+.prop-proforma {
+  background: transparent;
+  border: transparent;
+  text-decoration: underline;
+  color: #818cdc;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.prop-title {
+  font-weight: bold;
+  color: #333333;
 }

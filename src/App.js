@@ -8,8 +8,10 @@ const App = () => {
   return (
     <div>
       <FilterBar />
-      <Map />
-      <PropertyList />
+      <div className="flex-row flex-start">
+        <Map />
+        <PropertyList />
+        </div>
     </div>
   )
 }
