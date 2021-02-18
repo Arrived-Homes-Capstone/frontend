@@ -50,14 +50,14 @@ const HouseType = () => {
             {/* Button before click */}
             <div className="flex-row">
                 {isOpen
-                ? <button className="flex-row filter-type-container type-pressed" onClick={() => handleCloseOpen()}>Home...</button>
-                : <button className="flex-row filter-type-container" onClick={() => handleCloseOpen()}>Home...</button>
+                ? <button className="flex-row filter-type-container filter-type-touch type-pressed" onClick={() => handleCloseOpen()} >Home...</button>
+                : <button className="flex-row filter-type-container filter-type-touch" onClick={() => handleCloseOpen()}>Home...</button>
                 }
                 
                 <div className="filter-type-arrow">
                     {isOpen
-                    ?   <img src={'/images/down_arrow_white.png'} className="downarrow" alt="down_arrow" />
-                    :   <img src={'/images/down_arrow.png'} className="downarrow" alt="down_arrow" />
+                    ?   <img src={'/images/down_arrow_white.png'} className="downarrow filter-type-touch" alt="down_arrow" onClick={() => handleCloseOpen()} />
+                    :   <img src={'/images/down_arrow.png'} className="downarrow filter-type-touch" alt="down_arrow" onClick={() => handleCloseOpen()} />
                     }
                 </div>
             </div>
@@ -83,7 +83,7 @@ function useOnClickOutside(ref, handler) {
             }
             
             // Do not close if clicking "Sort By" button
-            if (event.target.className && event.target.className.includes('filter-type-container')) {
+            if (event.target.className && event.target.className.includes('filter-type-touch')) {
                 return;
             }
 

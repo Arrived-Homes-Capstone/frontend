@@ -67,7 +67,7 @@
   border: solid 1px;
   border-color: #888888;
   border-radius: 4px;
-  background-color: transparent;
+  background-color: white;
   width: 120px;
   height: 36px;
   font-size: 14px;
@@ -75,13 +75,6 @@
   color: #888888;
   margin-left: 12px;
   cursor: pointer;
-}
-
-.type-pressed {
-  background-color: #818cdc;
-  color: white;
-  border-color: #818cdc;
-  outline: none;
 }
 
 .filter-type-container:focus {
@@ -96,6 +89,7 @@
 .downarrow {
   width: 14px;
   height: auto;
+  cursor: pointer;
 }
 
 .filter-type-options {
@@ -146,6 +140,30 @@
   margin-top: 16px;
 }
 
+/* Filter More Options */
+.filter-more-container {
+  border-radius: 50px;
+  width: 36px;
+  height: 36px;
+  border: solid #888888 1px;
+  background-color: white;
+  margin-left: 12px;
+  cursor: pointer;
+  outline: none;
+}
+
+.filter-more-img {
+  width: 22px;
+  height: auto;
+  margin-top: 2px;
+}
+
+.filter-more-trans {
+  background-color: white;
+  border: 2px solid #818cdc;
+  color: #818cdc;
+}
+
 /* Filter Sort By  */
 .filter-sort-container {
   background: transparent;
@@ -160,6 +178,7 @@
 .filter-sort {
   height: 12px;
   width: auto;
+  cursor: pointer;
 }
 
 .filter-sort-text {
@@ -175,6 +194,10 @@
   padding-top: 4px;
   padding-bottom: 4px;
   position: absolute;
+  border-radius: 4px;
+  -webkit-box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .filter-sort-option {
@@ -185,10 +208,6 @@
   padding-left: 12px;
   border: none;
   background: white;
-
-  -webkit-box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .filter-sort-option:hover {
@@ -213,7 +232,7 @@
 .map-container {
   height: 100vh;
   width: 50%;
-  z-index: 1;
+  z-index: -1;
 }
 
 /* Property  */
@@ -267,4 +286,11 @@
 .prop-proforma-col-1 {
   width: 70%;
   max-width: 300px;
+}
+
+.type-pressed {
+  background-color: #818cdc;
+  color: white;
+  border-color: #818cdc;
+  outline: none;
 }

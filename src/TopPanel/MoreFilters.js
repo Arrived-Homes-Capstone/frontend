@@ -1,32 +1,13 @@
-import React, { useState, useEffect, useRef  } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import LowHighFilter from './LowHighFilter';
 
-const options = [
-    { value: 'relevant', label: 'Most Relevant' },
-    { value: 'old2new', label: 'Date Listed (oldest)' },
-    { value: 'new2old', label: 'Date Listed (newest)' },
-];
-
-const SortBy = ({ sortType, setSortType }) => {
+const MoreFilters = () => {
     // Create a ref that we add to the element for which we want to detect outside clicks
     const ref = useRef();
     // State for our modal
     const [isOpen, setIsOpen] = useState(false);
     // Call hook passing in the ref and a function to call on outside click
     useOnClickOutside(ref, () => setIsOpen(false));
-
-    const renderOptions = () => {
-        return options.map(option => (
-            <button className={sortType === option.value ? "filter-sort-option option-chosen" : "filter-sort-option"}
-                onClick={() => chooseSort(option)} key={option.value}>
-                <p className="sort-option-text">{option.label}</p>
-            </button>
-        ))
-    }
-
-    const chooseSort = (option) => {
-        setSortType(option.value);
-        setIsOpen(false);
-    }
 
     const handleCloseOpen = () => {
         if (!isOpen) {
@@ -38,13 +19,30 @@ const SortBy = ({ sortType, setSortType }) => {
 
     return (
         <div>
-            <button className="flex-row filter-sort-container filter-sort-touch" onClick={() => handleCloseOpen()}>
-                <img src={'/images/sort.png'} className="filter-sort filter-sort-touch" alt="sort" />
-                <p className="filter-sort-text filter-sort-touch">SORT BY</p>
-            </button>
+            {/* Button before click */}
+            <div className="flex-row">
+                {isOpen
+                    ?
+                    <button className="flex-row filter-more-container filter-more-touch type-pressed" onClick={() => handleCloseOpen()}>
+                        <img src={'/images/filter_white.png'} alt="filter" className="filter-more-img filter-more-touch" />
+                    </button>
+                    : 
+                    <button className="flex-row filter-more-container" onClick={() => handleCloseOpen()}>
+                        <img src={'/images/filter_gray.png'} alt="filter" className="filter-more-img" />
+                    </button>
+                }
+            </div>
+
+            {/* Button after click */}
             { isOpen &&
-                <div ref={ref} className="filter-sort-options">
-                    {renderOptions()}
+                <div ref={ref} className="filter-type-options">
+                {/* TODO: Implement a map that creates all the necessary low-high filters, make this update the API call too */}
+                    <LowHighFilter />
+                    <LowHighFilter />
+                    <LowHighFilter />
+                    <LowHighFilter />
+                    <button className="filter-type-done" onClick={() => handleCloseOpen()}>Save current filters</button>
+                    <button className="filter-type-done filter-more-trans" onClick={() => handleCloseOpen()}>Load previous filters</button>
                 </div>
             }
         </div>
@@ -60,7 +58,7 @@ function useOnClickOutside(ref, handler) {
             }
             
             // Do not close if clicking "Sort By" button
-            if (event.target.className && event.target.className.includes('filter-sort-touch')) {
+            if (event.target.className && event.target.className.includes('filter-more-touch')) {
                 return;
             }
 
@@ -85,4 +83,4 @@ function useOnClickOutside(ref, handler) {
   );
 }
 
-export default SortBy;
+export default MoreFilters;

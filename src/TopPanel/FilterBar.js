@@ -1,6 +1,7 @@
 import React, {useState, useRef, useEffect} from 'react';
 import SortBy from './SortBy';
 import HouseType from './HouseType';
+import MoreFilters from './MoreFilters';
 import '../styles.css';
 
 const FilterBar = () => {
@@ -17,8 +18,10 @@ const FilterBar = () => {
                 </div>
 
                 <HouseType />
+
+                <MoreFilters />
                 
-                </div>
+            </div>
             
             <SortBy sortType={sortType} setSortType={setSortType} />
         </div>
