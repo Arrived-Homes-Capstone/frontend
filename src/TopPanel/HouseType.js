@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 const options = [
-    { value: 'relevant', label: 'Most Relevant' },
-    { value: 'old2new', label: 'Date Listed (oldest)' },
-    { value: 'new2old', label: 'Date Listed (newest)' },
+    { value: 'house', label: 'House' },
+    { value: 'condo_coop', label: 'Condo/co-op' },
+    { value: 'multi_family', label: 'Multi-family' },
+    { value: 'apartment', label: 'Apartment' },
+    { value: 'lot_land', label: 'Lot/Land' },
+    { value: 'townhouse', label: 'Townhouse' },
 ];
 
 const HouseType = () => {
@@ -14,9 +17,18 @@ const HouseType = () => {
     // Call hook passing in the ref and a function to call on outside click
     useOnClickOutside(ref, () => setIsOpen(false));
 
+    const handleOptionChoice = () => {
+        console.log('you chose an option');
+    }
+
+    // TODO: On click, render the image so it is a checkmark and also call the API to reload the house listings
+    // TODO: Get this to be touchable. FIX THE GOOGLE MAP BUG.
     const renderOptions = () => {
-        return options.map(option => (
-            <p>{option}</p>
+        return options.map((option, index) => (
+            <button className="filter-type-btn flex-row" onClick={() => handleOptionChoice()}>
+                <img src={'/images/check_empty.png'} alt="checkbox empty" className="filter-check" />
+                <p>{option.label}</p>
+            </button>
         ));
     }
 
@@ -37,9 +49,11 @@ const HouseType = () => {
         <div>
             {/* Button before click */}
             <div className="flex-row">
-                <button className="flex-row filter-type-container" onClick={() => handleCloseOpen()}>
-                    Home...
-                </button>
+                {isOpen
+                ? <button className="flex-row filter-type-container type-pressed" onClick={() => handleCloseOpen()}>Home...</button>
+                : <button className="flex-row filter-type-container" onClick={() => handleCloseOpen()}>Home...</button>
+                }
+                
                 <div className="filter-type-arrow">
                     {isOpen
                     ?   <img src={'/images/down_arrow_white.png'} className="downarrow" alt="down_arrow" />
@@ -51,9 +65,9 @@ const HouseType = () => {
             {/* Button after click */}
             { isOpen &&
                 <div ref={ref} className="filter-type-options">
-                    <p>Home Type</p>
-                    {/* {renderOptions()} */}
-                    <button onClick={() => handleCloseOpen()}>Done</button>
+                    <p className="filter-type-title" >Home Type</p>
+                    {renderOptions()}
+                    <button className="filter-type-done" onClick={() => handleCloseOpen()}>Done</button>
                 </div>
             }
         </div>
@@ -69,7 +83,7 @@ function useOnClickOutside(ref, handler) {
             }
             
             // Do not close if clicking "Sort By" button
-            if (event.target.className && event.target.className.includes('filter-sort-text')) {
+            if (event.target.className && event.target.className.includes('filter-type-container')) {
                 return;
             }
 

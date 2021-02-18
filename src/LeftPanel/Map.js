@@ -9,14 +9,15 @@ const Map = () => {
 
     return (
         <div className="map-container">
-            <GoogleMapReact
+            {/* <GoogleMapReact
                 bootstrapURLKeys={{ key: constants.GOOGLE_API_KEY }}
                 defaultCenter={center}
                 defaultZoom={zoom}
+                resetBoundsOnResize={true}
                 // yesIWantToUseGoogleMapApiInternals
                 // onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
                 >
-            </GoogleMapReact>
+            </GoogleMapReact> */}
         </div>
     );
 };
