@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef  } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const options = [
     { value: 'relevant', label: 'Most Relevant' },
@@ -6,7 +6,7 @@ const options = [
     { value: 'new2old', label: 'Date Listed (newest)' },
 ];
 
-const SortBy = ({ sortType, setSortType }) => {
+const HouseType = () => {
     // Create a ref that we add to the element for which we want to detect outside clicks
     const ref = useRef();
     // State for our modal
@@ -16,17 +16,14 @@ const SortBy = ({ sortType, setSortType }) => {
 
     const renderOptions = () => {
         return options.map(option => (
-            <button className={sortType === option.value ? "filter-sort-option option-chosen" : "filter-sort-option"}
-                onClick={() => chooseSort(option)} key={option.value}>
-                <p className="sort-option-text">{option.label}</p>
-            </button>
-        ))
+            <p>{option}</p>
+        ));
     }
 
-    const chooseSort = (option) => {
-        setSortType(option.value);
-        setIsOpen(false);
-    }
+    // const chooseSort = (option) => {
+    //     setSortType(option.value);
+    //     setIsOpen(false);
+    // }
 
     const handleCloseOpen = () => {
         if (!isOpen) {
@@ -38,13 +35,25 @@ const SortBy = ({ sortType, setSortType }) => {
 
     return (
         <div>
-            <button className="flex-row filter-sort-container" onClick={() => handleCloseOpen()}>
-                <img src={'/images/sort.png'} className="filter-sort" alt="sort" />
-                <p className="filter-sort-text">SORT BY</p>
-            </button>
+            {/* Button before click */}
+            <div className="flex-row">
+                <button className="flex-row filter-type-container" onClick={() => handleCloseOpen()}>
+                    Home...
+                </button>
+                <div className="filter-type-arrow">
+                    {isOpen
+                    ?   <img src={'/images/down_arrow_white.png'} className="downarrow" alt="down_arrow" />
+                    :   <img src={'/images/down_arrow.png'} className="downarrow" alt="down_arrow" />
+                    }
+                </div>
+            </div>
+
+            {/* Button after click */}
             { isOpen &&
-                <div ref={ref} className="filter-sort-options">
-                    {renderOptions()}
+                <div ref={ref} className="filter-type-options">
+                    <p>Home Type</p>
+                    {/* {renderOptions()} */}
+                    <button onClick={() => handleCloseOpen()}>Done</button>
                 </div>
             }
         </div>
@@ -85,4 +94,4 @@ function useOnClickOutside(ref, handler) {
   );
 }
 
-export default SortBy;
+export default HouseType;

@@ -1,6 +1,6 @@
 import React, {useState, useRef, useEffect} from 'react';
 import SortBy from './SortBy';
-import PropTypes from 'prop-types';
+import HouseType from './HouseType';
 import '../styles.css';
 
 const FilterBar = () => {
@@ -10,12 +10,16 @@ const FilterBar = () => {
         <div className="filter-container">
             
             {/* Text Input */}
-            <div className="filter-input-container">
-                <img src={'/images/search.png'} className="filter-search" alt="search"  />
-                <input type="text" className="filter-input"/>
-            </div>
+            <div className="flex-row">
+                <div className="filter-input-container">
+                    <img src={'/images/search.png'} className="filter-search" alt="search"  />
+                    <input type="text" className="filter-input"/>
+                </div>
 
-            {/* Sort By */}
+                <HouseType />
+                
+                </div>
+            
             <SortBy sortType={sortType} setSortType={setSortType} />
         </div>
     );

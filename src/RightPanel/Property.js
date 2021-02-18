@@ -11,10 +11,10 @@ const Property = ({ property }) => {
     const renderPrices = () => {
         let result = "";
         if (property.ListPrice !== null) {
-            result += "List: $" + formatter.format(property.ListPrice);
+            result += "List: $" + formatter.format(property.ListPrice) + `\u00A0\u00A0`;
         }
         if (property.OfferPrice) {
-            result += " Offer: $" + formatter.format(property.OfferPrice);
+            result += " Offer: $" + formatter.format(property.OfferPrice) + `\u00A0\u00A0`;
         }
         if (property.RenovationPrice) {
             result += " Reno: $" + formatter.format(property.RenovationPrice);
@@ -76,10 +76,22 @@ const Property = ({ property }) => {
                     <p>{renderAmenities()}</p>
                     <p>{renderBuildDate()}</p>
                 </div>
-                {/* TODO: Complete the 2 column proforma info layout */}
-                <div className="prop-proforma-container">
+                <div className="flex-row flex-start prop-text-container">
                     <div className="prop-proforma-col-1">
                         <p>Investor Equity Required</p>
+                        <p>Investor IRR (Year 7)</p>
+                        <p>Investor Yield (Year 1)</p>
+                        <p>Arrived Opfront Revenue</p>
+                        <p>Arrived Property AUM Fees (7 yr)</p>
+                        <p>Arrived Management Markup (7yr)</p>
+                    </div>
+                    <div>
+                        <p>${formatter.format(property.InvestorEquityRequired)}</p>
+                        <p>{property.InvestorIRR}%</p>
+                        <p>{property.InvestorYield}%</p>
+                        <p>${formatter.format(property.ArrivedOpfrontRevenue)}</p>
+                        <p>${formatter.format(property.ArrivedPropertyAUMFees)}</p>
+                        <p>${formatter.format(property.ArrivedManagementMarkup)}</p>
                     </div>
                 </div>
             </div>

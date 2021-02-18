@@ -21,7 +21,6 @@
   padding-right: 96px;
   padding-top: 8px;
   padding-bottom: 8px;
-  z-index: 50;
 
   -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.25);
   -moz-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.25);
@@ -57,6 +56,48 @@
 
 .filter-input:focus {
   outline: none;
+}
+
+.filter-type-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: solid 1px;
+  border-color: "#888888";
+  border-radius: 4px;
+  background-color: transparent;
+  width: 120px;
+  height: 36px;
+  font-size: 14px;
+  color: "#888888";
+  margin-left: 12px;
+  cursor: pointer;
+}
+
+.filter-type-container:focus {
+  background-color: #818cdc;
+  color: white;
+  border-color: #818cdc;
+  outline: none;
+}
+
+.filter-type-arrow {
+  position: absolute;
+  margin-left: 110px;
+}
+
+.downarrow {
+  width: 14px;
+  height: auto;
+}
+
+.filter-type-options {
+  background-color: white;
+  width: 130px;
+  height: 215px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  position: absolute;
 }
 
 .filter-sort-container {
@@ -125,7 +166,7 @@
 .map-container {
   height: 100vh;
   width: 50vw;
-  z-index: 1;
+  z-index: -1;
 }
 
 /* Property  */
@@ -144,7 +185,9 @@
 }
 
 .prop-image {
+  margin-top: 14px;
   width: 90%;
+  max-width: 250px;
 }
 
 .prop-proforma {
@@ -160,11 +203,21 @@
   font-weight: bold;
   color: #333333;
   margin-bottom: 8px;
+  font-size: 18px;
+}
+
+.prop-text-container {
+  margin-bottom: 16px;
 }
 
 .prop-text-container p {
   margin-top: 0.5px;
   margin-bottom: 0px;
   color: #333333;
-  font-size: 14px;
+  font-size: 16px;
+}
+
+.prop-proforma-col-1 {
+  width: 70%;
+  max-width: 300px;
 }
