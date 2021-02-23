@@ -21,21 +21,10 @@
   padding-right: 96px;
   padding-top: 8px;
   padding-bottom: 8px;
-  z-index: 10;
 
   -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.25);
   -moz-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.25);
   box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.25);
-}
-
-.filter-input-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  border: solid 1px;
-  border-color: "#333333";
-  border-radius: 4px;
-  padding: 2px;
 }
 
 .filter-search {
@@ -43,20 +32,7 @@
   height: auto;
   position: absolute;
   left: 24px;
-}
-
-.filter-input {
-  height: 28px;
-  width: 360px;
-  padding-left: 48px;
-  border: transparent;
-  font-size: 14px;
-  font-weight: bold;
-  color: #333333;
-}
-
-.filter-input:focus {
-  outline: none;
+  z-index: 200;
 }
 
 /* Filter Type */
@@ -102,6 +78,7 @@
   padding-right: 32px;
   position: absolute;
   border-radius: 4px;
+  z-index: 200;
 
   -webkit-box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
   -moz-box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -230,9 +207,10 @@
 
 /* Google Map */
 .map-container {
-  height: 100vh;
+  margin-top: 6px;
+  height: 90vh;
   width: 50%;
-  z-index: -1;
+  overflow-y: hidden;
 }
 
 /* Property  */
