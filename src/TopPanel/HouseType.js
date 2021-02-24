@@ -1,41 +1,30 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const options = [
-    { value: 'house', label: 'House' },
-    { value: 'condo_coop', label: 'Condo/co-op' },
-    { value: 'multi_family', label: 'Multi-family' },
-    { value: 'apartment', label: 'Apartment' },
-    { value: 'lot_land', label: 'Lot/Land' },
-    { value: 'townhouse', label: 'Townhouse' },
-];
-
-const HouseType = () => {
-    // Create a ref that we add to the element for which we want to detect outside clicks
+const HouseType = ({ houseTypes, setHouseTypes}) => {
     const ref = useRef();
-    // State for our modal
     const [isOpen, setIsOpen] = useState(false);
-    // Call hook passing in the ref and a function to call on outside click
     useOnClickOutside(ref, () => setIsOpen(false));
 
-    const handleOptionChoice = () => {
-        console.log('you chose an option');
+    // TODO: Load only the selected houses
+    // Reloads all the current house type options, either checking or unchecking the selected option
+    const handleOptionChoice = (option) => {
+        let newHouseTypes = JSON.parse(JSON.stringify(houseTypes));
+        newHouseTypes[option.index].selected = !houseTypes[option.index].selected;
+
+        setHouseTypes(newHouseTypes);
     }
 
-    // TODO: On click, render the image so it is a checkmark and also call the API to reload the house listings
-    // TODO: Get this to be touchable. FIX THE GOOGLE MAP BUG.
     const renderOptions = () => {
-        return options.map((option, index) => (
-            <button className="filter-type-btn flex-row" onClick={() => handleOptionChoice()}>
-                <img src={'/images/check_empty.png'} alt="checkbox empty" className="filter-check" />
+        return houseTypes.map((option, index) => (
+            <button className="filter-type-btn flex-row" onClick={() => handleOptionChoice(option)} key={index}>
+                { option.selected
+                ? <img src={'/images/check_clicked.png'} alt="checkbox empty" className="filter-check" />
+                : <img src={'/images/check_empty.png'} alt="checkbox empty" className="filter-check" />
+                }
                 <p>{option.label}</p>
             </button>
         ));
     }
-
-    // const chooseSort = (option) => {
-    //     setSortType(option.value);
-    //     setIsOpen(false);
-    // }
 
     const handleCloseOpen = () => {
         if (!isOpen) {
@@ -57,7 +46,7 @@ const HouseType = () => {
                 <div className="filter-type-arrow">
                     {isOpen
                     ?   <img src={'/images/down_arrow_white.png'} className="downarrow filter-type-touch" alt="down_arrow" onClick={() => handleCloseOpen()} />
-                    :   <img src={'/images/down_arrow.png'} className="downarrow filter-type-touch" alt="down_arrow" onClick={() => handleCloseOpen()} />
+                    :   <img src={'/images/down_arrow_2.png'} className="downarrow filter-type-touch" alt="down_arrow" onClick={() => handleCloseOpen()} />
                     }
                 </div>
             </div>
@@ -82,7 +71,7 @@ function useOnClickOutside(ref, handler) {
                 return;
             }
             
-            // Do not close if clicking "Sort By" button
+            // Do not close if clicking "Home Type" button
             if (event.target.className && event.target.className.includes('filter-type-touch')) {
                 return;
             }
@@ -98,12 +87,6 @@ function useOnClickOutside(ref, handler) {
         document.removeEventListener('touchstart', listener);
       };
     },
-    // Add ref and handler to effect dependencies
-    // It's worth noting that because passed in handler is a new ...
-    // ... function on every render that will cause this effect ...
-    // ... callback/cleanup to run every render. It's not a big deal ...
-    // ... but to optimize you can wrap handler in useCallback before ...
-    // ... passing it into this hook.
     [ref, handler]
   );
 }

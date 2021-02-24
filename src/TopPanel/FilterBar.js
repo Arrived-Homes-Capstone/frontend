@@ -5,9 +5,9 @@ import HouseType from './HouseType';
 import MoreFilters from './MoreFilters';
 import Select from "react-dropdown-select";
 import '../styles.css';
-import zipcodes from '../assets/zipcodes';
+import locations from '../assets/addresses';
 
-const FilterBar = ({ zipcode, setZipcode }) => {
+const FilterBar = ({ address, setAddress, setCenter, houseTypes, setHouseTypes }) => {
     const [sortType, setSortType] = useState('relevant');
 
     // https://www.npmjs.com/package/react-dropdown-select
@@ -15,7 +15,7 @@ const FilterBar = ({ zipcode, setZipcode }) => {
     const selectStyle = {
         width: 360,
         height: 28,
-        borderColor: '#333333',
+        borderColor: '#888888',
         borderRadius: 4,
         paddingLeft: 36,
         color: '#333333',
@@ -23,7 +23,18 @@ const FilterBar = ({ zipcode, setZipcode }) => {
         backgroundColor: 'white',
     }
 
-    // TODO: Make an onchange handler that makes sure the input is a zipcode (currently crashing when not)
+  // TODO: Play around with this. Just try to break as much as you can. There is some weird bug going on.
+  const handleAddress = (addr) => {
+    if (addr === undefined || addr === null || addr.length == 0) {
+     setAddress(null);
+    } else if (addr[0].id === address.id) {
+     setCenter(addr[0].geoLocation + .001);
+    } else {
+      setAddress(addr);
+     setCenter(addr[0].geoLocation);
+    }
+  } 
+
     return (
         <div className="filter-container">
             
@@ -32,15 +43,15 @@ const FilterBar = ({ zipcode, setZipcode }) => {
                 <div className="flex-row">
                     <img src={'/images/search.png'} className="filter-search" alt="search"  />
                     <StyledSelect 
-                        options={zipcodes}
-                        values={[zipcode]}
-                        onChange={(zip) => setZipcode(zip[0].label)}
+                        options={locations}
+                        values={[address]}
+                        onChange={(addr) => handleAddress(addr)}
                         style={selectStyle}
                         closeOnSelect={true}
                     />
                 </div>
 
-                <HouseType />
+                <HouseType {...{houseTypes, setHouseTypes}}/>
 
                 <MoreFilters />
                 
@@ -53,6 +64,7 @@ const FilterBar = ({ zipcode, setZipcode }) => {
 
 // https://github.com/sanusart/react-dropdown-select/blob/master/docs/src/examples/Styled.js
 const StyledSelect = styled(Select)`
+    
   .react-dropdown-select-clear,
   .react-dropdown-select-dropdown-handle {
     color: #888;

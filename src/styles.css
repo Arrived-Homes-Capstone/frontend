@@ -63,9 +63,11 @@
 }
 
 .downarrow {
-  width: 14px;
+  width: 10px;
   height: auto;
   cursor: pointer;
+  margin-left: 3px;
+  margin-bottom: 2px;
 }
 
 .filter-type-options {
@@ -98,6 +100,10 @@
   cursor: pointer;
 }
 
+.filter-type-btn:focus {
+  outline: none;
+}
+
 .filter-check {
   width: 15px;
   height: auto;
@@ -115,6 +121,7 @@
   border-radius: 4px;
   outline: none;
   margin-top: 16px;
+  cursor: pointer;
 }
 
 /* Filter More Options */
