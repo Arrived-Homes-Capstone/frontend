@@ -2,12 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import LowHighFilter from './LowHighFilter';
 
 const MoreFilters = () => {
-    // Create a ref that we add to the element for which we want to detect outside clicks
+    // Hide on click
     const ref = useRef();
-    // State for our modal
     const [isOpen, setIsOpen] = useState(false);
-    // Call hook passing in the ref and a function to call on outside click
     useOnClickOutside(ref, () => setIsOpen(false));
+
+    const [listPrice, setListPrice] = useState({ low: '1', high: '10' });
 
     const handleCloseOpen = () => {
         if (!isOpen) {
@@ -37,10 +37,7 @@ const MoreFilters = () => {
             { isOpen &&
                 <div ref={ref} className="filter-type-options">
                 {/* TODO: Implement a map that creates all the necessary low-high filters, make this update the API call too */}
-                    <LowHighFilter />
-                    <LowHighFilter />
-                    <LowHighFilter />
-                    <LowHighFilter />
+                <LowHighFilter item={listPrice} setItem={setListPrice} name={"List Price"} />
                     <button className="filter-type-done" onClick={() => handleCloseOpen()}>Save current filters</button>
                     <button className="filter-type-done filter-more-trans" onClick={() => handleCloseOpen()}>Load previous filters</button>
                 </div>

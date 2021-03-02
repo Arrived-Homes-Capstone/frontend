@@ -25,13 +25,12 @@ const FilterBar = ({ address, setAddress, setCenter, houseTypes, setHouseTypes }
 
   // TODO: Play around with this. Just try to break as much as you can. There is some weird bug going on.
   const handleAddress = (addr) => {
+    console.log(addr);
     if (addr === undefined || addr === null || addr.length == 0) {
-     setAddress(null);
-    } else if (addr[0].id === address.id) {
-     setCenter(addr[0].geoLocation + .001);
+      setAddress(null);
     } else {
       setAddress(addr);
-     setCenter(addr[0].geoLocation);
+      setCenter(addr[0].geoLocation);
     }
   } 
 

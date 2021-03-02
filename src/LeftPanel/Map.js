@@ -6,7 +6,6 @@ import '../styles.css'
 const Map = ({ center }) => {
     const [zoom, setZoom] = useState(10);
     const [map, setMap] = useState(null);
-    console.log(center);
 
     // Customize the map as needed, documentation of google map react: https://github.com/google-map-react/google-map-react
     // Check out google maps api for further specs
