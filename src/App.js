@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import FilterBar from './TopPanel/FilterBar';
 import Map from './LeftPanel/Map';
 import PropertyList from './RightPanel/PropertyList.js';
-import tempData from './assets/tempData.json';
 import abbrState from './assets/stateAbbreves';
 import houseTypeOptions from './assets/houseTypeOptions';
 
@@ -28,7 +27,6 @@ const App = () => {
   const [locations, setLocations] = useState(null);                           // All locations that can be focused on
   const [data, setData] = useState(null);                                     // All the data for every listings
   const [currentListings, setCurrentListings] = useState(null);               // Most relevant listings based on focused location
-
 
   // Ran on application start up
   useEffect(async () => {
@@ -97,15 +95,15 @@ const App = () => {
     return formatLocs;
   }
 
-  if (isLoading) {
+  if (isLoading || currentListings == null) {
     return <div></div>
   } else {
   return (
       <div>
         <FilterBar {...{ locations, focusedLocation, setFocusedLocation, setCenter, houseTypes, setHouseTypes }}/>
         <div className="flex-row flex-start" >
-          <Map {...{ center }}  />
-          <PropertyList data={tempData} />
+          <Map {...{ center, currentListings }}  />
+          <PropertyList data={currentListings} />
           </div>
       </div>
     )

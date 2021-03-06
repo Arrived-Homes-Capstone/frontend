@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import SortBy from './SortBy';
 //import HouseType from './HouseType';
@@ -22,8 +22,6 @@ const FilterBar = ({ locations, focusedLocation, setFocusedLocation, setCenter, 
         backgroundColor: 'white',
     }
 
-  // TODO: Play around with this. Just try to break as much as you can. 
-  // BUG: There is some weird bug going on when reloading the current focused area.
   const handleLocationChange = (loc) => {
     if (loc === undefined || loc === null || loc.length == 0) {
       setFocusedLocation(null);
