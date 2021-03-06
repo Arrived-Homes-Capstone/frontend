@@ -1,13 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from '@emotion/styled';
 import SortBy from './SortBy';
-import HouseType from './HouseType';
-import MoreFilters from './MoreFilters';
+//import HouseType from './HouseType';
+//import MoreFilters from './MoreFilters';
 import Select from "react-dropdown-select";
 import '../styles.css';
-import locations from '../assets/addresses';
 
-const FilterBar = ({ address, setAddress, setCenter, houseTypes, setHouseTypes }) => {
+const FilterBar = ({ locations, focusedLocation, setFocusedLocation, setCenter, houseTypes, setHouseTypes }) => {
     const [sortType, setSortType] = useState('relevant');
 
     // https://www.npmjs.com/package/react-dropdown-select
@@ -23,14 +22,14 @@ const FilterBar = ({ address, setAddress, setCenter, houseTypes, setHouseTypes }
         backgroundColor: 'white',
     }
 
-  // TODO: Play around with this. Just try to break as much as you can. There is some weird bug going on.
-  const handleAddress = (addr) => {
-    console.log(addr);
-    if (addr === undefined || addr === null || addr.length == 0) {
-      setAddress(null);
+  // TODO: Play around with this. Just try to break as much as you can. 
+  // BUG: There is some weird bug going on when reloading the current focused area.
+  const handleLocationChange = (loc) => {
+    if (loc === undefined || loc === null || loc.length == 0) {
+      setFocusedLocation(null);
     } else {
-      setAddress(addr);
-      setCenter(addr[0].geoLocation);
+      setFocusedLocation(loc);
+      setCenter({ lat: loc[0].Lat, lng: loc[0].Long });
     }
   } 
 
@@ -43,16 +42,17 @@ const FilterBar = ({ address, setAddress, setCenter, houseTypes, setHouseTypes }
                     <img src={'/images/search.png'} className="filter-search" alt="search"  />
                     <StyledSelect 
                         options={locations}
-                        values={[address]}
-                        onChange={(addr) => handleAddress(addr)}
+                        values={[focusedLocation]}
+                        onChange={(loc) => handleLocationChange(loc)}
                         style={selectStyle}
                         closeOnSelect={true}
                     />
                 </div>
 
+                {/* TODO: Implement Final Product Features
                 <HouseType {...{houseTypes, setHouseTypes}}/>
 
-                <MoreFilters />
+                <MoreFilters /> */}
                 
             </div>
             
