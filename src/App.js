@@ -18,6 +18,8 @@ import houseTypeOptions from './assets/houseTypeOptions';
   // X Set the first center to Fayetteville center
 
 // TODO: Make the "Sort By" button work by calling the correct API
+// Set up Google Map Markers (make them clickable and render the corrent listing on right panel)
+// Set up all house components
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
