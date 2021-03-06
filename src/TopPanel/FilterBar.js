@@ -28,7 +28,7 @@ const FilterBar = ({ locations, focusedLocation, setFocusedLocation, setCenter, 
     if (loc === undefined || loc === null || loc.length == 0) {
       setFocusedLocation(null);
     } else {
-      setFocusedLocation(loc);
+      setFocusedLocation(loc[0]);
       setCenter({ lat: loc[0].Lat, lng: loc[0].Long });
     }
   } 

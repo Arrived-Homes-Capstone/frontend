@@ -13,8 +13,8 @@ import houseTypeOptions from './assets/houseTypeOptions';
   // X Do not render the application until this API call is handled
 
 // TODO: Call the ExampleGetAllListings?ZipCode={ZipCode} on user address input
-  // Create a state that has all the data of each listing in the chosen region
-  // Rerender all posts whenever the state is changed
+  // X Create a state that has all the data of each listing in the chosen region
+  // X Rerender all posts whenever the state is changed
   // X Set the first "address" state to the Fayetteville object
   // X Set the first center to Fayetteville center
 
@@ -23,26 +23,57 @@ import houseTypeOptions from './assets/houseTypeOptions';
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [focusedLocation, setFocusedLocation] = useState(null);               // Currently focused location 
-  const [center, setCenter] = useState({ lat: 36.082157, lng: -94.71852 });   // Center of the currently focused location (defaults to Fayetteville, AR)
+  const [center, setCenter] = useState(null);                                 // Center of the currently focused location
   const [houseTypes, setHouseTypes] = useState(houseTypeOptions);             // All of the possible house types
-  const [data, setData] = useState(null);                                     // All the data for every listings
   const [locations, setLocations] = useState(null);                           // All locations that can be focused on
+  const [data, setData] = useState(null);                                     // All the data for every listings
+  const [currentListings, setCurrentListings] = useState(null);               // Most relevant listings based on focused location
 
 
-  // Only run on application start up
-  useEffect(async() => {
+  // Ran on application start up
+  useEffect(async () => {
     if (isLoading) {
       const allData = await getData();
       setData(allData);
       const allLocations = await getLocations();
       setLocations(allLocations);
+
       setFocusedLocation(allLocations[0]);
+      setCenter({ lat: allLocations[0].Lat, lng: allLocations[0].Long });
+
       setIsLoading(false);
     }
   }, []);
 
+  // Every time the focused location is updated, get the most relevant posts in the area
+  useEffect(async () => {
+    if (!isLoading) {
+      const newListings = await fetchRelevantListings();
+      setCurrentListings(newListings);
+    }
+  }, [focusedLocation, isLoading]);
+ 
+  // Helper function that gets all the correct listings based on focus location
+  const fetchRelevantListings = async () => {
+    let newListings = [];
+      for (let i = 0; i < data.length; i++) {
+        const curr = data[i];
+        // Add the closest radius listings first
+        if (Math.abs(curr.Lat - focusedLocation.Lat) < .05 || Math.abs(curr.Long - focusedLocation.Long) < .05) {
+          const response = await fetch(`https://7sgcz9f6id.execute-api.us-east-2.amazonaws.com/ExampleGetSingleListing?ListingID=${curr.ListingID}`);
+          const listing = await response.json();
+          newListings.unshift(listing);
+          // Wider radius here
+        } else if (Math.abs(curr.Lat - focusedLocation.Lat) < .1 || Math.abs(curr.Long - focusedLocation.Long) < .1) {
+          const response = await fetch(`https://7sgcz9f6id.execute-api.us-east-2.amazonaws.com/ExampleGetSingleListing?ListingID=${curr.ListingID}`);
+          const listing = await response.json();
+          newListings.push(listing);
+        }
+      }
+    return newListings;
+  }
+
   // Returns all data stored in DB
-  // TODO: Switch this from loading all data to just loading the current location's data
   const getData = async () => {
     const response = await fetch('https://7sgcz9f6id.execute-api.us-east-2.amazonaws.com/ExampleGetAllListings');
     const allListings = await response.json();
@@ -55,7 +86,7 @@ const App = () => {
     const allLocs = await response.json();
     let formatLocs = allLocs.Results;
 
-    // Format the locations array to include a label and value (used for the user text input component)
+    // Format the locations array to include a label and value
     for (let i = 0; i < formatLocs.length; i++) {
       let curr = formatLocs[i];
       let abbrev = abbrState(curr.State, 'abbr');
