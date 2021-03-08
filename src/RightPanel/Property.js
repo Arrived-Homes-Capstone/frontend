@@ -5,7 +5,7 @@ import React from 'react';
 const formatter = Intl.NumberFormat();
 
 // TODO: Find a spot to render the lot footage
-const Property = ({ property }) => {
+const Property = ({ property, isModal }) => {
 
     // Renders the List, Offer, and Renovation prices
     const renderPrices = () => {
@@ -58,7 +58,7 @@ const Property = ({ property }) => {
             {/* Left column */}
             <div className="prop-col-1">
                 <img src={property.HouseImageURL}
-                    className="prop-image"
+                    className={isModal ? "prop-image-lg" : "prop-image"}
                     alt="Single family home" 
                 />
                 <button className="prop-proforma" onClick={() => console.log("Link proforma")}>View Proforma</button>

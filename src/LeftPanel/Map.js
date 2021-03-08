@@ -21,15 +21,6 @@ const Map = ({ center, currentListings }) => {
         map.setCenter(center);
     };
 
-    // Load marker components for the latitude and longitude of each listing
-    const renderMarkers = () => {  
-        let markers = [];
-        currentListings.map((listing, index) => {
-            return <MapMarker key={index} lat={listing.Lat} long={listing.Long} />;
-        });
-        //return markers;
-    }
-
     return (
         <div className="map-container">
             <GoogleMapReact
@@ -42,7 +33,7 @@ const Map = ({ center, currentListings }) => {
             >
                 {currentListings.map((listing, index) => {
                     if (listing.Latitude && listing.Longitude) {
-                        return <MapMarker key={index} lat={listing.Latitude} lng={listing.Longitude} />;
+                        return <MapMarker key={index} lat={listing.Latitude} lng={listing.Longitude} property={listing} />;
                     }
                 })} 
             </GoogleMapReact>

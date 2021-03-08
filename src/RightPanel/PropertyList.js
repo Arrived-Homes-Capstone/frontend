@@ -7,7 +7,7 @@ const PropertyList = ({ data }) => {
     return (
         <div>
             {data.map((property, index) => {
-                return <Property key={index} property={property} />
+                return <Property key={index} property={property} isModal={false} />
             })}
         </div>
     );
