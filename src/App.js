@@ -5,22 +5,8 @@ import PropertyList from './RightPanel/PropertyList.js';
 import abbrState from './assets/stateAbbreves';
 import houseTypeOptions from './assets/houseTypeOptions';
 
-// TODO: Call the ExampleGetCurrentLocations API on application start
-  // X Pass down all addresses to the filterbar search input area
-  // X Make a handler when the user changes locations
-  // X Only run this function one time (useRef)
-  // X Do not render the application until this API call is handled
-
-// TODO: Call the ExampleGetAllListings?ZipCode={ZipCode} on user address input
-  // X Create a state that has all the data of each listing in the chosen region
-  // X Rerender all posts whenever the state is changed
-  // X Set the first "address" state to the Fayetteville object
-  // X Set the first center to Fayetteville center
-
 // TODO: Make the "Sort By" button work by calling the correct API
-// X Set up Google Map Markers (make them clickable and render the corrent listing on right panel)
-// Set up all house component info and spacing
-// Little bit of responsive stuff
+// ExampleGetAllListings?Order=Recent,LeastRecent,MostRelevant?Zipcode={Zipcode}
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);

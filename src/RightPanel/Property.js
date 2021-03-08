@@ -70,7 +70,7 @@ const Property = ({ property, isModal }) => {
                 <div className="prop-text-container">
                     <p>{renderPrices()}</p>
                     {/* TODO: Check for agent notes on a low and high rent estimate. If this is there, render it */}
-                    {property.RentPrice
+                    {property.RentPrice != "Need Agent Input"
                         && <p>Rent Estimate: ${formatter.format(property.RentPrice)}</p>
                     }
                     <p>{renderAmenities()}</p>
