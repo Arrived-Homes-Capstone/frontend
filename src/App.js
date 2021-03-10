@@ -40,6 +40,7 @@ const App = () => {
     }
   }, [focusedLocation, isLoading]);
  
+  // TODO: (For austin) Must make sure that there are Lat and Long fields in the exampleGetAllListings object
   // Helper function that gets all the correct listings based on focus location
   const fetchRelevantListings = async () => {
     let newListings = [];
@@ -49,12 +50,16 @@ const App = () => {
         if (Math.abs(curr.Lat - focusedLocation.Lat) < .05 || Math.abs(curr.Long - focusedLocation.Long) < .05) {
           const response = await fetch(`https://7sgcz9f6id.execute-api.us-east-2.amazonaws.com/ExampleGetSingleListing?ListingID=${curr.ListingID}`);
           const listing = await response.json();
-          newListings.unshift(listing);
+          if (!listing.Error) {
+            newListings.unshift(listing);
+          }
           // Wider radius here
         } else if (Math.abs(curr.Lat - focusedLocation.Lat) < .1 || Math.abs(curr.Long - focusedLocation.Long) < .1) {
           const response = await fetch(`https://7sgcz9f6id.execute-api.us-east-2.amazonaws.com/ExampleGetSingleListing?ListingID=${curr.ListingID}`);
           const listing = await response.json();
-          newListings.push(listing);
+          if (!listing.Error) {
+            newListings.push(listing);
+          }
         }
       }
     return newListings;
