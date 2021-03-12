@@ -16,6 +16,7 @@ const App = () => {
   const [locations, setLocations] = useState(null);                           // All locations that can be focused on
   const [data, setData] = useState(null);                                     // All the data for every listings
   const [currentListings, setCurrentListings] = useState(null);               // Most relevant listings based on focused location
+  const [sortOrder, setSortOrder] = useState('MostRelevant');                 // How the data for the listings are being ordered
 
   // Ran on application start up
   useEffect(async () => {
@@ -34,11 +35,22 @@ const App = () => {
 
   // Every time the focused location is updated, get the most relevant posts in the area
   useEffect(async () => {
-    if (!isLoading) {
+    if (!isLoading && focusedLocation) {
       const newListings = await fetchRelevantListings();
       setCurrentListings(newListings);
     }
   }, [focusedLocation, isLoading]);
+
+  // Every time the sort order is updated (least recent, most recent, most relevant)
+  useEffect(async () => {
+    if (!isLoading) {
+      console.log("CHANGING ORDER");
+      const allData = await getData();
+      setData(allData);
+      const newListings = await fetchRelevantListings();
+      setCurrentListings(newListings);
+    }
+  }, [sortOrder]);
  
   // TODO: (For austin) Must make sure that there are Lat and Long fields in the exampleGetAllListings object
   // Helper function that gets all the correct listings based on focus location
@@ -67,7 +79,7 @@ const App = () => {
 
   // Returns all data stored in DB
   const getData = async () => {
-    const response = await fetch('https://7sgcz9f6id.execute-api.us-east-2.amazonaws.com/ExampleGetAllListings');
+    const response = await fetch(`https://7sgcz9f6id.execute-api.us-east-2.amazonaws.com/ExampleGetAllListings?Order=${sortOrder}`);
     const allListings = await response.json();
     return allListings.Results;
   }
@@ -94,7 +106,7 @@ const App = () => {
   } else {
   return (
       <div>
-        <FilterBar {...{ locations, focusedLocation, setFocusedLocation, setCenter, houseTypes, setHouseTypes }}/>
+        <FilterBar {...{ locations, focusedLocation, setFocusedLocation, setCenter, houseTypes, setHouseTypes, sortOrder, setSortOrder }} />
         <div className="flex-row flex-start" >
           <Map {...{ center, currentListings }}  />
           <PropertyList data={currentListings} />

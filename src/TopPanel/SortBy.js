@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef  } from 'react';
 
 const options = [
-    { value: 'relevant', label: 'Most Relevant' },
-    { value: 'old2new', label: 'Date Listed (oldest)' },
-    { value: 'new2old', label: 'Date Listed (newest)' },
+    { value: 'MostRelevant', label: 'Most Relevant' },
+    { value: 'LeastRecent', label: 'Date Listed (oldest)' },
+    { value: 'MostRecent', label: 'Date Listed (newest)' },
 ];
 
-const SortBy = ({ sortType, setSortType }) => {
+const SortBy = ({ sortOrder, setSortOrder }) => {
     // Create a ref that we add to the element for which we want to detect outside clicks
     const ref = useRef();
     // State for our modal
@@ -16,7 +16,7 @@ const SortBy = ({ sortType, setSortType }) => {
 
     const renderOptions = () => {
         return options.map(option => (
-            <button className={sortType === option.value ? "filter-sort-option option-chosen" : "filter-sort-option"}
+            <button className={sortOrder === option.value ? "filter-sort-option option-chosen" : "filter-sort-option"}
                 onClick={() => chooseSort(option)} key={option.value}>
                 <p className="sort-option-text">{option.label}</p>
             </button>
@@ -24,7 +24,7 @@ const SortBy = ({ sortType, setSortType }) => {
     }
 
     const chooseSort = (option) => {
-        setSortType(option.value);
+        setSortOrder(option.value);
         setIsOpen(false);
     }
 

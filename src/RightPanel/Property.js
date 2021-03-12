@@ -1,5 +1,5 @@
 import React from 'react';
-//import '../styles.css';
+import '../styles.css';
 
 // Dollar formatter
 const formatter = Intl.NumberFormat();
@@ -61,7 +61,8 @@ const Property = ({ property, isModal }) => {
                     className={isModal ? "prop-image-lg" : "prop-image"}
                     alt="Single family home" 
                 />
-                <button className="prop-proforma" onClick={() => console.log("Link proforma")}>View Proforma</button>
+                {/* TODO: Set up this botton */}
+                {/* <button className="prop-proforma" onClick={() => console.log("Link proforma")}>View Proforma</button> */}
             </div>
             {/* Right column */}
             <div className="prop-col-2">

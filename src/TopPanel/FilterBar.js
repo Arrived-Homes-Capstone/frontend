@@ -6,9 +6,7 @@ import SortBy from './SortBy';
 import Select from "react-dropdown-select";
 import '../styles.css';
 
-const FilterBar = ({ locations, focusedLocation, setFocusedLocation, setCenter, houseTypes, setHouseTypes }) => {
-    const [sortType, setSortType] = useState('relevant');
-
+const FilterBar = ({ locations, focusedLocation, setFocusedLocation, setCenter, houseTypes, setHouseTypes, sortOrder, setSortOrder }) => {
     // https://www.npmjs.com/package/react-dropdown-select
     // Example: https://sanusart.github.io/react-dropdown-select/
     const selectStyle = {
@@ -54,7 +52,7 @@ const FilterBar = ({ locations, focusedLocation, setFocusedLocation, setCenter, 
                 
             </div>
             
-            <SortBy sortType={sortType} setSortType={setSortType} />
+            <SortBy {...{ sortOrder, setSortOrder }} />
         </div>
     );
 };

@@ -25,7 +25,7 @@ const Map = ({ center, currentListings }) => {
         <div className="map-container">
             <GoogleMapReact
                 bootstrapURLKeys={{ key: constants.GOOGLE_API_KEY }}
-                defaultCenter={center}
+                defaultCenter={{ lat: 36.07967, lng: -94.222055 }}
                 defaultZoom={zoom}
                 resetBoundsOnResize={true}
                 yesIWantToUseGoogleMapApiInternals
