@@ -5,7 +5,7 @@ const HouseType = ({ houseTypes, setHouseTypes}) => {
     const [isOpen, setIsOpen] = useState(false);
     useOnClickOutside(ref, () => setIsOpen(false));
 
-    // TODO: Load only the selected houses
+    // TODO: Load only the selected houses. Use an API call here.
     // Reloads all the current house type options, either checking or unchecking the selected option
     const handleOptionChoice = (option) => {
         let newHouseTypes = JSON.parse(JSON.stringify(houseTypes));
@@ -39,8 +39,8 @@ const HouseType = ({ houseTypes, setHouseTypes}) => {
             {/* Button before click */}
             <div className="flex-row">
                 {isOpen
-                ? <button className="flex-row filter-type-container filter-type-touch type-pressed" onClick={() => handleCloseOpen()} >Home...</button>
-                : <button className="flex-row filter-type-container filter-type-touch" onClick={() => handleCloseOpen()}>Home...</button>
+                ? <button className="flex-row filter-type-container filter-type-touch type-pressed" onClick={() => handleCloseOpen()} >House Type</button>
+                : <button className="flex-row filter-type-container filter-type-touch" onClick={() => handleCloseOpen()}>House Type</button>
                 }
                 
                 <div className="filter-type-arrow">
@@ -53,7 +53,7 @@ const HouseType = ({ houseTypes, setHouseTypes}) => {
 
             {/* Button after click */}
             { isOpen &&
-                <div ref={ref} className="filter-type-options">
+                <div ref={ref} className="filter-type-options" style={{width: 150}}>
                     <p className="filter-type-title" >Home Type</p>
                     {renderOptions()}
                     <button className="filter-type-done" onClick={() => handleCloseOpen()}>Done</button>

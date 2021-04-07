@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import LowHighFilter from './LowHighFilter';
+import DropdownFilter from './DropdownFilter';
+import { daysOnMarketOptions, priceReducedOptions } from './MoreFilterOptions';
 
 const MoreFilters = () => {
     // Hide on click
@@ -7,7 +9,16 @@ const MoreFilters = () => {
     const [isOpen, setIsOpen] = useState(false);
     useOnClickOutside(ref, () => setIsOpen(false));
 
-    const [listPrice, setListPrice] = useState({ low: '1', high: '10' });
+    const [listPrice, setListPrice] = useState({ low: 'Min', high: 'Max' });
+    const [offerPrice, setOfferPrice] = useState({ low: '1000', high: '20000' });
+    const [rentalPrice, setRentalPrice] = useState({ low: '1000', high: '20000' });
+    const [squareFeet, setSquareFeet] = useState({ low: 'Min', high: '1700' });
+    const [beds, setBeds] = useState({ low: 'Min', high: '3' });
+    const [baths, setBaths] = useState({ low: '1.5', high: '3' });
+    const [yearBuilt, setYearBuilt] = useState({ low: '1970', high: 'Max' });
+
+    const [onMarket, setOnMarket] = useState('Any');
+    const [priceReduced, setPriceReduced] = useState('In the last 30 days');
 
     const handleCloseOpen = () => {
         if (!isOpen) {
@@ -35,12 +46,21 @@ const MoreFilters = () => {
 
             {/* Button after click */}
             { isOpen &&
-                <div ref={ref} className="filter-type-options">
-                {/* TODO: Implement a map that creates all the necessary low-high filters, make this update the API call too */}
-                <LowHighFilter item={listPrice} setItem={setListPrice} name={"List Price"} />
-                    <button className="filter-type-done" onClick={() => handleCloseOpen()}>Save current filters</button>
-                    <button className="filter-type-done filter-more-trans" onClick={() => handleCloseOpen()}>Load previous filters</button>
-                </div>
+            <div ref={ref} className="filter-type-options">
+                <LowHighFilter item={listPrice} setItem={setListPrice} name="Listing Price" type="$" />
+                <LowHighFilter item={offerPrice} setItem={setOfferPrice} name="Offer Price" type="$" />
+                <LowHighFilter item={rentalPrice} setItem={setRentalPrice} name="Rental Price" type="$" />
+                <LowHighFilter item={squareFeet} setItem={setSquareFeet} name="Square Feet" type="ft" />
+                <LowHighFilter item={beds} setItem={setBeds} name="Beds" type="" />
+                <LowHighFilter item={baths} setItem={setBaths} name="Baths" type="" />
+                <LowHighFilter item={yearBuilt} setItem={setYearBuilt} name="Year Built" type="" />
+
+                {/* <DropdownFilter item={onMarket} setItem={setOnMarket} itemOptions={daysOnMarketOptions} name="Days on Market" /> */}
+                {/* <DropdownFilter item={priceReduced} setItem={setPriceReduced} itemOptions={priceReducedOptions} name="Price Reduced" /> */}
+                
+                {/* <button className="filter-type-done" onClick={() => handleCloseOpen()}>Save current filters</button>
+                <button className="filter-type-done filter-more-trans" onClick={() => handleCloseOpen()}>Load previous filters</button> */}
+            </div>
             }
         </div>
     );

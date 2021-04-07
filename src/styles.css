@@ -9,6 +9,18 @@
   align-items: start;
 }
 
+/* No arrow buttons on number input */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 /* Filter Bar */
 .filter-container {
   display: flex;
@@ -77,10 +89,11 @@
   padding-top: 4px;
   padding-bottom: 16px;
   padding-left: 16px;
-  padding-right: 32px;
+  padding-right: 16px;
   position: absolute;
   border-radius: 4px;
   z-index: 200;
+  width: 250px;
 
   -webkit-box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
   -moz-box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -116,7 +129,7 @@
   font-weight: bold;
   padding-top: 8px;
   padding-bottom: 8px;
-  width: 110%;
+  width: 100%;
   border-color: transparent;
   border-radius: 4px;
   outline: none;
@@ -391,4 +404,75 @@
   color: white;
   border-color: #818cdc;
   outline: none;
+}
+
+/* Filter more low-high component */
+.low-high-text {
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+
+.low-high-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.low-high-container {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  margin-right: 4px;
+}
+
+.low-high-dollar {
+  position: absolute;
+  top: -13px;
+  left: 8px;
+  font-weight: 500;
+  color: #333333;
+}
+
+.low-high-feet {
+  position: absolute;
+  font-weight: 500;
+  font-size: 14px;
+  color: #333333;
+  right: 8px;
+  top: -11px;
+}
+
+.low-high-input {
+  padding-left: 20px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  color: #888888;
+  border-radius: 4px;
+  border-color: #888888;
+  border-width: 1px;
+  width: 100%;
+
+  -webkit-box-shadow: inset 0px 0px 3px 1px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: inset 0px 0px 3px 1px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0px 0px 3px 1px rgba(0, 0, 0, 0.3);
+}
+
+.low-high-reset-container {
+  width: auto;
+  height: auto;
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+  border: transparent;
+}
+
+.reset-hidden {
+  visibility: hidden;
+}
+
+.low-high-reset-img {
+  width: 17px;
+  height: auto;
 }

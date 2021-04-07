@@ -8,6 +8,8 @@ import houseTypeOptions from './assets/houseTypeOptions';
 // TODO: Make the "Sort By" button work by calling the correct API
 // ExampleGetAllListings?Order=Recent,LeastRecent,MostRelevant?Zipcode={Zipcode}
 
+// TODO: Change the AWS URL to this: http://18.224.93.180/ when calling API endpoints
+
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [focusedLocation, setFocusedLocation] = useState(null);               // Currently focused location 

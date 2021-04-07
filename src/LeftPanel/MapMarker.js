@@ -42,7 +42,8 @@ const MapMarker = ({ property }) => {
                     <div className="marker-col">
                         <p className="marker-text marker-price">${formatter.format(property.ListPrice)}</p>
                         <p className="marker-text">{property.Beds + " Beds/" + property.Baths + " Baths"}</p>
-                        <p className="marker-text">{formatter.format(property.SquareFeet) + " sqft"}</p>
+                        {property.SquareFeet && property.SquareFeet > 0 &&
+                        <p className="marker-text">{formatter.format(property.SquareFeet) + " sqft"}</p> }
                     </div>
                     </div>
                 </div>
