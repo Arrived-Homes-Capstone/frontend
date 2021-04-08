@@ -17,8 +17,8 @@ const MoreFilters = () => {
     const [baths, setBaths] = useState({ low: '1.5', high: '3' });
     const [yearBuilt, setYearBuilt] = useState({ low: '1970', high: 'Max' });
 
-    const [onMarket, setOnMarket] = useState('Any');
-    const [priceReduced, setPriceReduced] = useState('In the last 30 days');
+    const [onMarket, setOnMarket] = useState(daysOnMarketOptions[0]);
+    const [priceReduced, setPriceReduced] = useState(priceReducedOptions[0]);
 
     const handleCloseOpen = () => {
         if (!isOpen) {
@@ -55,8 +55,8 @@ const MoreFilters = () => {
                 <LowHighFilter item={baths} setItem={setBaths} name="Baths" type="" />
                 <LowHighFilter item={yearBuilt} setItem={setYearBuilt} name="Year Built" type="" />
 
-                {/* <DropdownFilter item={onMarket} setItem={setOnMarket} itemOptions={daysOnMarketOptions} name="Days on Market" /> */}
-                {/* <DropdownFilter item={priceReduced} setItem={setPriceReduced} itemOptions={priceReducedOptions} name="Price Reduced" /> */}
+                <DropdownFilter item={onMarket} setItem={setOnMarket} itemOptions={daysOnMarketOptions} name="Days on Market" />
+                <DropdownFilter item={priceReduced} setItem={setPriceReduced} itemOptions={priceReducedOptions} name="Price Reduced" />
                 
                 {/* <button className="filter-type-done" onClick={() => handleCloseOpen()}>Save current filters</button>
                 <button className="filter-type-done filter-more-trans" onClick={() => handleCloseOpen()}>Load previous filters</button> */}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import Select from "react-dropdown-select";
 import '../styles.css';
@@ -8,7 +8,7 @@ const DropdownFilter = ({ item, setItem, itemOptions, name }) => {
     // Example: https://sanusart.github.io/react-dropdown-select/
     const selectStyle = {
         width: 220,
-        height: 10,
+        height: 1,
         borderColor: '#888888',
         borderRadius: 4,
         paddingLeft: 20,
@@ -19,24 +19,53 @@ const DropdownFilter = ({ item, setItem, itemOptions, name }) => {
         outline: 'none',
     }
 
+    const [isVisible, setIsVisible] = useState(true);
+
     const handleChange = (e) => {
         if (e === undefined || e === null || e.length == 0) {
-            setItem('Any');
+            setItem(itemOptions[0]);
         } else {
             setItem(e[0]);
         }
     }
 
+    // If this is a component that needs a "yes or no" state
+    const renderCheckbox = () => {
+        if (name === 'Price Reduced') {
+            return (
+                <button className="dropdown-btn" onClick={() => handleClick()}>
+                { isVisible
+                ? <img src={'/images/check_clicked.png'} alt="checkbox empty" className="dropdown-check" />
+                : <img src={'/images/check_empty.png'} alt="checkbox empty" className="dropdown-check" />
+                }
+            </button>
+            )
+        }
+    }
+
+    // Sets the Priced Reduced to null and hides the select component
+    const handleClick = () => {
+        setItem({ value: null, label: null });
+        setIsVisible(!isVisible);
+    }
+
     return (
         <div>
-            <p className="low-high-text">{name}</p>
-            <StyledSelect 
+            <div className="dropdown-row">
+                {renderCheckbox()}
+                <p className="low-high-text" style={{marginBottom: 0}}>{name}</p>
+            </div>
+                
+            { isVisible && 
+            <StyledSelect
                 options={itemOptions}
                 values={[item]}
                 onChange={(e) => handleChange(e)}
                 style={selectStyle}
                 closeOnSelect={true}
+                dropdownPosition="auto"
             />
+            }
         </div>
     );
 }
@@ -67,7 +96,7 @@ const StyledSelect = styled(Select)`
     padding: 0;
     display: flex;
     flex-direction: column;
-    max-height: 100px;
+    max-height: 200px;
     overflow: auto;
     z-index: 9;
     background: #fff;

@@ -476,3 +476,29 @@ input[type="number"] {
   width: 17px;
   height: auto;
 }
+
+.dropdown-row {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  margin-bottom: 4px;
+}
+
+.dropdown-btn {
+  background-color: transparent;
+  border-color: transparent;
+  width: 13px;
+  height: 13px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-right: 4px;
+  outline: none;
+}
+
+.dropdown-check {
+  width: 13px;
+  height: auto;
+}
