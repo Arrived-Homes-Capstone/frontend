@@ -4,11 +4,12 @@ import Map from './LeftPanel/Map';
 import PropertyList from './RightPanel/PropertyList.js';
 import abbrState from './assets/stateAbbreves';
 import houseTypeOptions from './assets/houseTypeOptions';
+import { getAllListings } from './API/functions';
 
 // TODO: Make the "Sort By" button work by calling the correct API
-// ExampleGetAllListings?Order=Recent,LeastRecent,MostRelevant?Zipcode={Zipcode}
+// ExampleGetAllListings?Order=Recent,LeastRecent?Zipcode={Zipcode}
 
-// TODO: Change the AWS URL to this: http://18.224.93.180/ when calling API endpoints
+// TODO: Change the API Endpoints to the function in API/functions
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -18,7 +19,7 @@ const App = () => {
   const [locations, setLocations] = useState(null);                           // All locations that can be focused on
   const [data, setData] = useState(null);                                     // All the data for every listings
   const [currentListings, setCurrentListings] = useState(null);               // Most relevant listings based on focused location
-  const [sortOrder, setSortOrder] = useState('MostRelevant');                 // How the data for the listings are being ordered
+  const [sortOrder, setSortOrder] = useState('MostRecent');                 // How the data for the listings are being ordered
 
   // Ran on application start up
   useEffect(async () => {
@@ -53,29 +54,29 @@ const App = () => {
       setCurrentListings(newListings);
     }
   }, [sortOrder]);
- 
+
   // TODO: (For austin) Must make sure that there are Lat and Long fields in the exampleGetAllListings object
   // Helper function that gets all the correct listings based on focus location
   const fetchRelevantListings = async () => {
     let newListings = [];
-      for (let i = 0; i < data.length; i++) {
-        const curr = data[i];
-        // Add the closest radius listings first
-        if (Math.abs(curr.Lat - focusedLocation.Lat) < .05 || Math.abs(curr.Long - focusedLocation.Long) < .05) {
-          const response = await fetch(`https://7sgcz9f6id.execute-api.us-east-2.amazonaws.com/ExampleGetSingleListing?ListingID=${curr.ListingID}`);
-          const listing = await response.json();
-          if (!listing.Error) {
-            newListings.unshift(listing);
-          }
-          // Wider radius here
-        } else if (Math.abs(curr.Lat - focusedLocation.Lat) < .1 || Math.abs(curr.Long - focusedLocation.Long) < .1) {
-          const response = await fetch(`https://7sgcz9f6id.execute-api.us-east-2.amazonaws.com/ExampleGetSingleListing?ListingID=${curr.ListingID}`);
-          const listing = await response.json();
-          if (!listing.Error) {
-            newListings.push(listing);
-          }
+    for (let i = 0; i < data.length; i++) {
+      const curr = data[i];
+      // Add the closest radius listings first
+      if (Math.abs(curr.Lat - focusedLocation.Lat) < .05 || Math.abs(curr.Long - focusedLocation.Long) < .05) {
+        const response = await fetch(`https://7sgcz9f6id.execute-api.us-east-2.amazonaws.com/ExampleGetSingleListing?ListingID=${curr.ListingID}`);
+        const listing = await response.json();
+        if (!listing.Error) {
+          newListings.unshift(listing);
+        }
+        // Wider radius here
+      } else if (Math.abs(curr.Lat - focusedLocation.Lat) < .1 || Math.abs(curr.Long - focusedLocation.Long) < .1) {
+        const response = await fetch(`https://7sgcz9f6id.execute-api.us-east-2.amazonaws.com/ExampleGetSingleListing?ListingID=${curr.ListingID}`);
+        const listing = await response.json();
+        if (!listing.Error) {
+          newListings.push(listing);
         }
       }
+    }
     return newListings;
   }
 
@@ -96,9 +97,9 @@ const App = () => {
     for (let i = 0; i < formatLocs.length; i++) {
       let curr = formatLocs[i];
       let abbrev = abbrState(curr.State, 'abbr');
-      curr.label  = curr.City + ", " + abbrev + " " + curr.PostalCode;
+      curr.label = curr.City + ", " + abbrev + " " + curr.PostalCode;
       curr.value = i;
-    } 
+    }
 
     return formatLocs;
   }
@@ -106,15 +107,15 @@ const App = () => {
   if (isLoading || currentListings == null) {
     return <div></div>
   } else {
-  return (
+    return (
       <div>
         <FilterBar {...{ locations, focusedLocation, setFocusedLocation, setCenter, houseTypes, setHouseTypes, sortOrder, setSortOrder }} />
         <div className="flex-row flex-start" >
-          <Map {...{ center, currentListings }}  />
+          <Map {...{ center, currentListings }} />
           <PropertyList data={currentListings} />
-          </div>
+        </div>
       </div>
     )
-    }
+  }
 }
 export default App;

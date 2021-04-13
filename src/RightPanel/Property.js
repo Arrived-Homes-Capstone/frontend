@@ -59,7 +59,7 @@ const Property = ({ property, isModal }) => {
             <div className="prop-col-1">
                 <img src={property.HouseImageURL}
                     className={isModal ? "prop-image-lg" : "prop-image"}
-                    alt="Single family home" 
+                    alt="Single family home"
                 />
                 {/* TODO: Set up this botton */}
                 {/* <button className="prop-proforma" onClick={() => console.log("Link proforma")}>View Proforma</button> */}

@@ -4,70 +4,74 @@ import Select from "react-dropdown-select";
 import '../styles.css';
 
 const DropdownFilter = ({ item, setItem, itemOptions, name }) => {
-    // https://www.npmjs.com/package/react-dropdown-select
-    // Example: https://sanusart.github.io/react-dropdown-select/
-    const selectStyle = {
-        width: 220,
-        height: 1,
-        borderColor: '#888888',
-        borderRadius: 4,
-        paddingLeft: 20,
-        marginTop: 4,
-        color: '#888888',
-        fontSize: 12,
-        backgroundColor: 'white',
-        outline: 'none',
+  // https://www.npmjs.com/package/react-dropdown-select
+  // Example: https://sanusart.github.io/react-dropdown-select/
+  const selectStyle = {
+    width: 220,
+    height: 1,
+    borderColor: '#888888',
+    borderRadius: 4,
+    paddingLeft: 20,
+    marginTop: 4,
+    color: '#888888',
+    fontSize: 12,
+    backgroundColor: 'white',
+    outline: 'none',
+  }
+
+  const [isVisible, setIsVisible] = useState(true);
+
+  const handleChange = (e) => {
+    if (e === undefined || e === null || e.length == 0) {
+      setItem(itemOptions[0]);
+    } else {
+      setItem(e[0]);
     }
+  }
 
-    const [isVisible, setIsVisible] = useState(true);
-
-    const handleChange = (e) => {
-        if (e === undefined || e === null || e.length == 0) {
-            setItem(itemOptions[0]);
-        } else {
-            setItem(e[0]);
-        }
+  // If this is a component that needs a "yes or no" state
+  const renderCheckbox = () => {
+    if (name === 'Price Reduced') {
+      return (
+        <button className="dropdown-btn" onClick={() => handleClick()}>
+          { isVisible
+            ? <img src={'/images/check_clicked.png'} alt="checkbox empty" className="dropdown-check" />
+            : <img src={'/images/check_empty.png'} alt="checkbox empty" className="dropdown-check" />
+          }
+        </button>
+      )
     }
+  }
 
-    // If this is a component that needs a "yes or no" state
-    const renderCheckbox = () => {
-        if (name === 'Price Reduced') {
-            return (
-                <button className="dropdown-btn" onClick={() => handleClick()}>
-                { isVisible
-                ? <img src={'/images/check_clicked.png'} alt="checkbox empty" className="dropdown-check" />
-                : <img src={'/images/check_empty.png'} alt="checkbox empty" className="dropdown-check" />
-                }
-            </button>
-            )
-        }
+  // Sets the Priced Reduced to null and hides the select component
+  const handleClick = () => {
+    if (isVisible) {
+      setItem({ value: null, label: null });
+    } else {
+      setItem(itemOptions[0]);
     }
+    setIsVisible(!isVisible);
+  }
 
-    // Sets the Priced Reduced to null and hides the select component
-    const handleClick = () => {
-        setItem({ value: null, label: null });
-        setIsVisible(!isVisible);
-    }
+  return (
+    <div>
+      <div className="dropdown-row">
+        {renderCheckbox()}
+        <p className="low-high-text" style={{ marginBottom: 0 }}>{name}</p>
+      </div>
 
-    return (
-        <div>
-            <div className="dropdown-row">
-                {renderCheckbox()}
-                <p className="low-high-text" style={{marginBottom: 0}}>{name}</p>
-            </div>
-                
-            { isVisible && 
-            <StyledSelect
-                options={itemOptions}
-                values={[item]}
-                onChange={(e) => handleChange(e)}
-                style={selectStyle}
-                closeOnSelect={true}
-                dropdownPosition="auto"
-            />
-            }
-        </div>
-    );
+      { isVisible &&
+        <StyledSelect
+          options={itemOptions}
+          values={[item]}
+          onChange={(e) => handleChange(e)}
+          style={selectStyle}
+          closeOnSelect={true}
+          dropdownPosition="auto"
+        />
+      }
+    </div>
+  );
 }
 
 // https://github.com/sanusart/react-dropdown-select/blob/master/docs/src/examples/Styled.js
