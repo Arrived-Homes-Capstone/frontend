@@ -11,6 +11,13 @@ import { getAllListings } from './API/functions';
 
 // TODO: Change the API Endpoints to the function in API/functions
 
+// TODO: Get the Send to Agent button to return a module of available agents in that area,
+// After the agent is selected, send the client to an email with Jake's template.
+// Once this email is sent, update the property with the option of "Agent currently viewing..." instead of "notify agent"
+
+// TODO: Format the AgentNotesSingle component using the data from the AgentNotes array on the property
+
+
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [focusedLocation, setFocusedLocation] = useState(null);               // Currently focused location 
