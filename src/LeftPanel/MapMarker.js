@@ -35,33 +35,33 @@ const MapMarker = ({ property }) => {
             {showPreview &&
                 <div className="marker-prev">
                     <div className="flex-row flex-start">
-                    <img src={property.HouseImageURL}
-                        className="marker-image"
-                        alt="" 
-                    />
-                    <div className="marker-col">
-                        <p className="marker-text marker-price">${formatter.format(property.ListPrice)}</p>
-                        <p className="marker-text">{property.Beds + " Beds/" + property.Baths + " Baths"}</p>
-                        {property.SquareFeet && property.SquareFeet > 0 &&
-                        <p className="marker-text">{formatter.format(property.SquareFeet) + " sqft"}</p> }
-                    </div>
+                        <img src={property.HouseImageURL}
+                            className="marker-image"
+                            alt=""
+                        />
+                        <div className="marker-col">
+                            <p className="marker-text marker-price">${formatter.format(property.ListPrice)}</p>
+                            <p className="marker-text">{property.Beds + " Beds/" + property.Baths + " Baths"}</p>
+                            {property.SquareFeet && property.SquareFeet > 0 &&
+                                <p className="marker-text">{formatter.format(property.SquareFeet) + " sqft"}</p>}
+                        </div>
                     </div>
                 </div>
             }
             <div onClick={e => e.stopPropagation()}>
-            <Modal
-                isOpen={modalIsOpen}
-                onRequestClose={() => setModalIsOpen(false)}
-                contentLabel="Listing Modal"
-                style={customStyles}
-            >
-                <Property property={property} isModal={true} />
-                <button className="marker-modal-close" onClick={() => setModalIsOpen(false)}>
-                    <img className="modal-img-close" src={'/images/close_modal.png'} alt="close modal" />
-                </button>
-                
+                <Modal
+                    isOpen={modalIsOpen}
+                    onRequestClose={() => setModalIsOpen(false)}
+                    contentLabel="Listing Modal"
+                    style={customStyles}
+                >
+                    <Property property={property} isModal={true} />
+                    <button className="marker-modal-close" onClick={() => setModalIsOpen(false)}>
+                        <img className="modal-img-close" src={'/images/close_modal.png'} alt="close modal" />
+                    </button>
+
                 </Modal>
-                </div>
+            </div>
         </button>
     )
 }

@@ -19,7 +19,8 @@ const App = () => {
   const [locations, setLocations] = useState(null);                           // All locations that can be focused on
   const [data, setData] = useState(null);                                     // All the data for every listings
   const [currentListings, setCurrentListings] = useState(null);               // Most relevant listings based on focused location
-  const [sortOrder, setSortOrder] = useState('MostRecent');                 // How the data for the listings are being ordered
+  const [sortOrder, setSortOrder] = useState('MostRecent');                   // How the data for the listings are being ordered
+  const [selectedListings, setSelectedListings] = useState([]);
 
   // Ran on application start up
   useEffect(async () => {
@@ -109,10 +110,14 @@ const App = () => {
   } else {
     return (
       <div>
-        <FilterBar {...{ locations, focusedLocation, setFocusedLocation, setCenter, houseTypes, setHouseTypes, sortOrder, setSortOrder }} />
+        <FilterBar {...{
+          locations, focusedLocation, setFocusedLocation,
+          setCenter, houseTypes, setHouseTypes, sortOrder, setSortOrder,
+          selectedListings
+        }} />
         <div className="flex-row flex-start" >
           <Map {...{ center, currentListings }} />
-          <PropertyList data={currentListings} />
+          <PropertyList data={currentListings} {...{ setSelectedListings, selectedListings }} />
         </div>
       </div>
     )

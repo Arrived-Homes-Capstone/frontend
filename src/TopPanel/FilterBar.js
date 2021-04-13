@@ -6,19 +6,20 @@ import MoreFilters from './MoreFilters';
 import Select from "react-dropdown-select";
 import '../styles.css';
 
-const FilterBar = ({ locations, focusedLocation, setFocusedLocation, setCenter, houseTypes, setHouseTypes, sortOrder, setSortOrder }) => {
-    // https://www.npmjs.com/package/react-dropdown-select
-    // Example: https://sanusart.github.io/react-dropdown-select/
-    const selectStyle = {
-        width: 360,
-        height: 28,
-        borderColor: '#888888',
-        borderRadius: 4,
-        paddingLeft: 36,
-        color: '#333333',
-        fontSize: 18,
-        backgroundColor: 'white',
-    }
+const FilterBar = ({ locations, focusedLocation, setFocusedLocation, setCenter,
+  houseTypes, setHouseTypes, sortOrder, setSortOrder, setSelectedListings, selectedListings }) => {
+  // https://www.npmjs.com/package/react-dropdown-select
+  // Example: https://sanusart.github.io/react-dropdown-select/
+  const selectStyle = {
+    width: 360,
+    height: 28,
+    borderColor: '#888888',
+    borderRadius: 4,
+    paddingLeft: 36,
+    color: '#333333',
+    fontSize: 18,
+    backgroundColor: 'white',
+  }
 
   const handleLocationChange = (loc) => {
     if (loc === undefined || loc === null || loc.length == 0) {
@@ -27,33 +28,40 @@ const FilterBar = ({ locations, focusedLocation, setFocusedLocation, setCenter, 
       setFocusedLocation(loc[0]);
       setCenter({ lat: loc[0].Lat, lng: loc[0].Long });
     }
-  } 
+  }
 
-    return (
-        <div className="filter-container">
-            
-            {/* Text Input */}
-            <div className="flex-row">
-                <div className="flex-row">
-                    <img src={'/images/search.png'} className="filter-search" alt="search"  />
-                    <StyledSelect 
-                        options={locations}
-                        values={[focusedLocation]}
-                        onChange={(loc) => handleLocationChange(loc)}
-                        style={selectStyle}
-                        closeOnSelect={true}
-                    />
-                </div>
+  return (
+    <div className="filter-container">
 
-                <HouseType {...{houseTypes, setHouseTypes}}/>
-
-                <MoreFilters />
-                
-            </div>
-            
-            <SortBy {...{ sortOrder, setSortOrder }} />
+      {/* Text Input */}
+      <div className="flex-row">
+        <div className="flex-row">
+          <img src={'/images/search.png'} className="filter-search" alt="search" />
+          <StyledSelect
+            options={locations}
+            values={[focusedLocation]}
+            onChange={(loc) => handleLocationChange(loc)}
+            style={selectStyle}
+            closeOnSelect={true}
+          />
         </div>
-    );
+
+        <HouseType {...{ houseTypes, setHouseTypes }} />
+
+        <MoreFilters />
+
+      </div>
+
+      <div className="flex-row">
+        {selectedListings.length === 0
+          ? <button disabled={true} className="filter-send-agent agent-disabled">Send to Agent</button>
+          : <button className="filter-send-agent" onClick={() => console.log('send to agent')}>Send to Agent</button>
+        }
+
+        <SortBy {...{ sortOrder, setSortOrder }} />
+      </div>
+    </div>
+  );
 };
 
 // https://github.com/sanusart/react-dropdown-select/blob/master/docs/src/examples/Styled.js
