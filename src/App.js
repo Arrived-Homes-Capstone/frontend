@@ -4,7 +4,7 @@ import Map from './LeftPanel/Map';
 import PropertyList from './RightPanel/PropertyList.js';
 import abbrState from './assets/stateAbbreves';
 import houseTypeOptions from './assets/houseTypeOptions';
-import { getAllLocations, getAllListings } from './API/functions';
+import { getAllLocations, getAllListings, getSingleListing } from './API/functions';
 
 // IMPORTANT DEV UPDATE: GETALLLISTINGS NOW WORKS AS THE FETCHRELEVANTLISTINGS. NO NEED TO HAVE TWO DIFFERENT
 // STATES OR FUNCTION CALLS
@@ -34,7 +34,7 @@ const App = () => {
   // Ran on application start up
   useEffect(async () => {
     if (isLoading) {
-      const response = await getAllListings();
+      const response = await getAllListings({}, sortOrder);
       setData(response);
 
       const allLocations = await getLocations();
@@ -57,46 +57,30 @@ const App = () => {
 
   // Every time the sort order is updated (least recent, most recent, most relevant)
   useEffect(async () => {
-    if (!isLoading) {
+    if (!isLoading && data) {
       console.log("App Updated")
-      const response = await getAllListings(null, sortOrder); // TODO:  Call this with a post request body
-      const allListings = await response.json();
-      setData(allListings);
-      // const newListings = await fetchRelevantListings();
-      // setCurrentListings(newListings);
+      const response = await getAllListings({}, sortOrder); // TODO:  Call this with a post request body
+      setData(response);
+      const listings = await fetchDetailedListings();
+      setCurrentListings(listings);
     }
   }, [sortOrder, focusedLocation, isLoading]);
 
-  // // TODO: (For austin) Must make sure that there are Lat and Long fields in the exampleGetAllListings object
-  // // Helper function that gets all the correct listings based on focus location
-  // const fetchRelevantListings = async () => {
-  //   let newListings = [];
-  //   for (let i = 0; i < data.length; i++) {
-  //     const curr = data[i];
-  //     // Add the closest radius listings first
-  //     if (Math.abs(curr.Lat - focusedLocation.Lat) < .05 || Math.abs(curr.Long - focusedLocation.Long) < .05) {
-  //       const response = await fetch(`https://7sgcz9f6id.execute-api.us-east-2.amazonaws.com/ExampleGetSingleListing?ListingID=${curr.ListingID}`);
-  //       const listing = await response.json();
-  //       if (!listing.Error) {
-  //         newListings.unshift(listing);
-  //       }
-  //       // Wider radius here
-  //     } else if (Math.abs(curr.Lat - focusedLocation.Lat) < .1 || Math.abs(curr.Long - focusedLocation.Long) < .1) {
-  //       const response = await fetch(`https://7sgcz9f6id.execute-api.us-east-2.amazonaws.com/ExampleGetSingleListing?ListingID=${curr.ListingID}`);
-  //       const listing = await response.json();
-  //       if (!listing.Error) {
-  //         newListings.push(listing);
-  //       }
-  //     }
-  //   }
-  //   return newListings;
-  // }
+  // Gets more detail for each property that is currently on screen
+  const fetchDetailedListings = async () => {
+    let res = [];
+    for (let i = 0; i < data.length; i++) {
+      const curr = data[i];
+      const resp = await getSingleListing(curr.ListingID);
+      res.push(resp);
+    }
+    return res;
+  }
 
   // Returns all the locations that the user can search for in the filter bar
   // Filters it so that there are no duplicates accoring to City and State name
   const getLocations = async () => {
-    const response = await getAllLocations();
-    const allLocs = await response.json();
+    const allLocs = await getAllLocations();
     let res = [];
 
     // Format the locations array to include a label and value
