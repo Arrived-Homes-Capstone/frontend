@@ -4,15 +4,30 @@ import MapMarker from './MapMarker';
 import constants from '../assets/constants';
 import '../styles.css'
 
-const Map = ({ center, currentListings }) => {
+const Map = ({ center, currentListings, setMapBounds }) => {
     const [zoom, setZoom] = useState(10);
     const [map, setMap] = useState(null);
 
     useEffect(() => {
         if (map) {
-        map.setCenter(center);
+            map.setCenter(center);
         }
     }, [center]);
+
+    const boundsChange = () => {
+        if (map) {
+            const leftLat = map.getBounds().La.g;
+            const rightLat = map.getBounds().La.i;
+            const topLong = map.getBounds().Ta.g;
+            const bottomLong = map.getBounds().Ta.i;
+            setMapBounds({
+                leftLat,
+                rightLat,
+                topLong,
+                bottomLong
+            });
+        }
+    }
 
     // Customize the map as needed, documentation of google map react: https://github.com/google-map-react/google-map-react
     // Check out google maps api for further specs
@@ -30,12 +45,13 @@ const Map = ({ center, currentListings }) => {
                 resetBoundsOnResize={true}
                 yesIWantToUseGoogleMapApiInternals
                 onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
+                onBoundsChange={() => boundsChange()}
             >
                 {currentListings.map((listing, index) => {
                     if (listing.Latitude && listing.Longitude) {
                         return <MapMarker key={index} lat={listing.Latitude} lng={listing.Longitude} property={listing} />;
                     }
-                })} 
+                })}
             </GoogleMapReact>
         </div>
     );
