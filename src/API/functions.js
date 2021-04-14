@@ -21,7 +21,6 @@ export const getAllListings = async (body, order) => {
     });
 
     const content = await resp.json();
-    console.log(content);
     return content;
 }
 

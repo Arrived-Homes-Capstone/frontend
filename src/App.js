@@ -19,12 +19,12 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [focusedLocation, setFocusedLocation] = useState(null);               // Currently focused location 
   const [center, setCenter] = useState(null);                                 // Center of the currently focused location
-  const [mapBounds, setMapBounds] = useState(null);
   const [houseTypes, setHouseTypes] = useState(null);             // All of the possible house types
   const [locations, setLocations] = useState(null);                           // All locations that can be focused on
   const [data, setData] = useState(null);                                     // All the data for every listings
   const [currentListings, setCurrentListings] = useState(null);               // Most relevant listings based on focused location
   const [sortOrder, setSortOrder] = useState('MostRecent');                   // How the data for the listings are being ordered
+  const [reqBody, setReqBody] = useState({});
 
   // Ran on application start up
   useEffect(async () => {
@@ -48,16 +48,10 @@ const App = () => {
   // Every time the sort order is updated (least recent, most recent, most relevant)
   useEffect(async () => {
     if (!isLoading && data) {
-      console.log("App Updated: " + sortOrder)
-
-
-
-      const response = await getAllListings({}, sortOrder);
-      setData(response);
-      const listings = await fetchDetailedListings();
-      setCurrentListings(listings);
+      console.log("App Updated: " + sortOrder);
+      updateListings();
     }
-  }, [sortOrder, focusedLocation, isLoading]);
+  }, [sortOrder, focusedLocation, isLoading,]);
 
   // Gets more detail for each property that is currently on screen
   const fetchDetailedListings = async () => {
@@ -70,14 +64,27 @@ const App = () => {
     return res;
   }
 
+  const updateListings = async () => {
+    console.log(reqBody);
+    const response = await getAllListings(reqBody, sortOrder); // TODO: Use the reqBody as param 1
+    console.log(response);
+    setData(response);
+    const listings = await fetchDetailedListings();
+    setCurrentListings(listings);
+  }
+
   if (isLoading || currentListings == null) {
     return <div></div>
   } else {
     return (
       <div>
-        <FilterBar {...{ locations, focusedLocation, setFocusedLocation, setCenter, houseTypes, setHouseTypes, sortOrder, setSortOrder }} />
+        <FilterBar {...{
+          locations, focusedLocation, setFocusedLocation,
+          setCenter, houseTypes, setHouseTypes, sortOrder,
+          setSortOrder, setReqBody, reqBody, updateListings
+        }} />
         <div className="flex-row flex-start" >
-          <Map {...{ center, currentListings, setMapBounds }} />
+          <Map {...{ center, currentListings, reqBody, setReqBody }} />
           <PropertyList data={currentListings} />
         </div>
       </div>

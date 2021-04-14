@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import '../styles.css';
 
 const formatter = new Intl.NumberFormat();
@@ -12,16 +12,15 @@ const LowHighFilter = ({ item, setItem, name, type }) => {
 
     const handleChangeLow = (e) => {
         let updateItem = e;
-        setItem({low: updateItem, high: item.high});
+        setItem({ low: updateItem, high: item.high });
     }
 
     const handleChangeHigh = (e) => {
         let updateItem = e;
-        console.log(updateItem);
         if (updateItem === '') {
             updateItem = 'Max';
         }
-        setItem({low: item.low, high: updateItem});
+        setItem({ low: item.low, high: updateItem });
     }
 
     const resetAmounts = () => {
@@ -44,9 +43,9 @@ const LowHighFilter = ({ item, setItem, name, type }) => {
     const renderResetButton = () => {
         if (item.low != 'Min' || item.high != 'Max') {
             return (
-                    <button className="low-high-reset-container" onClick={() => resetAmounts()}>
-                        <img src={'/images/reset.png'} alt="reset filter" className="low-high-reset-img" />
-                    </button>
+                <button className="low-high-reset-container" onClick={() => resetAmounts()}>
+                    <img src={'/images/reset.png'} alt="reset filter" className="low-high-reset-img" />
+                </button>
             )
         } else {
             return (
@@ -63,17 +62,17 @@ const LowHighFilter = ({ item, setItem, name, type }) => {
             <div className="low-high-row">
                 <div className="low-high-container">
                     {renderTypeIcon()}
-                        {isEditingLow ? (
+                    {isEditingLow ? (
                         <input
                             className="low-high-input"
                             type="number"
                             value={item.low}
                             onChange={(e) => handleChangeLow(e.target.value)}
                             onBlur={(e) => {
-                            setIsEditingLow(false);
+                                setIsEditingLow(false);
                             }}
                         />
-                        ) : (
+                    ) : (
                         <input
                             className="low-high-input"
                             type="text"
@@ -81,7 +80,7 @@ const LowHighFilter = ({ item, setItem, name, type }) => {
                             onFocus={() => setIsEditingLow(true)}
                             readOnly
                         />
-                        )}
+                    )}
                 </div>
 
                 <div className="low-high-container">
@@ -93,13 +92,13 @@ const LowHighFilter = ({ item, setItem, name, type }) => {
                             value={item.high}
                             onChange={(e) => handleChangeHigh(e.target.value)}
                             onBlur={(e) => {
-                            setIsEditingHigh(false);
+                                setIsEditingHigh(false);
                             }}
                         />
-                        ) : (
+                    ) : (
                         <input
                             className="low-high-input"
-                            style={{ marginRight: -4}}
+                            style={{ marginRight: -4 }}
                             type="text"
                             value={item.high === 'Max' ? item.high : formatter.format(item.high)}
                             onFocus={() => setIsEditingHigh(true)}

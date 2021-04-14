@@ -3,7 +3,7 @@ import LowHighFilter from './LowHighFilter';
 import DropdownFilter from './DropdownFilter';
 import { daysOnMarketOptions, priceReducedOptions } from './MoreFilterOptions';
 
-const MoreFilters = () => {
+const MoreFilters = ({ setReqBody, reqBody, updateListings }) => {
     // Hide on click
     const ref = useRef();
     const [isOpen, setIsOpen] = useState(false);
@@ -28,6 +28,52 @@ const MoreFilters = () => {
         }
     }
 
+    const setFilters = async () => {
+        const body = {};
+        const filters = ['Bathrooms', 'Beds', 'Price', 'SqFt', 'YearBuilt'];
+        for (let i = 0; i < filters.length; i++) {
+            getFilterData(filters[i], body);
+        }
+
+        setReqBody({
+            ...reqBody,
+            ...body
+        });
+
+        handleCloseOpen()
+        updateListings(); // TODO: This is calling before reqbody is updated. Not good.
+    }
+
+    const getFilterData = (filterName, body) => {
+        switch (filterName) {
+            case 'Bathrooms':
+                getDetail(filterName, baths, body);
+                break;
+            case 'Beds':
+                getDetail(filterName, beds, body);
+                break;
+            case 'Price':
+                getDetail(filterName, listPrice, body);
+                break;
+            case 'SqFt':
+                getDetail(filterName, squareFeet, body);
+                break;
+            case 'YearBuilt':
+                getDetail(filterName, yearBuilt, body);
+                break;
+            default:
+                return;
+        }
+    }
+    const getDetail = (filterName, filter, body) => {
+        if (filter.low !== 'Min') {
+            body[filterName + 'Low'] = parseInt(filter.low);
+        }
+        if (filter.high !== 'Max') {
+            body[filterName + 'Max'] = parseInt(filter.high);
+        }
+    }
+
     return (
         <div>
             {/* Button before click */}
@@ -48,8 +94,8 @@ const MoreFilters = () => {
             { isOpen &&
                 <div ref={ref} className="filter-type-options">
                     <LowHighFilter item={listPrice} setItem={setListPrice} name="Listing Price" type="$" />
-                    <LowHighFilter item={offerPrice} setItem={setOfferPrice} name="Offer Price" type="$" />
-                    <LowHighFilter item={rentalPrice} setItem={setRentalPrice} name="Rental Price" type="$" />
+                    {/* <LowHighFilter item={offerPrice} setItem={setOfferPrice} name="Offer Price" type="$" />
+                    <LowHighFilter item={rentalPrice} setItem={setRentalPrice} name="Rental Price" type="$" /> */}
                     <LowHighFilter item={squareFeet} setItem={setSquareFeet} name="Square Feet" type="ft" />
                     <LowHighFilter item={beds} setItem={setBeds} name="Beds" type="" />
                     <LowHighFilter item={baths} setItem={setBaths} name="Baths" type="" />
@@ -58,8 +104,8 @@ const MoreFilters = () => {
                     {/* <DropdownFilter item={onMarket} setItem={setOnMarket} itemOptions={daysOnMarketOptions} name="Days on Market" />
                 <DropdownFilter item={priceReduced} setItem={setPriceReduced} itemOptions={priceReducedOptions} name="Price Reduced" /> */}
 
-                    {/* <button className="filter-type-done" onClick={() => handleCloseOpen()}>Save current filters</button>
-                <button className="filter-type-done filter-more-trans" onClick={() => handleCloseOpen()}>Load previous filters</button> */}
+                    <button className="filter-type-done" onClick={() => setFilters()}>Set filters</button>
+                    {/* <button className="filter-type-done filter-more-trans" onClick={() => handleCloseOpen()}>Load previous filters</button> */}
                 </div>
             }
         </div>

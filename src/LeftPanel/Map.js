@@ -4,9 +4,11 @@ import MapMarker from './MapMarker';
 import constants from '../assets/constants';
 import '../styles.css'
 
-const Map = ({ center, currentListings, setMapBounds }) => {
+const Map = ({ center, currentListings, reqBody, setReqBody }) => {
     const [zoom, setZoom] = useState(10);
     const [map, setMap] = useState(null);
+    const [loading, setLoading] = useState(true);
+
 
     useEffect(() => {
         if (map) {
@@ -16,23 +18,22 @@ const Map = ({ center, currentListings, setMapBounds }) => {
 
     // TODO: Make sure that the coordinates actually go to the right spots in reality
     const boundsChange = () => {
-        if (map) {
-            const leftLat = map.getBounds().La.g;
-            const rightLat = map.getBounds().La.i;
-            const topLong = map.getBounds().Ta.g;
-            const bottomLong = map.getBounds().Ta.i;
-            setMapBounds(
-                {
-                    Lat: {
-                        Max: rightLat,
-                        Min: leftLat
-                    },
-                    Long: {
-                        Max: topLong,
-                        Min: bottomLong
-                    }
-                }
-            )
+        if (map && !loading) {
+            var bounds = map.getBounds();
+            var NE = bounds.getNorthEast();
+            var SW = bounds.getSouthWest();
+
+            // setReqBody({
+            //     ...reqBody,
+            //     Lat: {
+            //         Max: NE.lat(),
+            //         Min: SW.lat()
+            //     },
+            //     Long: {
+            //         Max: SW.lng(),
+            //         Min: NE.lng()
+            //     }
+            // })
         }
     }
 
@@ -41,6 +42,7 @@ const Map = ({ center, currentListings, setMapBounds }) => {
     const handleApiLoaded = (map, maps) => {
         setMap(map);
         map.setCenter(center);
+        setLoading(false);
     };
 
     return (
@@ -52,7 +54,7 @@ const Map = ({ center, currentListings, setMapBounds }) => {
                 resetBoundsOnResize={true}
                 yesIWantToUseGoogleMapApiInternals
                 onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
-                onBoundsChange={() => boundsChange()}
+                onChange={() => boundsChange()}
             >
                 {currentListings.map((listing, index) => {
                     if (listing.Latitude && listing.Longitude) {
