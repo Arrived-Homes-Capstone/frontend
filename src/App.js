@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import FilterBar from './TopPanel/FilterBar';
 import Map from './LeftPanel/Map';
 import PropertyList from './RightPanel/PropertyList.js';
-import abbrState from './assets/stateAbbreves';
-import houseTypeOptions from './assets/houseTypeOptions';
-import { getAllLocations, getAllListings, getSingleListing } from './API/functions';
+import { getAllLocations, getAllListings, getSingleListing, getAllHomeTypes } from './API/functions';
 
 // IMPORTANT DEV UPDATE: GETALLLISTINGS NOW WORKS AS THE FETCHRELEVANTLISTINGS. NO NEED TO HAVE TWO DIFFERENT
 // STATES OR FUNCTION CALLS
@@ -15,9 +13,6 @@ import { getAllLocations, getAllListings, getSingleListing } from './API/functio
 // TODO: Get the bounds of lat and long from google map
 // Use these in the getAllData queries
 
-// TODO: Update the houseTypes state by calling the correct API endpoint.
-// Not using the internally written houseTypeOptions
-
 // TODO: Change the state formatting of the mapBounds to look like the one being accepted by the backend body param
 
 const App = () => {
@@ -25,7 +20,7 @@ const App = () => {
   const [focusedLocation, setFocusedLocation] = useState(null);               // Currently focused location 
   const [center, setCenter] = useState(null);                                 // Center of the currently focused location
   const [mapBounds, setMapBounds] = useState(null);
-  const [houseTypes, setHouseTypes] = useState(houseTypeOptions);             // All of the possible house types
+  const [houseTypes, setHouseTypes] = useState(null);             // All of the possible house types
   const [locations, setLocations] = useState(null);                           // All locations that can be focused on
   const [data, setData] = useState(null);                                     // All the data for every listings
   const [currentListings, setCurrentListings] = useState(null);               // Most relevant listings based on focused location
@@ -37,29 +32,27 @@ const App = () => {
       const response = await getAllListings({}, sortOrder);
       setData(response);
 
-      const allLocations = await getLocations();
+      const allLocations = await getAllLocations();
       setLocations(allLocations);
 
       setFocusedLocation(allLocations[1]);
       setCenter({ lat: allLocations[1].Lat, lng: allLocations[1].Long });
 
+      const homeTypes = await getAllHomeTypes();
+      setHouseTypes(homeTypes);
+
       setIsLoading(false);
     }
   }, []);
 
-  // Every time the focused location is updated, get the most relevant posts in the area
-  // useEffect(async () => {
-  //   if (!isLoading && focusedLocation) {
-  //     const newListings = await fetchRelevantListings();
-  //     setCurrentListings(newListings);
-  //   }
-  // }, [focusedLocation, isLoading]);
-
   // Every time the sort order is updated (least recent, most recent, most relevant)
   useEffect(async () => {
     if (!isLoading && data) {
-      console.log("App Updated")
-      const response = await getAllListings({}, sortOrder); // TODO:  Call this with a post request body
+      console.log("App Updated: " + sortOrder)
+
+
+
+      const response = await getAllListings({}, sortOrder);
       setData(response);
       const listings = await fetchDetailedListings();
       setCurrentListings(listings);
@@ -74,41 +67,6 @@ const App = () => {
       const resp = await getSingleListing(curr.ListingID);
       res.push(resp);
     }
-    return res;
-  }
-
-  // Returns all the locations that the user can search for in the filter bar
-  // Filters it so that there are no duplicates accoring to City and State name
-  const getLocations = async () => {
-    const allLocs = await getAllLocations();
-    let res = [];
-
-    // Format the locations array to include a label and value
-    // This is O(n^2) and will need configuring in the future !!
-    for (let i = 0; i < allLocs.length; i++) {
-      let curr = allLocs[i];
-      let alreadySaved = false;
-      let state = curr.State;
-      if (state.length > 2) {
-        state = abbrState(state, 'abbr');
-        curr.State = state;
-      }
-
-      for (let j = 0; j < res.length; j++) {
-        if (res[j].City == curr.City && res[j].State == curr.State) {
-          alreadySaved = true;
-          break;
-        }
-      }
-
-      // If not already in the list of locations, add it
-      if (alreadySaved === false) {
-        curr.label = curr.City + ", " + state;
-        curr.value = i;
-        res.push(curr);
-      }
-    }
-
     return res;
   }
 

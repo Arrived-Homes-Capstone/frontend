@@ -14,18 +14,25 @@ const Map = ({ center, currentListings, setMapBounds }) => {
         }
     }, [center]);
 
+    // TODO: Make sure that the coordinates actually go to the right spots in reality
     const boundsChange = () => {
         if (map) {
             const leftLat = map.getBounds().La.g;
             const rightLat = map.getBounds().La.i;
             const topLong = map.getBounds().Ta.g;
             const bottomLong = map.getBounds().Ta.i;
-            setMapBounds({
-                leftLat,
-                rightLat,
-                topLong,
-                bottomLong
-            });
+            setMapBounds(
+                {
+                    Lat: {
+                        Max: rightLat,
+                        Min: leftLat
+                    },
+                    Long: {
+                        Max: topLong,
+                        Min: bottomLong
+                    }
+                }
+            )
         }
     }
 
