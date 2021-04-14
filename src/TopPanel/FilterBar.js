@@ -53,7 +53,7 @@ const FilterBar = ({ locations, focusedLocation, setFocusedLocation,
 
       </div>
 
-      <SortBy {...{ sortOrder, setSortOrder }} />
+      <SortBy {...{ sortOrder, setSortOrder, updateListings }} />
     </div>
   );
 };

@@ -16,24 +16,23 @@ const Map = ({ center, currentListings, reqBody, setReqBody }) => {
         }
     }, [center]);
 
-    // TODO: Make sure that the coordinates actually go to the right spots in reality
     const boundsChange = () => {
         if (map && !loading) {
             var bounds = map.getBounds();
             var NE = bounds.getNorthEast();
             var SW = bounds.getSouthWest();
 
-            // setReqBody({
-            //     ...reqBody,
-            //     Lat: {
-            //         Max: NE.lat(),
-            //         Min: SW.lat()
-            //     },
-            //     Long: {
-            //         Max: SW.lng(),
-            //         Min: NE.lng()
-            //     }
-            // })
+            setReqBody({
+                ...reqBody,
+                Lat: {
+                    Max: NE.lat(),
+                    Min: SW.lat()
+                },
+                Long: {
+                    Max: NE.lng(),
+                    Min: SW.lng()
+                }
+            })
         }
     }
 

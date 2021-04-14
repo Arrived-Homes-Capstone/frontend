@@ -5,7 +5,7 @@ const options = [
     { value: 'LeastRecent', label: 'Date Listed (oldest)' },
 ];
 
-const SortBy = ({ sortOrder, setSortOrder }) => {
+const SortBy = ({ sortOrder, setSortOrder, updateListings }) => {
     // Create a ref that we add to the element for which we want to detect outside clicks
     const ref = useRef();
     // State for our modal
@@ -25,6 +25,7 @@ const SortBy = ({ sortOrder, setSortOrder }) => {
     const chooseSort = (option) => {
         setSortOrder(option.value);
         setIsOpen(false);
+        // updateListings();
     }
 
     const handleCloseOpen = () => {

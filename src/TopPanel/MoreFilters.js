@@ -41,7 +41,6 @@ const MoreFilters = ({ setReqBody, reqBody, updateListings }) => {
         });
 
         handleCloseOpen()
-        updateListings(); // TODO: This is calling before reqbody is updated. Not good.
     }
 
     const getFilterData = (filterName, body) => {
@@ -70,7 +69,7 @@ const MoreFilters = ({ setReqBody, reqBody, updateListings }) => {
             body[filterName + 'Low'] = parseInt(filter.low);
         }
         if (filter.high !== 'Max') {
-            body[filterName + 'Max'] = parseInt(filter.high);
+            body[filterName + 'High'] = parseInt(filter.high);
         }
     }
 

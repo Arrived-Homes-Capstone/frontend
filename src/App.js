@@ -4,24 +4,13 @@ import Map from './LeftPanel/Map';
 import PropertyList from './RightPanel/PropertyList.js';
 import { getAllLocations, getAllListings, getSingleListing, getAllHomeTypes } from './API/functions';
 
-// IMPORTANT DEV UPDATE: GETALLLISTINGS NOW WORKS AS THE FETCHRELEVANTLISTINGS. NO NEED TO HAVE TWO DIFFERENT
-// STATES OR FUNCTION CALLS
-
-// TODO: Make the "Sort By" button work by calling the correct API
-// ExampleGetAllListings?Order=Recent,LeastRecent?Zipcode={Zipcode}
-
-// TODO: Get the bounds of lat and long from google map
-// Use these in the getAllData queries
-
-// TODO: Change the state formatting of the mapBounds to look like the one being accepted by the backend body param
-
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [focusedLocation, setFocusedLocation] = useState(null);               // Currently focused location 
   const [center, setCenter] = useState(null);                                 // Center of the currently focused location
   const [houseTypes, setHouseTypes] = useState(null);             // All of the possible house types
   const [locations, setLocations] = useState(null);                           // All locations that can be focused on
-  const [data, setData] = useState(null);                                     // All the data for every listings
+  //const [data, setData] = useState(null);                                     // All the data for every listings
   const [currentListings, setCurrentListings] = useState(null);               // Most relevant listings based on focused location
   const [sortOrder, setSortOrder] = useState('MostRecent');                   // How the data for the listings are being ordered
   const [reqBody, setReqBody] = useState({});
@@ -29,8 +18,7 @@ const App = () => {
   // Ran on application start up
   useEffect(async () => {
     if (isLoading) {
-      const response = await getAllListings({}, sortOrder);
-      setData(response);
+      await updateListings();
 
       const allLocations = await getAllLocations();
       setLocations(allLocations);
@@ -45,16 +33,27 @@ const App = () => {
     }
   }, []);
 
-  // Every time the sort order is updated (least recent, most recent, most relevant)
+  // Load data every time reqBody is updated
   useEffect(async () => {
-    if (!isLoading && data) {
-      console.log("App Updated: " + sortOrder);
+    if (!isLoading) {
+      console.log(reqBody);
       updateListings();
     }
-  }, [sortOrder, focusedLocation, isLoading,]);
+  }, [isLoading, sortOrder]);
+
+  // TODO: Make a function that updates whenever the reqBody changes; however,
+  // Not when the only thing that changes is the lat and long of the reqBody
+  // Think UseEffect that checks for lat and long before updateListings() is called.
+
+  // Get all the correct data based on filtering, house type, sort by, and map location
+  const updateListings = async () => {
+    const response = await getAllListings(reqBody, sortOrder);
+    const listings = await fetchDetailedListings(response);
+    setCurrentListings(listings);
+  }
 
   // Gets more detail for each property that is currently on screen
-  const fetchDetailedListings = async () => {
+  const fetchDetailedListings = async (data) => {
     let res = [];
     for (let i = 0; i < data.length; i++) {
       const curr = data[i];
@@ -62,15 +61,6 @@ const App = () => {
       res.push(resp);
     }
     return res;
-  }
-
-  const updateListings = async () => {
-    console.log(reqBody);
-    const response = await getAllListings(reqBody, sortOrder); // TODO: Use the reqBody as param 1
-    console.log(response);
-    setData(response);
-    const listings = await fetchDetailedListings();
-    setCurrentListings(listings);
   }
 
   if (isLoading || currentListings == null) {
