@@ -40,6 +40,8 @@ const MoreFilters = ({ setReqBody, reqBody, updateListings }) => {
             ...body
         });
 
+        updateListings();
+
         handleCloseOpen()
     }
 

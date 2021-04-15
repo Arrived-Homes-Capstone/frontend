@@ -4,7 +4,7 @@ import MapMarker from './MapMarker';
 import constants from '../assets/constants';
 import '../styles.css'
 
-const Map = ({ center, currentListings, reqBody, setReqBody }) => {
+const Map = ({ center, currentListings, bounds, setBounds }) => {
     const [zoom, setZoom] = useState(10);
     const [map, setMap] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -22,8 +22,7 @@ const Map = ({ center, currentListings, reqBody, setReqBody }) => {
             var NE = bounds.getNorthEast();
             var SW = bounds.getSouthWest();
 
-            setReqBody({
-                ...reqBody,
+            setBounds({
                 Lat: {
                     Max: NE.lat(),
                     Min: SW.lat()

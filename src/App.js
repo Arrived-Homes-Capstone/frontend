@@ -8,6 +8,7 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [focusedLocation, setFocusedLocation] = useState(null);               // Currently focused location 
   const [center, setCenter] = useState(null);                                 // Center of the currently focused location
+  const [bounds, setBounds] = useState(null);
   const [houseTypes, setHouseTypes] = useState(null);             // All of the possible house types
   const [locations, setLocations] = useState(null);                           // All locations that can be focused on
   //const [data, setData] = useState(null);                                     // All the data for every listings
@@ -46,6 +47,10 @@ const App = () => {
 
   // Get all the correct data based on filtering, house type, sort by, and map location
   const updateListings = async () => {
+    setReqBody({
+      ...bounds,
+      ...reqBody
+    });
     console.log(reqBody);
     const response = await getAllListings(reqBody, sortOrder);
     const listings = await fetchDetailedListings(response);
@@ -74,7 +79,7 @@ const App = () => {
           setSortOrder, setReqBody, reqBody, updateListings
         }} />
         <div className="flex-row flex-start" >
-          <Map {...{ center, currentListings, reqBody, setReqBody }} />
+          <Map {...{ center, currentListings, bounds, setBounds }} />
           <PropertyList data={currentListings} />
         </div>
       </div>
