@@ -12,6 +12,20 @@ const Map = ({ center, currentListings, bounds, setBounds }) => {
 
     useEffect(() => {
         if (map) {
+            var bounds = map.getBounds();
+            var NE = bounds.getNorthEast();
+            var SW = bounds.getSouthWest();
+
+            setBounds({
+                Lat: {
+                    Max: NE.lat(),
+                    Min: SW.lat()
+                },
+                Long: {
+                    Max: NE.lng(),
+                    Min: SW.lng()
+                }
+            })
             map.setCenter(center);
         }
     }, [center]);

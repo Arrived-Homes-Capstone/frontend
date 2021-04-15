@@ -12,6 +12,9 @@ const LowHighFilter = ({ item, setItem, name, type }) => {
 
     const handleChangeLow = (e) => {
         let updateItem = e;
+        if (updateItem === '') {
+            updateItem = 'Min';
+        }
         setItem({ low: updateItem, high: item.high });
     }
 

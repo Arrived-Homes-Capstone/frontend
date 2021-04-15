@@ -39,7 +39,7 @@ const App = () => {
     if (!isLoading) {
       updateListings();
     }
-  }, [isLoading, sortOrder]);
+  }, [isLoading, sortOrder, reqBody]);
 
   // TODO: Make a function that updates whenever the reqBody changes; however,
   // Not when the only thing that changes is the lat and long of the reqBody
@@ -47,12 +47,11 @@ const App = () => {
 
   // Get all the correct data based on filtering, house type, sort by, and map location
   const updateListings = async () => {
-    setReqBody({
-      ...bounds,
-      ...reqBody
+    console.log({
+      ...reqBody,
+      ...bounds
     });
-    console.log(reqBody);
-    const response = await getAllListings(reqBody, sortOrder);
+    const response = await getAllListings({ ...reqBody, ...bounds }, sortOrder);
     const listings = await fetchDetailedListings(response);
     setCurrentListings(listings);
   }

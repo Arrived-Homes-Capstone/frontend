@@ -67,11 +67,15 @@ const MoreFilters = ({ setReqBody, reqBody, updateListings }) => {
         }
     }
     const getDetail = (filterName, filter, body) => {
-        if (filter.low !== 'Min') {
+        if (filter.low !== 'Min' && /^\d+$/.test(filter.low)) {
             body[filterName + 'Low'] = parseInt(filter.low);
+        } else {
+            body[filterName + 'Low'] = 0;
         }
         if (filter.high !== 'Max') {
-            body[filterName + 'High'] = parseInt(filter.high);
+            body[filterName + 'High'] = /^\d+$/.test(filter.high);
+        } else {
+            body[filterName + 'High'] = 100000000
         }
     }
 
