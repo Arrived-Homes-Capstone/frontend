@@ -36,7 +36,6 @@ const App = () => {
   // Load data every time reqBody is updated
   useEffect(async () => {
     if (!isLoading) {
-      console.log(reqBody);
       updateListings();
     }
   }, [isLoading, sortOrder]);
@@ -47,6 +46,7 @@ const App = () => {
 
   // Get all the correct data based on filtering, house type, sort by, and map location
   const updateListings = async () => {
+    console.log(reqBody);
     const response = await getAllListings(reqBody, sortOrder);
     const listings = await fetchDetailedListings(response);
     setCurrentListings(listings);
