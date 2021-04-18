@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Property from './Property';
 
 // Number of posts on screen at one time
@@ -7,14 +7,19 @@ const dataLimit = 10;
 // Number of pages user can see at one time
 const pageLimit = 5;
 
-const PropertyList = ({ data }) => {
-    const pages = Math.round(data.length / dataLimit);
+const PropertyList = ({ currentListings, fetchDetailedListings, data }) => {
+    const pages = Math.round(currentListings.length / dataLimit);
     const [currentPage, setCurrentPage] = useState(1);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
+    const firstUpdate = useRef(true);
     useEffect(() => {
-        setIsLoading(false);
-    }, [data]);
+        if (firstUpdate.current) {
+            firstUpdate.current = false;
+            return;
+        }
+        fetchDetailedListings(data, currentPage * dataLimit - dataLimit, currentPage * dataLimit);
+    }, [currentPage]);
 
     const goToNextPage = () => {
         setCurrentPage((page) => page + 1);
@@ -28,12 +33,6 @@ const PropertyList = ({ data }) => {
         const pageNumber = Number(event.target.textContent);
         setCurrentPage(pageNumber);
     }
-
-    const getPaginatedData = () => {
-        const startIndex = currentPage * dataLimit - dataLimit;
-        const endIndex = startIndex + dataLimit;
-        return data.slice(startIndex, endIndex);
-    };
 
     const getPaginationGroup = () => {
         let start = Math.floor((currentPage - 1) / pageLimit) * pageLimit;
@@ -49,7 +48,7 @@ const PropertyList = ({ data }) => {
         return (
             <div>
                 <div className="property-list">
-                    {getPaginatedData().map((d, idx) => (
+                    {currentListings.map((d, idx) => (
                         <Property key={idx} property={d} isModal={false} />
                     ))}
                 </div>

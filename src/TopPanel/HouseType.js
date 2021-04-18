@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const HouseType = ({ houseTypes, setHouseTypes }) => {
+const HouseType = ({ houseTypes, setHouseTypes, updateListings }) => {
     const ref = useRef();
     const [isOpen, setIsOpen] = useState(false);
     useOnClickOutside(ref, () => setIsOpen(false));
 
-    // TODO: Load only the selected houses. Use an API call here.
     // Reloads all the current house type options, either checking or unchecking the selected option
     const handleOptionChoice = (option) => {
         let newHouseTypes = JSON.parse(JSON.stringify(houseTypes));
@@ -34,6 +33,11 @@ const HouseType = ({ houseTypes, setHouseTypes }) => {
         }
     }
 
+    const handleDone = () => {
+        updateListings();
+        handleCloseOpen();
+    }
+
     return (
         <div>
             {/* Button before click */}
@@ -56,7 +60,7 @@ const HouseType = ({ houseTypes, setHouseTypes }) => {
                 <div ref={ref} className="filter-type-options" style={{ width: 150 }}>
                     <p className="filter-type-title" >Home Type</p>
                     {renderOptions()}
-                    <button className="filter-type-done" onClick={() => handleCloseOpen()}>Done</button>
+                    <button className="filter-type-done" onClick={() => handleDone()}>Done</button>
                 </div>
             }
         </div>

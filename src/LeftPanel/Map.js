@@ -4,11 +4,10 @@ import MapMarker from './MapMarker';
 import constants from '../assets/constants';
 import '../styles.css'
 
-const Map = ({ center, currentListings, bounds, setBounds }) => {
+const Map = ({ center, data, setBounds }) => {
     const [zoom, setZoom] = useState(10);
     const [map, setMap] = useState(null);
     const [loading, setLoading] = useState(true);
-
 
     useEffect(() => {
         if (map) {
@@ -68,9 +67,10 @@ const Map = ({ center, currentListings, bounds, setBounds }) => {
                 onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
                 onChange={() => boundsChange()}
             >
-                {currentListings.map((listing, index) => {
-                    if (listing.Latitude && listing.Longitude) {
-                        return <MapMarker key={index} lat={listing.Latitude} lng={listing.Longitude} property={listing} />;
+                {data.map((listing, index) => {
+                    console.log(listing);
+                    if (listing.Lat && listing.Long) {
+                        return <MapMarker key={index} lat={listing.Lat} lng={listing.Long} property={listing} />;
                     }
                 })}
             </GoogleMapReact>
