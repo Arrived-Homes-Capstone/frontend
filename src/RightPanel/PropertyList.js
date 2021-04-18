@@ -10,11 +10,11 @@ const pageLimit = 5;
 const PropertyList = ({ data }) => {
     const pages = Math.round(data.length / dataLimit);
     const [currentPage, setCurrentPage] = useState(1);
+    const [isLoading, setIsLoading] = useState(true);
 
-    // TODO: This does not work right now
     useEffect(() => {
-        window.scrollTo({ behavior: 'smooth', top: '0px' });
-    }, [currentPage]);
+        setIsLoading(false);
+    }, [data]);
 
     const goToNextPage = () => {
         setCurrentPage((page) => page + 1);
@@ -40,43 +40,50 @@ const PropertyList = ({ data }) => {
         return new Array(pageLimit).fill().map((_, idx) => start + idx + 1);
     };
 
-    return (
-        <div>
-            <div className="property-list">
-                {getPaginatedData().map((d, idx) => (
-                    <Property key={idx} property={d} isModal={false} />
-                ))}
-            </div>
-            <div className="pagination">
-                {/* previous button */}
-                <button
-                    onClick={goToPreviousPage}
-                    className={`prev ${currentPage === 1 ? 'disabled' : ''}`}
-                >
-                    prev
+    if (isLoading) {
+        return <div className="property-list">
+            <p>Loading data...</p>
+        </div>
+    }
+    else {
+        return (
+            <div>
+                <div className="property-list">
+                    {getPaginatedData().map((d, idx) => (
+                        <Property key={idx} property={d} isModal={false} />
+                    ))}
+                </div>
+                <div className="pagination">
+                    {/* previous button */}
+                    <button
+                        onClick={goToPreviousPage}
+                        className={`prev ${currentPage === 1 ? 'disabled' : ''}`}
+                    >
+                        prev
                  </button>
 
-                {/* show page numbers */}
-                {getPaginationGroup().map((item, index) => (
-                    <button
-                        key={index}
-                        onClick={changePage}
-                        className={`paginationItem ${currentPage === item ? 'active' : null}`}
-                    >
-                        <span>{item}</span>
-                    </button>
-                ))}
+                    {/* show page numbers */}
+                    {getPaginationGroup().map((item, index) => (
+                        <button
+                            key={index}
+                            onClick={changePage}
+                            className={`paginationItem ${currentPage === item ? 'active' : null}`}
+                        >
+                            <span>{item}</span>
+                        </button>
+                    ))}
 
-                {/* next button */}
-                <button
-                    onClick={goToNextPage}
-                    className={`next ${currentPage === pages ? 'disabled' : ''}`}
-                >
-                    next
+                    {/* next button */}
+                    <button
+                        onClick={goToNextPage}
+                        className={`next ${currentPage === pages ? 'disabled' : ''}`}
+                    >
+                        next
                 </button>
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
 };
 
 export default PropertyList;

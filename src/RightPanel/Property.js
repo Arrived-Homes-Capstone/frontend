@@ -4,7 +4,6 @@ import '../styles.css';
 // Dollar formatter
 const formatter = Intl.NumberFormat();
 
-// TODO: Find a spot to render the lot footage
 const Property = ({ property, isModal }) => {
 
     // Renders the List, Offer, and Renovation prices
@@ -13,10 +12,10 @@ const Property = ({ property, isModal }) => {
         if (property.ListPrice !== null) {
             result += "List: $" + formatter.format(property.ListPrice) + `\u00A0\u00A0`;
         }
-        if (property.OfferPrice) {
+        if (property.OfferPrice && property.OfferPrice !== 'Need Agent Input') {
             result += " Offer: $" + formatter.format(property.OfferPrice) + `\u00A0\u00A0`;
         }
-        if (property.RenovationPrice) {
+        if (property.RenovationPrice && property.RenovationPrice !== 'Need Agent Input') {
             result += " Reno: $" + formatter.format(property.RenovationPrice);
         }
 
@@ -34,11 +33,8 @@ const Property = ({ property, isModal }) => {
             result += property.Baths + " Bath" + `\u00A0\u00A0`;
         }
         if (property.SquareFeet) {
-            result += property.SquareFeet + "sqft. "
+            result += formatter.format(property.SquareFeet) + "sqft. house"
         }
-        // if (property.LotFootage) {
-        //     result += property.LotFootage + "sqft. Lot Space"
-        // }
         return result;
     }
 
@@ -49,6 +45,9 @@ const Property = ({ property, isModal }) => {
         }
         if (property.YearRenovated) {
             result += "Renovated: " + property.YearRenovated
+        }
+        if (property.LotFootage) {
+            result += formatter.format(property.LotFootage) + "sqft. lot size"
         }
         return result;
     }

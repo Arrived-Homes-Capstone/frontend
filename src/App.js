@@ -8,19 +8,16 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [focusedLocation, setFocusedLocation] = useState(null);               // Currently focused location 
   const [center, setCenter] = useState(null);                                 // Center of the currently focused location
-  const [bounds, setBounds] = useState(null);
-  const [houseTypes, setHouseTypes] = useState(null);             // All of the possible house types
+  const [bounds, setBounds] = useState(null);                                 // Bounds of the Google Map
+  const [houseTypes, setHouseTypes] = useState(null);                         // All of the possible house types
   const [locations, setLocations] = useState(null);                           // All locations that can be focused on
-  //const [data, setData] = useState(null);                                     // All the data for every listings
   const [currentListings, setCurrentListings] = useState(null);               // Most relevant listings based on focused location
   const [sortOrder, setSortOrder] = useState('MostRecent');                   // How the data for the listings are being ordered
-  const [reqBody, setReqBody] = useState({});
+  const [reqBody, setReqBody] = useState({});                                 // Body parameters for the GetAllListings API call
 
   // Ran on application start up
   useEffect(async () => {
     if (isLoading) {
-      await updateListings();
-
       const allLocations = await getAllLocations();
       setLocations(allLocations);
 

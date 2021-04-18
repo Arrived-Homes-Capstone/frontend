@@ -67,19 +67,30 @@ export const getAllLocations = async () => {
     return res;
 }
 
+// // Helper function to alloow for sorting the home types based on their quantity in our database
+// const compare = (a, b) => {
+//     if (a.Quantity > b.Quantity) return 1;
+//     if (a.Quantity < b.Quantity) return -1;
+//     return 0;
+// }
+
 // Get all the locations of all the Arrived Homes markets for the search bar component
 export const getAllHomeTypes = async () => {
     const resp = await fetch(`${endpoint}/GetAllHomeTypes`);
     const data = await resp.json();
     let res = [];
     for (let i = 0; i < data.length; i++) {
-        let name = data[i];
-        res.push({
-            value: name,
-            label: name,
-            index: i,
-            selected: true
-        });
+        let curr = data[i];
+        // There needs to be more than 1 listing of this type to add it to our filter bar
+        if (curr.Quantity > 1) {
+            res.push({
+                value: curr.HomeType,
+                label: curr.HomeType,
+                index: i,
+                selected: true
+            });
+        }
+
     }
     return res;
 }
