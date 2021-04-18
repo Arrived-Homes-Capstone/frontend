@@ -41,16 +41,8 @@ const App = () => {
     }
   }, [isLoading, sortOrder, reqBody]);
 
-  // TODO: Make a function that updates whenever the reqBody changes; however,
-  // Not when the only thing that changes is the lat and long of the reqBody
-  // Think UseEffect that checks for lat and long before updateListings() is called.
-
   // Get all the correct data based on filtering, house type, sort by, and map location
   const updateListings = async () => {
-    console.log({
-      ...reqBody,
-      ...bounds
-    });
     const response = await getAllListings({ ...reqBody, ...bounds }, sortOrder);
     const listings = await fetchDetailedListings(response);
     setCurrentListings(listings);
@@ -75,7 +67,7 @@ const App = () => {
         <FilterBar {...{
           locations, focusedLocation, setFocusedLocation,
           setCenter, houseTypes, setHouseTypes, sortOrder,
-          setSortOrder, setReqBody, reqBody, updateListings
+          setSortOrder, setReqBody, reqBody, updateListings, bounds
         }} />
         <div className="flex-row flex-start" >
           <Map {...{ center, currentListings, bounds, setBounds }} />

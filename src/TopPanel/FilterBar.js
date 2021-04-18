@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import SortBy from './SortBy';
 import HouseType from './HouseType';
@@ -8,7 +8,9 @@ import '../styles.css';
 
 const FilterBar = ({ locations, focusedLocation, setFocusedLocation,
   setCenter, houseTypes, setHouseTypes, sortOrder, setSortOrder,
-  setReqBody, reqBody, updateListings }) => {
+  setReqBody, reqBody, updateListings, bounds }) => {
+
+  const [isDisabled, setIsDisabled] = useState(true);
   // https://www.npmjs.com/package/react-dropdown-select
   // Example: https://sanusart.github.io/react-dropdown-select/
   const selectStyle = {
@@ -20,6 +22,16 @@ const FilterBar = ({ locations, focusedLocation, setFocusedLocation,
     color: '#333333',
     fontSize: 18,
     backgroundColor: 'white',
+  }
+
+  // Load data every time reqBody is updated
+  useEffect(async () => {
+    setIsDisabled(false);
+  }, [bounds]);
+
+  const handleSearch = () => {
+    setIsDisabled(true);
+    updateListings();
   }
 
   const handleLocationChange = (loc) => {
@@ -52,8 +64,13 @@ const FilterBar = ({ locations, focusedLocation, setFocusedLocation,
         <MoreFilters {...{ setReqBody, reqBody, updateListings }} />
 
       </div>
-
-      <SortBy {...{ sortOrder, setSortOrder, updateListings }} />
+      <div className="flex-row">
+        <button
+          className={isDisabled ? "filter-search-here search-disabled" : "filter-search-here"}
+          disabled={isDisabled}
+          onClick={() => handleSearch()}>Search Here</button>
+        <SortBy {...{ sortOrder, setSortOrder, updateListings }} />
+      </div>
     </div>
   );
 };
