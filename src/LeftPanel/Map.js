@@ -68,7 +68,6 @@ const Map = ({ center, data, setBounds }) => {
                 onChange={() => boundsChange()}
             >
                 {data.map((listing, index) => {
-                    console.log(listing);
                     if (listing.Lat && listing.Long) {
                         return <MapMarker key={index} lat={listing.Lat} lng={listing.Long} property={listing} />;
                     }

@@ -79,7 +79,7 @@ const LowHighFilter = ({ item, setItem, name, type }) => {
                         <input
                             className="low-high-input"
                             type="text"
-                            value={item.low === 'Min' ? item.low : formatter.format(item.low)}
+                            value={item.low === 'Min' || type === 'year' ? item.low : formatter.format(item.low)}
                             onFocus={() => setIsEditingLow(true)}
                             readOnly
                         />
@@ -101,9 +101,8 @@ const LowHighFilter = ({ item, setItem, name, type }) => {
                     ) : (
                         <input
                             className="low-high-input"
-                            style={{ marginRight: -4 }}
                             type="text"
-                            value={item.high === 'Max' ? item.high : formatter.format(item.high)}
+                            value={item.high === 'Max' || type === 'year' ? item.high : formatter.format(item.high)}
                             onFocus={() => setIsEditingHigh(true)}
                             readOnly
                         />

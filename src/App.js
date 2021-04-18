@@ -5,6 +5,10 @@ import PropertyList from './RightPanel/PropertyList.js';
 import { getAllLocations, getAllListings, getSingleListing, getAllHomeTypes } from './API/functions';
 
 // TODO: Get the House Types into the reqBody for the API call.
+// CLAYTON: Must make this API parameter into an array that accepts the new HomeType object
+
+// TODO: When listing price was set from 210k - 400k, I got a listing of $1,975,000
+
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [focusedLocation, setFocusedLocation] = useState(null);               // Currently focused location 

@@ -40,8 +40,6 @@ const MoreFilters = ({ setReqBody, reqBody, updateListings }) => {
             ...body
         });
 
-        updateListings();
-
         handleCloseOpen()
     }
 
@@ -72,8 +70,8 @@ const MoreFilters = ({ setReqBody, reqBody, updateListings }) => {
         } else {
             body[filterName + 'Low'] = 0;
         }
-        if (filter.high !== 'Max') {
-            body[filterName + 'High'] = /^\d+$/.test(filter.high);
+        if (filter.high !== 'Max' && /^\d+$/.test(filter.high)) {
+            body[filterName + 'High'] = parseInt(filter.high);
         } else {
             body[filterName + 'High'] = 100000000
         }
@@ -104,7 +102,7 @@ const MoreFilters = ({ setReqBody, reqBody, updateListings }) => {
                     <LowHighFilter item={squareFeet} setItem={setSquareFeet} name="Square Feet" type="ft" />
                     <LowHighFilter item={beds} setItem={setBeds} name="Beds" type="" />
                     <LowHighFilter item={baths} setItem={setBaths} name="Baths" type="" />
-                    <LowHighFilter item={yearBuilt} setItem={setYearBuilt} name="Year Built" type="" />
+                    <LowHighFilter item={yearBuilt} setItem={setYearBuilt} name="Year Built" type="year" />
 
                     {/* <DropdownFilter item={onMarket} setItem={setOnMarket} itemOptions={daysOnMarketOptions} name="Days on Market" />
                 <DropdownFilter item={priceReduced} setItem={setPriceReduced} itemOptions={priceReducedOptions} name="Price Reduced" /> */}

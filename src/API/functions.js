@@ -9,6 +9,7 @@ const getAddresses = 'GetAllAddresses';
 // Gets all the listings given a body parameter that is an object representing all filters
 // Also includes a URL parameter that tell show the listings should be sorted (least or most recent)
 export const getAllListings = async (body, order) => {
+    console.log(body);
     const resp = await fetch(`${endpoint}/${getListings}?OrderType=${order}`, {
         method: 'POST',
         headers: {
