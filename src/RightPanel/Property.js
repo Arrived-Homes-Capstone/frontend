@@ -33,7 +33,7 @@ const Property = ({ property, isModal }) => {
             result += property.Baths + " Bath" + `\u00A0\u00A0`;
         }
         if (property.SquareFeet) {
-            result += formatter.format(property.SquareFeet) + "sqft. house"
+            result += formatter.format(property.SquareFeet) + " sqft. house"
         }
         return result;
     }
@@ -47,7 +47,7 @@ const Property = ({ property, isModal }) => {
             result += "Renovated: " + property.YearRenovated
         }
         if (property.LotFootage) {
-            result += formatter.format(property.LotFootage) + "sqft. lot size"
+            result += formatter.format(property.LotFootage) + " sqft. lot size"
         }
         return result;
     }

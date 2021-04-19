@@ -5,8 +5,7 @@ import PropertyList from './RightPanel/PropertyList.js';
 import { getAllLocations, getAllListings, getSingleListing, getAllHomeTypes } from './API/functions';
 
 // TODO: Search Here button from the top navbar to over the map hovering
-// TODO: Clean up the wording/capitzliation of the right panel components
-// TODO: Get rid of empty pages in pagination
+// TODO: Set up propforma calculations
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);

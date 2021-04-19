@@ -417,7 +417,7 @@ input[type="number"] {
 
 .prop-text-container p {
   margin-top: 0.5px;
-  margin-bottom: 0px;
+  margin-bottom: 3px;
   color: #333333;
   font-size: 16px;
 }
