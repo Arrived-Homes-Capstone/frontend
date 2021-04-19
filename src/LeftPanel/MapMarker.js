@@ -35,19 +35,19 @@ const MapMarker = ({ property }) => {
             {showPreview &&
                 <div className="marker-prev">
                     <div className="flex-row flex-start">
-                        <img src={property.ListingImageURL}
+                        <img src={property.HouseImageURL}
                             className="marker-image"
                             alt=""
                         />
                         <div className="marker-col">
-                            <p className="marker-text marker-price">${formatter.format(property.Price)}</p>
+                            <p className="marker-text marker-price">${formatter.format(property.ListPrice)}</p>
                             <div className="marker-row">
-                                {property.Bedrooms !== "None" && <p className="marker-text">{property.Bedrooms + " Beds"}</p>}
-                                {property.Bedrooms !== "None" && property.Bathrooms !== "None" && <p className="marker-text">/ </p>}
-                                {property.Bathrooms !== "None" && <p className="marker-text">{property.Bathrooms + " Baths"}</p>}
+                                {property.Beds !== "None" && <p className="marker-text">{property.Beds + " Beds"}</p>}
+                                {property.Beds !== "None" && property.Baths !== "None" && <p className="marker-text">/ </p>}
+                                {property.Baths !== "None" && <p className="marker-text">{property.Baths + " Baths"}</p>}
                             </div>
-                            {property.SquareFeet && property.HouseSize > 0 &&
-                                <p className="marker-text">{formatter.format(property.HouseSize) + " sqft"}</p>}
+                            {property.SquareFeet && property.SquareFeet > 0 &&
+                                <p className="marker-text">{formatter.format(property.SquareFeet) + " sqft"}</p>}
                         </div>
                     </div>
                 </div>
