@@ -17,8 +17,8 @@ const HouseType = ({ houseTypes, setHouseTypes, updateListings }) => {
         return houseTypes.map((option, index) => (
             <button className="filter-type-btn flex-row" onClick={() => handleOptionChoice(option)} key={index}>
                 { option.selected
-                    ? <img src={'/images/check_clicked.png'} alt="checkbox empty" className="filter-check" />
-                    : <img src={'/images/check_empty.png'} alt="checkbox empty" className="filter-check" />
+                    ? <img src={'frontend/images/check_clicked.png'} alt="checkbox empty" className="filter-check" />
+                    : <img src={'frontend/images/check_empty.png'} alt="checkbox empty" className="filter-check" />
                 }
                 <p style={{ textAlign: 'left' }}>{option.label}</p>
             </button>
@@ -49,8 +49,8 @@ const HouseType = ({ houseTypes, setHouseTypes, updateListings }) => {
 
                 <div className="filter-type-arrow">
                     {isOpen
-                        ? <img src={'/images/down_arrow_white.png'} className="downarrow filter-type-touch" alt="down_arrow" onClick={() => handleCloseOpen()} />
-                        : <img src={'/images/down_arrow_2.png'} className="downarrow filter-type-touch" alt="down_arrow" onClick={() => handleCloseOpen()} />
+                        ? <img src={'frontend/images/down_arrow_white.png'} className="downarrow filter-type-touch" alt="down_arrow" onClick={() => handleCloseOpen()} />
+                        : <img src={'frontend/images/down_arrow_2.png'} className="downarrow filter-type-touch" alt="down_arrow" onClick={() => handleCloseOpen()} />
                     }
                 </div>
             </div>

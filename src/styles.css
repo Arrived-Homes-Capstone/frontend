@@ -262,6 +262,10 @@ input[type="number"] {
 }
 
 /* Google Map Marker */
+.marker-row {
+  display: flex;
+  flex: row;
+}
 .marker-container {
   background-color: transparent;
   border: transparent;

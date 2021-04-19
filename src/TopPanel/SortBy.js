@@ -25,7 +25,6 @@ const SortBy = ({ sortOrder, setSortOrder, updateListings }) => {
     const chooseSort = (option) => {
         setSortOrder(option.value);
         setIsOpen(false);
-        // updateListings();
     }
 
     const handleCloseOpen = () => {
@@ -39,7 +38,7 @@ const SortBy = ({ sortOrder, setSortOrder, updateListings }) => {
     return (
         <div>
             <button className="flex-row filter-sort-container filter-sort-touch" onClick={() => handleCloseOpen()}>
-                <img src={'/images/sort.png'} className="filter-sort filter-sort-touch" alt="sort" />
+                <img src={'frontend/images/sort.png'} className="filter-sort filter-sort-touch" alt="sort" />
                 <p className="filter-sort-text filter-sort-touch">SORT BY</p>
             </button>
             { isOpen &&
