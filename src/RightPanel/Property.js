@@ -69,10 +69,14 @@ const Property = ({ property, isModal }) => {
 
                 <div className="prop-text-container">
                     <p>{renderPrices()}</p>
-                    {/* TODO: Check for agent notes on a low and high rent estimate. If this is there, render it */}
-                    {property.RentPrice != "Need Agent Input"
-                        && <p>Rent Estimate: ${formatter.format(property.RentPrice)}</p>
-                    }
+                    <div className="flex-row">
+                        {property.RentLow &&
+                            <p>Rent Low: ${formatter.format(Math.round(property.RentLow)) + `\u00A0\u00A0`}</p>
+                        }
+                        {property.RentHigh &&
+                            <p>Rent High: ${formatter.format(Math.round(property.RentHigh))}</p>
+                        }
+                    </div>
                     <p>{renderAmenities()}</p>
                     <p>{renderBuildDate()}</p>
                 </div>
