@@ -5,7 +5,7 @@ import constants from '../assets/constants';
 import '../styles.css'
 
 const Map = ({ center, data, setBounds, updateListings }) => {
-    const [zoom, setZoom] = useState(10);
+    const [zoom] = useState(10);
     const [map, setMap] = useState(null);
     const [loading, setLoading] = useState(true);
     const [isDisabled, setIsDisabled] = useState(true);
@@ -68,7 +68,8 @@ const Map = ({ center, data, setBounds, updateListings }) => {
             <button
                 className={isDisabled ? "filter-search-here search-disabled" : "filter-search-here"}
                 disabled={isDisabled}
-                onClick={() => handleSearch()}>Search Here</button>
+                onClick={() => handleSearch()}>Search Here
+            </button>
             <GoogleMapReact
                 bootstrapURLKeys={{ key: constants.GOOGLE_API_KEY }}
                 defaultCenter={{ lat: 36.07967, lng: -94.222055 }}

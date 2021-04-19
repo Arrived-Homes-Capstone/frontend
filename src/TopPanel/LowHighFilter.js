@@ -3,7 +3,6 @@ import '../styles.css';
 
 const formatter = new Intl.NumberFormat();
 
-// TODO: Implement this number formatter on inputs: 
 // https://bitbucket.org/rlestate/main/src/master/client/src/site-two/FilterBar/PriceSelectDrop.jsx
 const LowHighFilter = ({ item, setItem, name, type }) => {
 

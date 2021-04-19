@@ -5,7 +5,7 @@ import '../styles.css';
 const formatter = Intl.NumberFormat();
 
 const Property = ({ property, isModal }) => {
-
+    console.log(property)
     // Renders the List, Offer, and Renovation prices
     const renderPrices = () => {
         let result = "";
@@ -81,17 +81,18 @@ const Property = ({ property, isModal }) => {
                         <p>Investor Equity Required</p>
                         <p>Investor IRR (Year 7)</p>
                         <p>Investor Yield (Year 1)</p>
-                        <p>Arrived Opfront Revenue</p>
+                        <p>Arrived Upfront Revenue</p>
                         <p>Arrived Property AUM Fees (7 yr)</p>
-                        <p>Arrived Management Markup (7yr)</p>
+                        {/* TODO: Implement the below line when it is in the backend */}
+                        {/* <p>Arrived Management Markup (7yr)</p> */}
                     </div>
                     <div>
-                        <p>${formatter.format(property.InvestorEquityRequired)}</p>
-                        <p>{property.InvestorIRR}%</p>
-                        <p>{property.InvestorYield}%</p>
-                        <p>${formatter.format(property.ArrivedOpfrontRevenue)}</p>
-                        <p>${formatter.format(property.ArrivedPropertyAUMFees)}</p>
-                        <p>${formatter.format(property.ArrivedManagementMarkup)}</p>
+                        <p>${formatter.format(Math.round(property.ProformaData.InvestorEquityRequired))}</p>
+                        <p>{Math.round(property.ProformaData.InvestorIRR * 10000) / 100}%</p>
+                        <p>{Math.round(property.ProformaData.InvestorYield * 10000) / 100}%</p>
+                        <p>${formatter.format(Math.round(property.ProformaData.ArrivedUpfrontRevenue))}</p>
+                        <p>${formatter.format(Math.round(property.ProformaData.ArrivedPropertyAUMFees))}</p>
+                        {/* <p>${formatter.format(property.ProformaData.ArrivedManagementMarkup)}</p> */}
                     </div>
                 </div>
             </div>
