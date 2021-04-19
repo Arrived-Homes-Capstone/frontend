@@ -1,15 +1,13 @@
 import abbrState from '../assets/stateAbbreves';
 
-const endpoint = 'http://18.224.93.180';
+const endpoint = 'https://huskymarket.club';
 const getListings = 'GetAllListings';
-const getAddresses = 'GetAllAddresses';
 
 // Example: http://18.224.93.180/GetAllListings?OrderType=MostRecent
 
 // Gets all the listings given a body parameter that is an object representing all filters
 // Also includes a URL parameter that tell show the listings should be sorted (least or most recent)
 export const getAllListings = async (body, order) => {
-    console.log(body);
     const resp = await fetch(`${endpoint}/${getListings}?OrderType=${order}`, {
         method: 'POST',
         headers: {
@@ -67,13 +65,6 @@ export const getAllLocations = async () => {
 
     return res;
 }
-
-// // Helper function to alloow for sorting the home types based on their quantity in our database
-// const compare = (a, b) => {
-//     if (a.Quantity > b.Quantity) return 1;
-//     if (a.Quantity < b.Quantity) return -1;
-//     return 0;
-// }
 
 // Get all the locations of all the Arrived Homes markets for the search bar component
 export const getAllHomeTypes = async () => {

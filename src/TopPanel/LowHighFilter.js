@@ -47,13 +47,13 @@ const LowHighFilter = ({ item, setItem, name, type }) => {
         if (item.low != 'Min' || item.high != 'Max') {
             return (
                 <button className="low-high-reset-container" onClick={() => resetAmounts()}>
-                    <img src={'/images/reset.png'} alt="reset filter" className="low-high-reset-img" />
+                    <img src={'frontend/images/reset.png'} alt="reset filter" className="low-high-reset-img" />
                 </button>
             )
         } else {
             return (
                 <button className="low-high-reset-container reset-hidden">
-                    <img src={'/images/reset.png'} alt="reset filter" className="low-high-reset-img" />
+                    <img src={'frontend/images/reset.png'} alt="reset filter" className="low-high-reset-img" />
                 </button>
             )
         }

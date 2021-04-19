@@ -50,7 +50,7 @@ const Map = ({ center, data, setBounds }) => {
 
     // Customize the map as needed, documentation of google map react: https://github.com/google-map-react/google-map-react
     // Check out google maps api for further specs
-    const handleApiLoaded = (map, maps) => {
+    const handleApiLoaded = (map) => {
         setMap(map);
         map.setCenter(center);
         setLoading(false);
@@ -68,8 +68,8 @@ const Map = ({ center, data, setBounds }) => {
                 onChange={() => boundsChange()}
             >
                 {data.map((listing, index) => {
-                    if (listing.Lat && listing.Long) {
-                        return <MapMarker key={index} lat={listing.Lat} lng={listing.Long} property={listing} />;
+                    if (listing.Latitude && listing.Longitude) {
+                        return <MapMarker key={index} lat={listing.Latitude} lng={listing.Longitude} property={listing} />;
                     }
                 })}
             </GoogleMapReact>

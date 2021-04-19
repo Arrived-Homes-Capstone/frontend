@@ -84,11 +84,11 @@ const MoreFilters = ({ setReqBody, reqBody, updateListings }) => {
                 {isOpen
                     ?
                     <button className="flex-row filter-more-container filter-more-touch type-pressed" onClick={() => handleCloseOpen()}>
-                        <img src={'/images/filter_white.png'} alt="filter" className="filter-more-img filter-more-touch" />
+                        <img src={'frontend/images/filter_white.png'} alt="filter" className="filter-more-img filter-more-touch" />
                     </button>
                     :
                     <button className="flex-row filter-more-container" onClick={() => handleCloseOpen()}>
-                        <img src={'/images/filter_gray.png'} alt="filter" className="filter-more-img" />
+                        <img src={'frontend/images/filter_gray.png'} alt="filter" className="filter-more-img" />
                     </button>
                 }
             </div>
