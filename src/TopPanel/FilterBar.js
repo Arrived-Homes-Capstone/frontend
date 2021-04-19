@@ -49,7 +49,7 @@ const FilterBar = ({ locations, focusedLocation, setFocusedLocation,
       {/* Text Input */}
       <div className="flex-row">
         <div className="flex-row">
-          <img src={'frontend/images/search.png'} className="filter-search" alt="search" />
+          <img src={'images/search.png'} className="filter-search" alt="search" />
           <StyledSelect
             options={locations}
             values={[focusedLocation]}

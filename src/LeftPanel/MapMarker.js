@@ -61,7 +61,7 @@ const MapMarker = ({ property }) => {
                 >
                     <Property property={property} isModal={true} />
                     <button className="marker-modal-close" onClick={() => setModalIsOpen(false)}>
-                        <img className="modal-img-close" src={'frontend/images/close_modal.png'} alt="close modal" />
+                        <img className="modal-img-close" src={'images/close_modal.png'} alt="close modal" />
                     </button>
 
                 </Modal>
