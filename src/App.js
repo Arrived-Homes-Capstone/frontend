@@ -4,7 +4,6 @@ import Map from './LeftPanel/Map';
 import PropertyList from './RightPanel/PropertyList.js';
 import { getAllLocations, getAllListings, getSingleListing, getAllHomeTypes } from './API/functions';
 
-// TODO: Search Here button from the top navbar to over the map hovering
 // TODO: Set up propforma calculations
 
 const App = () => {
@@ -76,7 +75,7 @@ const App = () => {
           setSortOrder, setReqBody, reqBody, updateListings, bounds
         }} />
         <div className="flex-row flex-start" >
-          <Map {...{ center, data, bounds, setBounds }} />
+          <Map {...{ center, data, setBounds, updateListings }} />
           <PropertyList {...{ currentListings, fetchDetailedListings, data }} />
         </div>
       </div>

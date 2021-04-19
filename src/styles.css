@@ -39,29 +39,6 @@ input[type="number"] {
   box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.25);
 }
 
-.filter-search-here {
-  border-radius: 4px;
-  border-color: #818cdc;
-  background-color: #818cdc;
-  color: white;
-  border-style: none;
-  width: 120px;
-  height: 36px;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-  margin-right: 30px;
-}
-
-.filter-search-here:focus {
-  outline: none;
-}
-
-.search-disabled {
-  opacity: 0.5;
-  cursor: auto;
-}
-
 .filter-search {
   width: 18px;
   height: auto;
@@ -259,6 +236,32 @@ input[type="number"] {
 
 .map-container:focus {
   outline: none;
+}
+
+.filter-search-here {
+  border-radius: 4px;
+  border-color: #818cdc;
+  background-color: #818cdc;
+  color: white;
+  border-style: none;
+  width: 120px;
+  height: 36px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  position: absolute;
+  z-index: 900;
+  top: 80px;
+  left: 15px;
+}
+
+.filter-search-here:focus {
+  outline: none;
+}
+
+.search-disabled {
+  opacity: 0.2;
+  cursor: auto;
 }
 
 /* Google Map Marker */

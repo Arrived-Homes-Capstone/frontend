@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import SortBy from './SortBy';
 import HouseType from './HouseType';
@@ -10,7 +10,6 @@ const FilterBar = ({ locations, focusedLocation, setFocusedLocation,
   setCenter, houseTypes, setHouseTypes, sortOrder, setSortOrder,
   setReqBody, reqBody, updateListings, bounds }) => {
 
-  const [isDisabled, setIsDisabled] = useState(true);
   // https://www.npmjs.com/package/react-dropdown-select
   // Example: https://sanusart.github.io/react-dropdown-select/
   const selectStyle = {
@@ -26,13 +25,7 @@ const FilterBar = ({ locations, focusedLocation, setFocusedLocation,
 
   // Load data every time reqBody is updated
   useEffect(async () => {
-    setIsDisabled(false);
   }, [bounds]);
-
-  const handleSearch = () => {
-    setIsDisabled(true);
-    updateListings();
-  }
 
   const handleLocationChange = (loc) => {
     if (loc === undefined || loc === null || loc.length == 0) {
@@ -64,13 +57,7 @@ const FilterBar = ({ locations, focusedLocation, setFocusedLocation,
         <MoreFilters {...{ setReqBody, reqBody, updateListings }} />
 
       </div>
-      <div className="flex-row">
-        <button
-          className={isDisabled ? "filter-search-here search-disabled" : "filter-search-here"}
-          disabled={isDisabled}
-          onClick={() => handleSearch()}>Search Here</button>
-        <SortBy {...{ sortOrder, setSortOrder, updateListings }} />
-      </div>
+      <SortBy {...{ sortOrder, setSortOrder, updateListings }} />
     </div>
   );
 };

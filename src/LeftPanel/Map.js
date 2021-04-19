@@ -4,10 +4,11 @@ import MapMarker from './MapMarker';
 import constants from '../assets/constants';
 import '../styles.css'
 
-const Map = ({ center, data, setBounds }) => {
+const Map = ({ center, data, setBounds, updateListings }) => {
     const [zoom, setZoom] = useState(10);
     const [map, setMap] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [isDisabled, setIsDisabled] = useState(true);
 
     useEffect(() => {
         if (map) {
@@ -31,6 +32,7 @@ const Map = ({ center, data, setBounds }) => {
 
     const boundsChange = () => {
         if (map && !loading) {
+            setIsDisabled(false);
             var bounds = map.getBounds();
             var NE = bounds.getNorthEast();
             var SW = bounds.getSouthWest();
@@ -56,8 +58,17 @@ const Map = ({ center, data, setBounds }) => {
         setLoading(false);
     };
 
+    const handleSearch = () => {
+        setIsDisabled(true);
+        updateListings();
+    }
+
     return (
         <div className="map-container">
+            <button
+                className={isDisabled ? "filter-search-here search-disabled" : "filter-search-here"}
+                disabled={isDisabled}
+                onClick={() => handleSearch()}>Search Here</button>
             <GoogleMapReact
                 bootstrapURLKeys={{ key: constants.GOOGLE_API_KEY }}
                 defaultCenter={{ lat: 36.07967, lng: -94.222055 }}
