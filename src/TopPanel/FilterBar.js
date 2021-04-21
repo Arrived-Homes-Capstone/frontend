@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import SortBy from './SortBy';
 import HouseType from './HouseType';
@@ -8,7 +8,7 @@ import '../styles.css';
 
 const FilterBar = ({ locations, focusedLocation, setFocusedLocation,
   setCenter, houseTypes, setHouseTypes, sortOrder, setSortOrder,
-  setReqBody, reqBody, updateListings, bounds }) => {
+  setReqBody, reqBody, updateListings }) => {
 
   // https://www.npmjs.com/package/react-dropdown-select
   // Example: https://sanusart.github.io/react-dropdown-select/
@@ -22,10 +22,6 @@ const FilterBar = ({ locations, focusedLocation, setFocusedLocation,
     fontSize: 18,
     backgroundColor: 'white',
   }
-
-  // Load data every time reqBody is updated
-  useEffect(async () => {
-  }, [bounds]);
 
   const handleLocationChange = (loc) => {
     if (loc === undefined || loc === null || loc.length == 0) {

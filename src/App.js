@@ -15,6 +15,7 @@ const App = () => {
   const [currentListings, setCurrentListings] = useState(null);               // Most relevant listings based on focused location
   const [sortOrder, setSortOrder] = useState('MostRecent');                   // How the data for the listings are being ordered
   const [reqBody, setReqBody] = useState({});                                 // Body parameters for the GetAllListings API call
+  const [clickedProperty, setClickedProperty] = useState(null);               // Represents the current property that was clicked in the right panel
 
   // Ran on application start up
   useEffect(async () => {
@@ -73,8 +74,8 @@ const App = () => {
           setSortOrder, setReqBody, reqBody, updateListings, bounds
         }} />
         <div className="flex-row flex-start" >
-          <Map {...{ center, data, setBounds, updateListings }} />
-          <PropertyList {...{ currentListings, fetchDetailedListings, data }} />
+          <Map {...{ center, data, setBounds, updateListings, clickedProperty }} />
+          <PropertyList {...{ currentListings, fetchDetailedListings, data, setCenter, updateListings, setClickedProperty }} />
         </div>
       </div>
     )

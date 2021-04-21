@@ -4,11 +4,16 @@ import MapMarker from './MapMarker';
 import constants from '../assets/constants';
 import '../styles.css'
 
-const Map = ({ center, data, setBounds, updateListings }) => {
-    const [zoom] = useState(10);
+const Map = ({ center, data, setBounds, updateListings, clickedProperty }) => {
+    const [zoom, setZoom] = useState(10);
     const [map, setMap] = useState(null);
     const [loading, setLoading] = useState(true);
     const [isDisabled, setIsDisabled] = useState(true);
+
+    // Any time the user clicks a property on the right panel, have the map zoom in on that property
+    useEffect(() => {
+        setZoom(12)
+    }, [clickedProperty])
 
     useEffect(() => {
         if (map) {
@@ -81,7 +86,7 @@ const Map = ({ center, data, setBounds, updateListings }) => {
             >
                 {data.map((listing, index) => {
                     if (listing.Latitude && listing.Longitude) {
-                        return <MapMarker key={index} lat={listing.Latitude} lng={listing.Longitude} property={listing} />;
+                        return <MapMarker clickedProperty={clickedProperty} key={index} lat={listing.Latitude} lng={listing.Longitude} property={listing} />;
                     }
                 })}
             </GoogleMapReact>

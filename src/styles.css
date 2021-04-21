@@ -305,7 +305,6 @@ input[type="number"] {
   bottom: 15px;
   left: 15px;
   display: inline-block;
-  height: 42px;
   padding: 6px;
   padding-bottom: 8px;
   padding-top: 8px;
@@ -334,6 +333,7 @@ input[type="number"] {
 .marker-price {
   font-size: 12px;
   font-weight: bold;
+  text-align: start;
 }
 
 .marker-text {
@@ -401,6 +401,7 @@ input[type="number"] {
   margin-bottom: 12px;
   width: 85%;
   max-width: 400px;
+  max-height: 50vh;
 }
 
 .prop-proforma {
@@ -440,6 +441,13 @@ input[type="number"] {
   color: white;
   border-color: #818cdc;
   outline: none;
+}
+
+.property-hyper-img {
+  width: 16px;
+  height: 16px;
+  object-fit: "contain";
+  margin-right: 4px;
 }
 
 /* PAGINATION */

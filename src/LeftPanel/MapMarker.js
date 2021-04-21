@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getSingleListing } from '../API/functions';
 import Modal from 'react-modal';
 import Property from '../RightPanel/Property';
@@ -23,12 +23,29 @@ const customStyles = {
 
 // On hover, it shows the image, buy price, beds/baths. Also, change color from red to blue.
 // On click, opens an alert with the entire house component
-const MapMarker = ({ property }) => {
+const MapMarker = ({ property, clickedProperty }) => {
     const [showPreview, setShowPreview] = useState(false);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [focusProperty, setFocusProperty] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
+    // Automatically time out preview modal after 5 seconds
+    useEffect(() => {
+        if (showPreview) {
+            setTimeout(() => {
+                setShowPreview(false);
+            }, 5000)
+        }
+    }, [showPreview])
+
+    // If the user clicked the right panel property, show its marker's preview 
+    useEffect(() => {
+        if (clickedProperty == property.ListingID) {
+            setShowPreview(true);
+        }
+    }, [clickedProperty]);
+
+    // Get more information on the property before rendering the proeprty modal
     const getInfo = async () => {
         const prop = await getSingleListing(property.ListingID);
         setFocusProperty(prop);
@@ -49,7 +66,7 @@ const MapMarker = ({ property }) => {
                             alt=""
                         />
                         <div className="marker-col">
-                            <p className="marker-text marker-price">${formatter.format(property.ListPrice)}</p>
+                            <p className="marker-text marker-price">{property.FullAddress}</p>
                             <div className="marker-row">
                                 {property.Beds !== "None" && <p className="marker-text">{property.Beds + " Beds"}</p>}
                                 {property.Beds !== "None" && property.Baths !== "None" && <p className="marker-text">/ </p>}
@@ -69,7 +86,7 @@ const MapMarker = ({ property }) => {
                     style={customStyles}
                     onAfterOpen={() => getInfo()}
                 >
-                    {!isLoading &&
+                    {!isLoading && focusProperty &&
                         <>
                             <Property property={focusProperty} isModal={true} />
                             <button className="marker-modal-close" onClick={() => setModalIsOpen(false)}>

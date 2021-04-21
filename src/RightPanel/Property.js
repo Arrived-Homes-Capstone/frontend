@@ -4,7 +4,7 @@ import '../styles.css';
 // Dollar formatter
 const formatter = Intl.NumberFormat();
 
-const Property = ({ property, isModal }) => {
+const Property = ({ property, isModal, setCenter, updateListings, setClickedProperty }) => {
     const renderPrices = () => {
         let result = "";
         if (property.ListPrice !== null) {
@@ -50,16 +50,37 @@ const Property = ({ property, isModal }) => {
         return result;
     }
 
+    const renderZillowHyperlink = () => {
+        const address = property.FullAddress;
+        const newAddr = address.replace(/ /g, "-");
+        const link = `http://zillow.com/homedetails/${newAddr}`
+
+        return <div className="flex-row" style={{ alignItems: 'center', marginTop: 4, marginLeft: 4 }}>
+            <img src={'images/zillow.png'} alt="zillow" className="property-hyper-img" />
+            <a href={link} style={{ fontSize: 14 }} target="_blank">View on Zillow</a>
+        </div>
+    }
+
+    // When clicking component, it loads the same location on the map
+    const handleFocusProperty = () => {
+        setClickedProperty(property.ListingID);
+        setCenter({ lat: property.Latitude, lng: property.Longitude });
+        //updateListings();
+    }
+
     return (
-        <div className="flex-row prop-container">
+        <div
+            onClick={() => !isModal && handleFocusProperty()}
+            className="flex-row prop-container"
+            style={!isModal && { cursor: 'pointer' }}
+        >
             {/* Left column */}
             <div className="prop-col-1">
                 <img src={property.HouseImageURL}
                     className={isModal ? "prop-image-lg" : "prop-image"}
                     alt="Single family home"
                 />
-                {/* TODO: Set up this botton */}
-                {/* <button className="prop-proforma" onClick={() => console.log("Link proforma")}>View Proforma</button> */}
+                {renderZillowHyperlink()}
             </div>
             {/* Right column */}
             <div className="prop-col-2">
