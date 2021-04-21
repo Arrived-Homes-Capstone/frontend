@@ -11,13 +11,13 @@ Modal.setAppElement(root);
 // https://www.npmjs.com/package/react-modal
 const customStyles = {
     content: {
-        top: '20%',
-        left: '15%',
-        height: '50vh',
-        width: '70vw',
+        top: '15%',
+        left: '17%',
+        height: '55vh',
+        width: '65vw',
         paddingLeft: '24px',
-        paddingBottom: '36px',
-        overflow: 'visible'
+        paddingRight: '0px',
+        overflow: 'visible',
     }
 }
 

@@ -8,7 +8,7 @@ const dataLimit = 10;
 const pageLimit = 5;
 
 // Pagination tutorial: https://academind.com/tutorials/reactjs-pagination/
-const PropertyList = ({ currentListings, fetchDetailedListings, data, setCenter, updateListings, setClickedProperty }) => {
+const PropertyList = ({ currentListings, fetchDetailedListings, data, setCenter, setClickedProperty }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -58,7 +58,7 @@ const PropertyList = ({ currentListings, fetchDetailedListings, data, setCenter,
             <div>
                 <div className="property-list">
                     {currentListings.map((d, idx) => (
-                        <Property key={idx} property={d} isModal={false} {...{ setCenter, updateListings, setClickedProperty }} />
+                        <Property key={idx} property={d} isModal={false} {...{ setCenter, setClickedProperty }} />
                     ))}
                 </div>
                 <div className="pagination">

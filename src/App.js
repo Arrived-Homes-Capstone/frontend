@@ -75,7 +75,7 @@ const App = () => {
         }} />
         <div className="flex-row flex-start" >
           <Map {...{ center, data, setBounds, updateListings, clickedProperty }} />
-          <PropertyList {...{ currentListings, fetchDetailedListings, data, setCenter, updateListings, setClickedProperty }} />
+          <PropertyList {...{ currentListings, fetchDetailedListings, data, setCenter, setClickedProperty }} />
         </div>
       </div>
     )

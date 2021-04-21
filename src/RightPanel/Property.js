@@ -4,7 +4,7 @@ import '../styles.css';
 // Dollar formatter
 const formatter = Intl.NumberFormat();
 
-const Property = ({ property, isModal, setCenter, updateListings, setClickedProperty }) => {
+const Property = ({ property, isModal, setCenter, setClickedProperty }) => {
     const renderPrices = () => {
         let result = "";
         if (property.ListPrice !== null) {

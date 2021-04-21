@@ -399,9 +399,10 @@ input[type="number"] {
 .prop-image-lg {
   margin-top: 14px;
   margin-bottom: 12px;
-  width: 85%;
-  max-width: 400px;
-  max-height: 50vh;
+  width: 90%;
+  max-width: 450px;
+  max-height: 45vh;
+  object-fit: contain;
 }
 
 .prop-proforma {
