@@ -4,6 +4,9 @@ import Map from './LeftPanel/Map';
 import PropertyList from './RightPanel/PropertyList.js';
 import { getAllLocations, getAllListings, getSingleListing, getAllHomeTypes } from './API/functions';
 
+// TODO: Use react router to load a landing page before opening the app
+// This will allow the client to enter a location of interest prior to seeing all the other data points
+// Good for scalability moving forward.
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [focusedLocation, setFocusedLocation] = useState(null);               // Currently focused location 
@@ -49,7 +52,7 @@ const App = () => {
     await fetchDetailedListings(response, 0, 10);
   }
 
-  // Gets more detail for each property that is currently in the right listings panel
+  // Gets more detail for each property that is currently in the right listings panel (start to end, inclusive)
   const fetchDetailedListings = async (data, start, end) => {
     let res = [];
     for (let i = start; i < end; i++) {
