@@ -250,7 +250,7 @@ input[type="number"] {
   font-weight: bold;
   cursor: pointer;
   position: absolute;
-  z-index: 900;
+  z-index: 1;
   top: 80px;
   left: 15px;
 }
