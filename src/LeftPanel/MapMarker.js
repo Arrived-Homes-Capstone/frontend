@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { getSingleListing } from '../API/functions';
 import Modal from 'react-modal';
 import Property from '../RightPanel/Property';
 import '../styles.css';
@@ -25,6 +26,14 @@ const customStyles = {
 const MapMarker = ({ property }) => {
     const [showPreview, setShowPreview] = useState(false);
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [focusProperty, setFocusProperty] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+    const getInfo = async () => {
+        const prop = await getSingleListing(property.ListingID);
+        setFocusProperty(prop);
+        setIsLoading(false);
+    }
 
     return (
         <button className="marker-container"
@@ -52,18 +61,22 @@ const MapMarker = ({ property }) => {
                     </div>
                 </div>
             }
-            <div onClick={e => e.stopPropagation()}>
+            <div onClick={(e) => e.stopPropagation()}>
                 <Modal
                     isOpen={modalIsOpen}
                     onRequestClose={() => setModalIsOpen(false)}
                     contentLabel="Listing Modal"
                     style={customStyles}
+                    onAfterOpen={() => getInfo()}
                 >
-                    <Property property={property} isModal={true} />
-                    <button className="marker-modal-close" onClick={() => setModalIsOpen(false)}>
-                        <img className="modal-img-close" src={'images/close_modal.png'} alt="close modal" />
-                    </button>
-
+                    {!isLoading &&
+                        <>
+                            <Property property={focusProperty} isModal={true} />
+                            <button className="marker-modal-close" onClick={() => setModalIsOpen(false)}>
+                                <img className="modal-img-close" src={'images/close_modal.png'} alt="close modal" />
+                            </button>
+                        </>
+                    }
                 </Modal>
             </div>
         </button>

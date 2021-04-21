@@ -5,8 +5,6 @@ import '../styles.css';
 const formatter = Intl.NumberFormat();
 
 const Property = ({ property, isModal }) => {
-    console.log(property)
-    // Renders the List, Offer, and Renovation prices
     const renderPrices = () => {
         let result = "";
         if (property.ListPrice !== null) {

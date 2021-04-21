@@ -230,7 +230,7 @@ input[type="number"] {
 .map-container {
   margin-top: 6px;
   height: 90vh;
-  width: 50%;
+  width: 50vw;
   overflow-y: hidden;
 }
 
@@ -270,6 +270,9 @@ input[type="number"] {
   flex: row;
 }
 .marker-container {
+  position: absolute;
+  top: 100%;
+  left: 50%;
   background-color: transparent;
   border: transparent;
 }
@@ -299,7 +302,8 @@ input[type="number"] {
 .marker-prev {
   position: absolute;
   z-index: 900;
-  bottom: 2px;
+  bottom: 15px;
+  left: 15px;
   width: 180px;
   height: 40px;
   padding: 6px;
