@@ -48,6 +48,7 @@ const MapMarker = ({ property, clickedProperty }) => {
     // Get more information on the property before rendering the proeprty modal
     const getInfo = async () => {
         const prop = await getSingleListing(property.ListingID);
+        console.log(prop);
         setFocusProperty(prop);
         setIsLoading(false);
     }

@@ -72,7 +72,7 @@ const Property = ({ property, isModal, setCenter, updateListings, setClickedProp
         <div
             onClick={() => !isModal && handleFocusProperty()}
             className="flex-row prop-container"
-            style={!isModal && { cursor: 'pointer' }}
+            style={!isModal ? { cursor: 'pointer' } : { cursor: 'default' }}
         >
             {/* Left column */}
             <div className="prop-col-1">
