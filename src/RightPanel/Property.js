@@ -53,7 +53,7 @@ const Property = ({ property, isModal, setCenter, setClickedProperty }) => {
     const renderZillowHyperlink = () => {
         const address = property.FullAddress;
         const newAddr = address.replace(/ /g, "-");
-        const link = `http://zillow.com/homedetails/${newAddr}`
+        const link = `http://zillow.com/homes/${newAddr}_rb`
 
         return <div className="flex-row" style={{ alignItems: 'center', marginTop: 4, marginLeft: 4 }}>
             <img src={'images/zillow.png'} alt="zillow" className="property-hyper-img" />
@@ -65,7 +65,6 @@ const Property = ({ property, isModal, setCenter, setClickedProperty }) => {
     const handleFocusProperty = () => {
         setClickedProperty(property.ListingID);
         setCenter({ lat: property.Latitude, lng: property.Longitude });
-        //updateListings();
     }
 
     return (
