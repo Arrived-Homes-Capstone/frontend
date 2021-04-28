@@ -4,6 +4,7 @@ import SortBy from './SortBy';
 import HouseType from './HouseType';
 import MoreFilters from './MoreFilters';
 import Select from "react-dropdown-select";
+import ProformaFilters from './ProformaFilters';
 import '../styles.css';
 
 const FilterBar = ({ locations, focusedLocation, setFocusedLocation,
@@ -51,6 +52,9 @@ const FilterBar = ({ locations, focusedLocation, setFocusedLocation,
         <HouseType {...{ houseTypes, setHouseTypes, updateListings }} />
 
         <MoreFilters {...{ setReqBody, reqBody }} />
+
+        <ProformaFilters {...{ setReqBody, reqBody }} />
+
 
       </div>
       <SortBy {...{ sortOrder, setSortOrder }} />

@@ -140,20 +140,15 @@ input[type="number"] {
 
 /* Filter More Options */
 .filter-more-container {
-  border-radius: 50px;
-  width: 36px;
-  height: 36px;
-  border: solid #888888 1px;
-  background-color: white;
-  margin-left: 12px;
-  cursor: pointer;
-  outline: none;
+  width: auto;
+  padding-right: 12px;
 }
 
 .filter-more-img {
   width: 22px;
   height: auto;
   margin-top: 2px;
+  margin-right: 12px;
 }
 
 .filter-more-trans {
