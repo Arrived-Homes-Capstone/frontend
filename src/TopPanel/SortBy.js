@@ -3,9 +3,10 @@ import React, { useState, useEffect, useRef } from 'react';
 const options = [
     { value: 'MostRecent', label: 'Date Listed (newest)' },
     { value: 'LeastRecent', label: 'Date Listed (oldest)' },
+    { value: 'IRR', label: 'Investor IRR' },
 ];
 
-const SortBy = ({ sortOrder, setSortOrder, updateListings }) => {
+const SortBy = ({ sortOrder, setSortOrder }) => {
     // Create a ref that we add to the element for which we want to detect outside clicks
     const ref = useRef();
     // State for our modal

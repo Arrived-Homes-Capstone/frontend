@@ -71,8 +71,8 @@ export const getAllHomeTypes = async () => {
     let res = [];
     for (let i = 0; i < data.length; i++) {
         let curr = data[i];
-        // There needs to be more than 1 listing of this type to add it to our filter bar
-        if (curr.Quantity > 1) {
+        // There needs to be more than 5 listing of this type to add it to our filter bar
+        if (curr.Quantity > 5) {
             res.push({
                 value: curr.HomeType,
                 label: curr.HomeType,

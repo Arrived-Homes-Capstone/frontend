@@ -4,9 +4,6 @@ import Map from './LeftPanel/Map';
 import PropertyList from './RightPanel/PropertyList.js';
 import { getAllLocations, getAllListings, getSingleListing, getAllHomeTypes } from './API/functions';
 
-// TODO: Use react router to load a landing page before opening the app
-// This will allow the client to enter a location of interest prior to seeing all the other data points
-// Good for scalability moving forward.
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [focusedLocation, setFocusedLocation] = useState(null);               // Currently focused location 
@@ -74,7 +71,7 @@ const App = () => {
         <FilterBar {...{
           locations, focusedLocation, setFocusedLocation,
           setCenter, houseTypes, setHouseTypes, sortOrder,
-          setSortOrder, setReqBody, reqBody, updateListings, bounds
+          setSortOrder, setReqBody, reqBody, updateListings
         }} />
         <div className="flex-row flex-start" >
           <Map {...{ center, data, setBounds, updateListings, clickedProperty }} />

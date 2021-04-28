@@ -3,7 +3,7 @@ import LowHighFilter from './LowHighFilter';
 import DropdownFilter from './DropdownFilter';
 import { daysOnMarketOptions, priceReducedOptions } from './MoreFilterOptions';
 
-const MoreFilters = ({ setReqBody, reqBody, updateListings }) => {
+const MoreFilters = ({ setReqBody, reqBody }) => {
     // Hide on click
     const ref = useRef();
     const [isOpen, setIsOpen] = useState(false);
@@ -83,12 +83,14 @@ const MoreFilters = ({ setReqBody, reqBody, updateListings }) => {
             <div className="flex-row">
                 {isOpen
                     ?
-                    <button className="flex-row filter-more-container filter-more-touch type-pressed" onClick={() => handleCloseOpen()}>
-                        <img src={'images/filter_white.png'} alt="filter" className="filter-more-img filter-more-touch" />
+                    <button className="flex-row filter-type-container filter-more-touch type-pressed" onClick={() => handleCloseOpen()}>
+                        <img src={'frontend/images/filter_white.png'} alt="filter" className="filter-more-img filter-more-touch" />
+                        <p>Filters</p>
                     </button>
                     :
-                    <button className="flex-row filter-more-container" onClick={() => handleCloseOpen()}>
-                        <img src={'images/filter_gray.png'} alt="filter" className="filter-more-img" />
+                    <button className="flex-row filter-type-container" onClick={() => handleCloseOpen()}>
+                        <img src={'frontend/images/filter_gray.png'} alt="filter" className="filter-more-img" />
+                        <p>Filters</p>
                     </button>
                 }
             </div>

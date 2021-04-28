@@ -50,10 +50,10 @@ const FilterBar = ({ locations, focusedLocation, setFocusedLocation,
 
         <HouseType {...{ houseTypes, setHouseTypes, updateListings }} />
 
-        <MoreFilters {...{ setReqBody, reqBody, updateListings }} />
+        <MoreFilters {...{ setReqBody, reqBody }} />
 
       </div>
-      <SortBy {...{ sortOrder, setSortOrder, updateListings }} />
+      <SortBy {...{ sortOrder, setSortOrder }} />
     </div>
   );
 };
