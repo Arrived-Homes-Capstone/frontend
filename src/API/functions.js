@@ -85,6 +85,25 @@ export const getAllHomeTypes = async () => {
     return res;
 }
 
+// Get all the proforma calculations of one specific property
+export const getProformaCalcs = async (body) => {
+    const resp = await fetch(`${endpoint}/CalcProformaData`, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': 'Content-Type'
+        },
+        body: JSON.stringify(body)
+    });
+
+    const data = await resp.json();
+    console.log(data);
+
+    return data;
+}
+
 function abbrState(input, to) {
 
     var states = [

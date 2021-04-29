@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import LowHighFilter from './LowHighFilter';
 
 const ProformaFilters = ({ setReqBody, reqBody }) => {
-    // Hide on click
     const ref = useRef();
     const [isOpen, setIsOpen] = useState(false);
     useOnClickOutside(ref, () => setIsOpen(false));
@@ -41,19 +40,19 @@ const ProformaFilters = ({ setReqBody, reqBody }) => {
         console.log('hey')
         // switch (filterName) {
         //     case 'Bathrooms':
-        //         getDetail(filterName, baths, body);
+        //         getDetail(filterName, investorEquity, body);
         //         break;
         //     case 'Beds':
-        //         getDetail(filterName, beds, body);
+        //         getDetail(filterName, investorIRR, body);
         //         break;
         //     case 'Price':
-        //         getDetail(filterName, listPrice, body);
+        //         getDetail(filterName, investorYield, body);
         //         break;
         //     case 'SqFt':
-        //         getDetail(filterName, squareFeet, body);
+        //         getDetail(filterName, arrivedRevenue, body);
         //         break;
         //     case 'YearBuilt':
-        //         getDetail(filterName, yearBuilt, body);
+        //         getDetail(filterName, arrivedFees, body);
         //         break;
         //     default:
         //         return;
@@ -109,12 +108,10 @@ const ProformaFilters = ({ setReqBody, reqBody }) => {
 function useOnClickOutside(ref, handler) {
     useEffect(() => {
         const listener = event => {
-            // Do nothing if clicking ref's element or descendent elements
             if (!ref.current || ref.current.contains(event.target)) {
                 return;
             }
 
-            // Do not close if clicking "Sort By" button
             if (event.target.className && event.target.className.includes('filter-more-touch')) {
                 return;
             }
@@ -130,12 +127,6 @@ function useOnClickOutside(ref, handler) {
             document.removeEventListener('touchstart', listener);
         };
     },
-        // Add ref and handler to effect dependencies
-        // It's worth noting that because passed in handler is a new ...
-        // ... function on every render that will cause this effect ...
-        // ... callback/cleanup to run every render. It's not a big deal ...
-        // ... but to optimize you can wrap handler in useCallback before ...
-        // ... passing it into this hook.
         [ref, handler]
     );
 }

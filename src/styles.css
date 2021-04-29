@@ -9,6 +9,11 @@
   align-items: start;
 }
 
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
 /* No arrow buttons on number input */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -600,4 +605,32 @@ input[type="number"] {
 .dropdown-check {
   width: 13px;
   height: auto;
+}
+
+/* Proforma Calculator */
+.proformaCalcTitle {
+  font-weight: bold;
+}
+.proformaTitle {
+  font-size: 14px;
+  margin-bottom: 0px;
+}
+
+.proformaCol1 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 30%;
+}
+
+.proformaCol3 p {
+  font-weight: bold;
+}
+
+.proformaButtonTrans {
+  color: #818cdc;
+  background-color: white;
+  border-color: #818cdc;
+  border-width: 4;
+  border-style: solid;
 }

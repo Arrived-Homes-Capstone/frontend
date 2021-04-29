@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 
+// Sort the right panel houses by either most or least recent or the IRR or Dividend Yield proforma values 
 const options = [
     { value: 'MostRecent', label: 'Date Listed (newest)' },
     { value: 'LeastRecent', label: 'Date Listed (oldest)' },
-    { value: 'IRR', label: 'Investor IRR' },
+    { value: 'IRR', label: 'Best Investor IRR' },
+    { value: 'DividendYield', label: 'Best Dividend Yield' },
 ];
 
 const SortBy = ({ sortOrder, setSortOrder }) => {

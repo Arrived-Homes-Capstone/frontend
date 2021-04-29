@@ -35,7 +35,7 @@ const App = () => {
     }
   }, []);
 
-  // Load data every time reqBody is updated and when the sort order is oupdated
+  // Load data every time reqBody is updated and when the sort order is updated
   useEffect(async () => {
     if (!isLoading) {
       updateListings();
