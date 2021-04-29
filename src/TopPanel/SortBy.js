@@ -4,8 +4,8 @@ import React, { useState, useEffect, useRef } from 'react';
 const options = [
     { value: 'MostRecent', label: 'Date Listed (newest)' },
     { value: 'LeastRecent', label: 'Date Listed (oldest)' },
-    { value: 'IRR', label: 'Best Investor IRR' },
-    { value: 'DividendYield', label: 'Best Dividend Yield' },
+    { value: 'InvestorIRR', label: 'Best Investor IRR' },
+    { value: 'InvestorYield', label: 'Best Dividend Yield' },
 ];
 
 const SortBy = ({ sortOrder, setSortOrder }) => {

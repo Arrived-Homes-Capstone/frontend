@@ -451,6 +451,19 @@ input[type="number"] {
   margin-right: 4px;
 }
 
+.hyperlink-btn {
+  cursor: pointer;
+  background-color: transparent;
+  border-color: transparent;
+  color: blue;
+  text-decoration: underline;
+  font-size: 14px;
+}
+
+.hyperlink-btn:focus {
+  outline: none;
+}
+
 /* PAGINATION */
 .pagination {
   display: flex;

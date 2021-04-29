@@ -89,7 +89,7 @@ const Property = ({ property, isModal, setCenter, setClickedProperty }) => {
         const newAddr = address.replace(/ /g, "-");
         const link = `http://zillow.com/homes/${newAddr}_rb`
 
-        return <div className="flex-row" style={{ alignItems: 'center', marginTop: 4, marginLeft: 4 }}>
+        return <div className="flex-row" style={{ alignItems: 'center', marginTop: 4, marginLeft: 4, marginBottom: 4 }}>
             <img src={'images/zillow.png'} alt="zillow" className="property-hyper-img" />
             <a href={link} style={{ fontSize: 14 }} target="_blank">View on Zillow</a>
         </div>
@@ -116,7 +116,7 @@ const Property = ({ property, isModal, setCenter, setClickedProperty }) => {
                     />
                     {renderZillowHyperlink()}
                     <div className="flex-row" style={{ alignItems: 'center', marginTop: 4, marginLeft: 4 }}>
-                        <button onClick={() => setModalIsOpen(true)}>Calculate Proforma</button>
+                        <button className="hyperlink-btn" onClick={() => setModalIsOpen(true)}>Calculate Proforma</button>
                     </div>
 
                 </div>
