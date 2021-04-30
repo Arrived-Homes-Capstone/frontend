@@ -99,7 +99,6 @@ export const getProformaCalcs = async (body) => {
     });
 
     const data = await resp.json();
-    console.log(data);
 
     return data;
 }

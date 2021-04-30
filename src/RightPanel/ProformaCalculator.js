@@ -62,17 +62,45 @@ const ProformaCalculator = ({ property }) => {
         }
 
         const Constants = {
-            "blah": markup
+            "Arrived Markup": parseFloat(markup),
+            "Interest Rate": parseFloat(rate),
+            "Loan Fees": parseFloat(fees),
+            "Maintenance %": parseFloat(maintanence),
+            "Offering Expenses": parseFloat(offering),
+            "Property Management %": parseFloat(manage),
+            "Reno Budgets as Percent of Aquisition": parseFloat(reno),
+            "Tax": parseFloat(tax),
+            "Turns/Year": parseFloat(turns),
+            "Vacancy %": parseFloat(vacancy),
+            "Year 1 Override Appreciation": parseFloat(override)
         };
 
         body.Constants = Constants;
-        await getProformaCalcs(body)
+
+        const res = await getProformaCalcs(body);
+        setIER(res.InvestorEquityRequired)
+        setIRR(res.InvestorIRR)
+        setYield(res.InvestorYield)
+        setUpfront(res.ArrivedUpfrontRevenue)
+        setAUM(res.ArrivedPropertyAUMFees)
     }
 
     // Fill all of the proforma constants with their original values when starting the calculator
     // Essentially resetting the entire state to what it was when opening the calculator
     const handleReset = () => {
-
+        const { ProformaData } = property;
+        const { Constants } = ProformaData;
+        setMarkup(Constants["Arrived Markup"]);
+        setRate(Constants["Interest Rate"]);
+        setFees(Constants["Loan Fees"]);
+        setMaintenance(Constants["Maintenance %"]);
+        setOffering(Constants["Offering Expenses"]);
+        setManage(Constants["Property Management %"]);
+        setReno(Constants["Reno Budgets as Percent of Aquisition"]);
+        setTax(Constants["Tax"]);
+        setTurns(Constants["Turns/Year"]);
+        setVacancy(Constants["Vacancy %"]);
+        setOverride(Constants["Year 1 Override Appreciation"]);
     }
 
     if (isLoading) {
@@ -97,9 +125,9 @@ const ProformaCalculator = ({ property }) => {
                         <ProformaConstant value={vacancy} setValue={setVacancy} name={"Vacancy %"} />
                         <ProformaConstant value={override} setValue={setOverride} name={"Year 1 Override Appreciation"} />
                     </div>
-                    <div className="flex-col">
-                        <div className="flex-row">
-                            <div style={{ width: '100' }}>
+                    <div className="flex-column" style={{ width: '50%', justifyContent: 'center', alignItems: 'flex-end', paddingRight: 48 }}>
+                        <div className="flex-row" style={{ justifyContent: 'space-evenly' }}>
+                            <div>
                                 <p>Investor Equity Required</p>
                                 <p>Investor IRR (Year 7)</p>
                                 <p>Investor Yield (Year 1)</p>
