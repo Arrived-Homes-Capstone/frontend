@@ -113,13 +113,9 @@ const ProformaCalculator = ({ property }) => {
         setRate(Constants["Interest Rate"]);
         setFees(Constants["Loan Fees"]);
         setMaintenance(Constants["Maintenance %"]);
-        // setOffering(Constants["Offering Expenses"]);
-        // setManage(Constants["Property Management %"]);
         setReno(Constants["Reno Budgets as Percent of Aquisition"]);
         setTax(Constants["Tax"]);
-        // setTurns(Constants["Turns/Year"]);
         setVacancy(Constants["Vacancy %"]);
-        // setOverride(Constants["Year 1 Override Appreciation"]);
     }
 
     if (isLoading) {
