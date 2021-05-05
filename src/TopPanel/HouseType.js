@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const HouseType = ({ houseTypes, setHouseTypes, updateListings }) => {
+const HouseType = ({ houseTypes, setHouseTypes, updateListings, setReqBody, reqBody }) => {
     const ref = useRef();
     const [isOpen, setIsOpen] = useState(false);
     useOnClickOutside(ref, () => setIsOpen(false));
@@ -9,16 +9,16 @@ const HouseType = ({ houseTypes, setHouseTypes, updateListings }) => {
     const handleOptionChoice = (option) => {
         let newHouseTypes = JSON.parse(JSON.stringify(houseTypes));
         newHouseTypes[option.index].selected = !houseTypes[option.index].selected;
-
         setHouseTypes(newHouseTypes);
     }
 
+    // TODO: Change below images to not have frontend in the beginning.
     const renderOptions = () => {
         return houseTypes.map((option, index) => (
             <button className="filter-type-btn flex-row" onClick={() => handleOptionChoice(option)} key={index}>
                 { option.selected
-                    ? <img src={'images/check_clicked.png'} alt="checkbox empty" className="filter-check" />
-                    : <img src={'images/check_empty.png'} alt="checkbox empty" className="filter-check" />
+                    ? <img src={'frontend/images/check_clicked.png'} alt="checkbox empty" className="filter-check" />
+                    : <img src={'frontend/images/check_empty.png'} alt="checkbox empty" className="filter-check" />
                 }
                 <p style={{ textAlign: 'left' }}>{option.label}</p>
             </button>
@@ -33,8 +33,18 @@ const HouseType = ({ houseTypes, setHouseTypes, updateListings }) => {
         }
     }
 
-    const handleDone = () => {
-        updateListings();
+    const handleDone = async () => {
+        const res = [];
+        for (let i = 0; i < houseTypes.length; i++) {
+            if (houseTypes[i].selected) {
+                res.push(houseTypes[i].value)
+            }
+        }
+        await setReqBody({
+            ...reqBody,
+            HomeTypes: res
+        });
+        //updateListings();
         handleCloseOpen();
     }
 
@@ -60,7 +70,7 @@ const HouseType = ({ houseTypes, setHouseTypes, updateListings }) => {
                 <div ref={ref} className="filter-type-options" style={{ width: 150 }}>
                     <p className="filter-type-title" >Home Type</p>
                     {renderOptions()}
-                    <button className="filter-type-done" onClick={() => handleDone()}>Done</button>
+                    <button className="filter-type-done" onClick={() => handleDone()}>Submit</button>
                 </div>
             }
         </div>

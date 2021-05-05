@@ -49,7 +49,7 @@ const FilterBar = ({ locations, focusedLocation, setFocusedLocation,
           />
         </div>
 
-        <HouseType {...{ houseTypes, setHouseTypes, updateListings }} />
+        <HouseType {...{ houseTypes, setHouseTypes, updateListings, setReqBody, reqBody }} />
 
         <MoreFilters {...{ setReqBody, reqBody }} />
 

@@ -4,6 +4,8 @@ import Map from './LeftPanel/Map';
 import PropertyList from './RightPanel/PropertyList.js';
 import { getAllLocations, getAllListings, getSingleListing, getAllHomeTypes } from './API/functions';
 
+//TODO: Rename top tab bar to Arrived Homes Acquisition Finder instead of whatever it is now (thing by the favicon)
+
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [focusedLocation, setFocusedLocation] = useState(null);               // Currently focused location 
@@ -44,6 +46,7 @@ const App = () => {
 
   // Get all the correct data based on filtering, house type, sort by, and map location
   const updateListings = async () => {
+    console.log(reqBody);
     const response = await getAllListings({ ...reqBody, ...bounds }, sortOrder);
     setData(response);
     await fetchDetailedListings(response, 0, 10);

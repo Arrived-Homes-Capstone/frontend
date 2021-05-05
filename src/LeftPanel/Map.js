@@ -73,7 +73,7 @@ const Map = ({ center, data, setBounds, updateListings, clickedProperty }) => {
             <button
                 className={isDisabled ? "filter-search-here search-disabled" : "filter-search-here"}
                 disabled={isDisabled}
-                onClick={() => handleSearch()}>Search Here
+                onClick={() => handleSearch()}>Refresh Search
             </button>
             <GoogleMapReact
                 bootstrapURLKeys={{ key: constants.GOOGLE_API_KEY }}

@@ -106,8 +106,8 @@ const MoreFilters = ({ setReqBody, reqBody }) => {
                     <LowHighFilter item={baths} setItem={setBaths} name="Baths" type="" />
                     <LowHighFilter item={yearBuilt} setItem={setYearBuilt} name="Year Built" type="year" />
 
-                    {/* <DropdownFilter item={onMarket} setItem={setOnMarket} itemOptions={daysOnMarketOptions} name="Days on Market" />
-                <DropdownFilter item={priceReduced} setItem={setPriceReduced} itemOptions={priceReducedOptions} name="Price Reduced" /> */}
+                    <DropdownFilter item={onMarket} setItem={setOnMarket} itemOptions={daysOnMarketOptions} name="Days on Market" />
+                    {/*  <DropdownFilter item={priceReduced} setItem={setPriceReduced} itemOptions={priceReducedOptions} name="Price Reduced" /> */}
 
                     <button className="filter-type-done" onClick={() => setFilters()}>Set filters</button>
                     {/* <button className="filter-type-done filter-more-trans" onClick={() => handleCloseOpen()}>Load previous filters</button> */}
