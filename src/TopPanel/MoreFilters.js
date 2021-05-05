@@ -9,6 +9,8 @@ const MoreFilters = ({ setReqBody, reqBody }) => {
     const [isOpen, setIsOpen] = useState(false);
     useOnClickOutside(ref, () => setIsOpen(false));
 
+    const [error, setError] = useState(null);
+
     const [listPrice, setListPrice] = useState({ low: 'Min', high: 'Max' });
     const [offerPrice, setOfferPrice] = useState({ low: 'Min', high: 'Max' });
     const [rentalPrice, setRentalPrice] = useState({ low: 'Min', high: 'Max' });
@@ -29,6 +31,7 @@ const MoreFilters = ({ setReqBody, reqBody }) => {
     }
 
     const setFilters = async () => {
+        setError(null);
         const body = {};
         const filters = ['Bathrooms', 'Beds', 'Price', 'SqFt', 'YearBuilt'];
         for (let i = 0; i < filters.length; i++) {
@@ -65,15 +68,18 @@ const MoreFilters = ({ setReqBody, reqBody }) => {
         }
     }
     const getDetail = (filterName, filter, body) => {
+        if ((filter.low).includes('.') || (filter.high).includes('.')) {
+            setError('You may only pass in whole numbers for the ' + filterName + ' property');
+        }
         if (filter.low !== 'Min' && /^\d+$/.test(filter.low)) {
-            body[filterName + 'Low'] = parseInt(filter.low);
+            body[filterName + 'Low'] = parseFloat(filter.low);
         } else {
-            body[filterName + 'Low'] = 0;
+            body[filterName + 'Low'] = null;
         }
         if (filter.high !== 'Max' && /^\d+$/.test(filter.high)) {
-            body[filterName + 'High'] = parseInt(filter.high);
+            body[filterName + 'High'] = parseFloat(filter.high);
         } else {
-            body[filterName + 'High'] = 100000000
+            body[filterName + 'High'] = null;
         }
     }
 
@@ -106,11 +112,11 @@ const MoreFilters = ({ setReqBody, reqBody }) => {
                     <LowHighFilter item={baths} setItem={setBaths} name="Baths" type="" />
                     <LowHighFilter item={yearBuilt} setItem={setYearBuilt} name="Year Built" type="year" />
 
-                    <DropdownFilter item={onMarket} setItem={setOnMarket} itemOptions={daysOnMarketOptions} name="Days on Market" />
+                    {/* <DropdownFilter item={onMarket} setItem={setOnMarket} itemOptions={daysOnMarketOptions} name="Days on Market" /> */}
                     {/*  <DropdownFilter item={priceReduced} setItem={setPriceReduced} itemOptions={priceReducedOptions} name="Price Reduced" /> */}
 
+                    {error && <p style={{ color: '#818cdc', fontWeight: 'bold', fontSize: 12, marginBottom: 0, width: '90%', textAlign: 'center' }}>{error}</p>}
                     <button className="filter-type-done" onClick={() => setFilters()}>Set filters</button>
-                    {/* <button className="filter-type-done filter-more-trans" onClick={() => handleCloseOpen()}>Load previous filters</button> */}
                 </div>
             }
         </div>

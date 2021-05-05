@@ -3,20 +3,37 @@ import { getProformaCalcs } from '../API/functions';
 import ProformaConstant from './ProformaConstant';
 const formatter = Intl.NumberFormat();
 
+// REMOVE
+// interest rate
+// loan fees
+// offering expenses
+// property management %
+// Turns/year
+// Year 1 override appreciation
+
+// INCLUDE
+// Rent/month $
+// Purchase price $
+// HOA Fee/month $
+
+//CHANGE
+// Reno budget % -> Reno budget $
+// Tax -> Tax/yr $
+
+
 const ProformaCalculator = ({ property }) => {
     const [isLoading, setIsLoading] = useState(true);
     // Constants
+    const [rent, setRent] = useState(null);
+    const [purchase, setPurchase] = useState(null);
+    const [hoa, setHoa] = useState(null);
     const [markup, setMarkup] = useState(null);
     const [rate, setRate] = useState(null);
     const [fees, setFees] = useState(null);
     const [maintanence, setMaintenance] = useState(null);
-    const [offering, setOffering] = useState(null);
-    const [manage, setManage] = useState(null);
     const [reno, setReno] = useState(null);
     const [tax, setTax] = useState(null);
-    const [turns, setTurns] = useState(null);
     const [vacancy, setVacancy] = useState(null);
-    const [override, setOverride] = useState(null);
 
 
     // Results
@@ -30,17 +47,16 @@ const ProformaCalculator = ({ property }) => {
         if (property) {
             const { ProformaData } = property;
             const { Constants } = ProformaData;
+            setPurchase(property["ListPrice"]);
+            setRent(property["RentLow"]);
+            setHoa(property["HOAFee"]);
             setMarkup(Constants["Arrived Markup"]);
             setRate(Constants["Interest Rate"]);
             setFees(Constants["Loan Fees"]);
             setMaintenance(Constants["Maintenance %"]);
-            setOffering(Constants["Offering Expenses"]);
-            setManage(Constants["Property Management %"]);
-            setReno(Constants["Reno Budgets as Percent of Aquisition"]);
+            setReno(2000);
             setTax(Constants["Tax"]);
-            setTurns(Constants["Turns/Year"]);
             setVacancy(Constants["Vacancy %"]);
-            setOverride(Constants["Year 1 Override Appreciation"]);
 
 
             setIER(property.ProformaData.InvestorEquityRequired)
@@ -55,10 +71,12 @@ const ProformaCalculator = ({ property }) => {
     // Send a request with the updated constants based on this calculator tool
     const handleSubmit = async () => {
         const body = {
-            ListPrice: property.ListPrice,
+            ListPrice: parseFloat(purchase),
             RenoBudget: property.RenovationPrice,
-            HOAFee: property.HOAFee,
-            PropertyTax: property.ProformaData.Constants.Tax
+            HOAFee: parseFloat(hoa || 0),
+            PropertyTax: property.ProformaData.Constants.Tax,
+            Rent: parseFloat(rent),
+            RenoBudget: parseFloat(reno),
         }
 
         const Constants = {
@@ -66,18 +84,16 @@ const ProformaCalculator = ({ property }) => {
             "Interest Rate": parseFloat(rate),
             "Loan Fees": parseFloat(fees),
             "Maintenance %": parseFloat(maintanence),
-            "Offering Expenses": parseFloat(offering),
-            "Property Management %": parseFloat(manage),
-            "Reno Budgets as Percent of Aquisition": parseFloat(reno),
             "Tax": parseFloat(tax),
-            "Turns/Year": parseFloat(turns),
             "Vacancy %": parseFloat(vacancy),
-            "Year 1 Override Appreciation": parseFloat(override)
         };
 
         body.Constants = Constants;
 
+        console.log(body);
+
         const res = await getProformaCalcs(body);
+        console.log(res);
         setIER(res.InvestorEquityRequired)
         setIRR(res.InvestorIRR)
         setYield(res.InvestorYield)
@@ -91,16 +107,19 @@ const ProformaCalculator = ({ property }) => {
         const { ProformaData } = property;
         const { Constants } = ProformaData;
         setMarkup(Constants["Arrived Markup"]);
+        setHoa(ProformaData["HOAFee"]);
+        setRent(ProformaData["Rent"]);
+        setPurchase(ProformaData["ListPrice"]);
         setRate(Constants["Interest Rate"]);
         setFees(Constants["Loan Fees"]);
         setMaintenance(Constants["Maintenance %"]);
-        setOffering(Constants["Offering Expenses"]);
-        setManage(Constants["Property Management %"]);
+        // setOffering(Constants["Offering Expenses"]);
+        // setManage(Constants["Property Management %"]);
         setReno(Constants["Reno Budgets as Percent of Aquisition"]);
         setTax(Constants["Tax"]);
-        setTurns(Constants["Turns/Year"]);
+        // setTurns(Constants["Turns/Year"]);
         setVacancy(Constants["Vacancy %"]);
-        setOverride(Constants["Year 1 Override Appreciation"]);
+        // setOverride(Constants["Year 1 Override Appreciation"]);
     }
 
     if (isLoading) {
@@ -111,19 +130,18 @@ const ProformaCalculator = ({ property }) => {
                 <p className="proformaCalcTitle">Proforma Calculator</p>
                 <div className="flex-row" style={{ alignItems: 'flex-start' }}>
                     <div className="proformaCol1">
+                        <ProformaConstant value={purchase} setValue={setPurchase} name={"Purchase Price $"} />
+                        <ProformaConstant value={rent} setValue={setRent} name={"Rent/month $"} />
+                        <ProformaConstant value={hoa} setValue={setHoa} name={"HOA/yr $"} />
                         <ProformaConstant value={markup} setValue={setMarkup} name={"Arrived Markup"} />
-                        <ProformaConstant value={rate} setValue={setRate} name={"Interest Rate"} />
-                        <ProformaConstant value={fees} setValue={setFees} name={"Loan Fees"} />
                         <ProformaConstant value={maintanence} setValue={setMaintenance} name={"Maintenance %"} />
-                        <ProformaConstant value={offering} setValue={setOffering} name={"Offering Expenses"} />
-                        <ProformaConstant value={manage} setValue={setManage} name={"Property Management %"} />
                     </div>
                     <div className="proformaCol1">
-                        <ProformaConstant value={reno} setValue={setReno} name={"Reno Budgets as % of Aquisition"} />
-                        <ProformaConstant value={tax} setValue={setTax} name={"Tax"} />
-                        <ProformaConstant value={turns} setValue={setTurns} name={"Turns/Year"} />
+                        <ProformaConstant value={reno} setValue={setReno} name={"Reno budget $"} />
+                        <ProformaConstant value={tax} setValue={setTax} name={"Tax/yr $"} />
                         <ProformaConstant value={vacancy} setValue={setVacancy} name={"Vacancy %"} />
-                        <ProformaConstant value={override} setValue={setOverride} name={"Year 1 Override Appreciation"} />
+                        <ProformaConstant value={rate} setValue={setRate} name={"Interest Rate"} />
+                        <ProformaConstant value={fees} setValue={setFees} name={"Loan Fees"} />
                     </div>
                     <div className="flex-column" style={{ width: '50%', justifyContent: 'center', alignItems: 'flex-end', paddingRight: 48 }}>
                         <div className="flex-row" style={{ justifyContent: 'space-evenly' }}>

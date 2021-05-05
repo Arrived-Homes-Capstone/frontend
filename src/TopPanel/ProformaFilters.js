@@ -22,7 +22,7 @@ const ProformaFilters = ({ setReqBody, reqBody }) => {
 
     const setFilters = async () => {
         const body = {};
-        const filters = ['Bathrooms', 'Beds', 'Price', 'SqFt', 'YearBuilt'];
+        const filters = ['InvestorIRR', 'InvestorEquityRequired', 'InvestorYield', 'ArrivedPropertyAUMFees', 'ArrivedUpfrontRevenue'];
         for (let i = 0; i < filters.length; i++) {
             getFilterData(filters[i], body);
         }
@@ -35,28 +35,26 @@ const ProformaFilters = ({ setReqBody, reqBody }) => {
         handleCloseOpen()
     }
 
-    // TODO: Set this up to work with API
     const getFilterData = (filterName, body) => {
-        console.log('hey')
-        // switch (filterName) {
-        //     case 'Bathrooms':
-        //         getDetail(filterName, investorEquity, body);
-        //         break;
-        //     case 'Beds':
-        //         getDetail(filterName, investorIRR, body);
-        //         break;
-        //     case 'Price':
-        //         getDetail(filterName, investorYield, body);
-        //         break;
-        //     case 'SqFt':
-        //         getDetail(filterName, arrivedRevenue, body);
-        //         break;
-        //     case 'YearBuilt':
-        //         getDetail(filterName, arrivedFees, body);
-        //         break;
-        //     default:
-        //         return;
-        // }
+        switch (filterName) {
+            case 'InvestorEquityRequired':
+                getDetail(filterName, investorEquity, body);
+                break;
+            case 'InvestorIRR':
+                getDetail(filterName, investorIRR, body);
+                break;
+            case 'InvestorYield':
+                getDetail(filterName, investorYield, body);
+                break;
+            case 'ArrivedUpfrontRevenue':
+                getDetail(filterName, arrivedRevenue, body);
+                break;
+            case 'ArrivedPropertyAUMFees':
+                getDetail(filterName, arrivedFees, body);
+                break;
+            default:
+                return;
+        }
     }
     const getDetail = (filterName, filter, body) => {
         if (filter.low !== 'Min' && /^\d+$/.test(filter.low)) {

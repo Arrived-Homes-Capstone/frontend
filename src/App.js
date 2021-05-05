@@ -46,7 +46,7 @@ const App = () => {
 
   // Get all the correct data based on filtering, house type, sort by, and map location
   const updateListings = async () => {
-    console.log(reqBody);
+    //console.log(reqBody);
     const response = await getAllListings({ ...reqBody, ...bounds }, sortOrder);
     setData(response);
     await fetchDetailedListings(response, 0, 10);

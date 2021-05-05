@@ -17,8 +17,8 @@ const HouseType = ({ houseTypes, setHouseTypes, updateListings, setReqBody, reqB
         return houseTypes.map((option, index) => (
             <button className="filter-type-btn flex-row" onClick={() => handleOptionChoice(option)} key={index}>
                 { option.selected
-                    ? <img src={'frontend/images/check_clicked.png'} alt="checkbox empty" className="filter-check" />
-                    : <img src={'frontend/images/check_empty.png'} alt="checkbox empty" className="filter-check" />
+                    ? <img src={'images/check_clicked.png'} alt="checkbox empty" className="filter-check" />
+                    : <img src={'images/check_empty.png'} alt="checkbox empty" className="filter-check" />
                 }
                 <p style={{ textAlign: 'left' }}>{option.label}</p>
             </button>
