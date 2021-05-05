@@ -27,10 +27,12 @@ const ProformaFilters = ({ setReqBody, reqBody }) => {
             getFilterData(filters[i], body);
         }
 
-        setReqBody({
-            ...reqBody,
-            ...body
-        });
+        console.log(body);
+
+        // setReqBody({
+        //     ...reqBody,
+        //     ...body
+        // });
 
         handleCloseOpen()
     }
@@ -58,14 +60,14 @@ const ProformaFilters = ({ setReqBody, reqBody }) => {
     }
     const getDetail = (filterName, filter, body) => {
         if (filter.low !== 'Min' && /^\d+$/.test(filter.low)) {
-            body[filterName + 'Low'] = parseInt(filter.low);
+            body[filterName + 'Low'] = (parseInt(filter.low) / 100);
         } else {
-            body[filterName + 'Low'] = 0;
+            body[filterName + 'Low'] = null;
         }
         if (filter.high !== 'Max' && /^\d+$/.test(filter.high)) {
-            body[filterName + 'High'] = parseInt(filter.high);
+            body[filterName + 'High'] = parseInt(filter.high) / 100;
         } else {
-            body[filterName + 'High'] = 100000000
+            body[filterName + 'High'] = null;
         }
     }
 
@@ -90,11 +92,11 @@ const ProformaFilters = ({ setReqBody, reqBody }) => {
             {/* Button after click */}
             { isOpen &&
                 <div ref={ref} className="filter-type-options">
-                    <LowHighFilter item={investorEquity} setItem={setInvestorEquity} name="Investor Equity" type="$" />
+                    {/* <LowHighFilter item={investorEquity} setItem={setInvestorEquity} name="Investor Equity" type="$" /> */}
                     <LowHighFilter item={investorIRR} setItem={setInvestorIRR} name="Investor IRR" type="%" />
                     <LowHighFilter item={investorYield} setItem={setInvestorYield} name="Investor Yield" type="%" />
-                    <LowHighFilter item={arrivedRevenue} setItem={setArrivedRevenue} name="Arrived Upfront Revenue" type="$" />
-                    <LowHighFilter item={arrivedFees} setItem={setArrivedFees} name="Arrived Property Fees" type="$" />
+                    {/* <LowHighFilter item={arrivedRevenue} setItem={setArrivedRevenue} name="Arrived Upfront Revenue" type="$" />
+                    <LowHighFilter item={arrivedFees} setItem={setArrivedFees} name="Arrived Property Fees" type="$" /> */}
 
                     <button className="filter-type-done" onClick={() => setFilters()}>Set filters</button>
                 </div>

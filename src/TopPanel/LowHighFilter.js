@@ -36,6 +36,8 @@ const LowHighFilter = ({ item, setItem, name, type }) => {
                 return <p className="low-high-dollar">$</p>;
             case 'ft':
                 return <p className="low-high-feet">ft.</p>;
+            case '%':
+                return <p className="low-high-feet">%</p>;
             default:
                 return null;
         }

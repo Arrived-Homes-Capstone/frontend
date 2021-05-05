@@ -53,7 +53,7 @@ const FilterBar = ({ locations, focusedLocation, setFocusedLocation,
 
         <MoreFilters {...{ setReqBody, reqBody }} />
 
-        {/* <ProformaFilters {...{ setReqBody, reqBody }} /> */}
+        <ProformaFilters {...{ setReqBody, reqBody }} />
 
       </div>
       <SortBy {...{ sortOrder, setSortOrder }} />
