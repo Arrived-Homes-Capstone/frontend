@@ -107,13 +107,13 @@ const ProformaCalculator = ({ property }) => {
         const { ProformaData } = property;
         const { Constants } = ProformaData;
         setMarkup(Constants["Arrived Markup"]);
-        setHoa(ProformaData["HOAFee"]);
-        setRent(ProformaData["Rent"]);
-        setPurchase(ProformaData["ListPrice"]);
+        setHoa(property["HOAFee"]);
+        setRent(property["RentLow"]);
+        setPurchase(property["ListPrice"]);
         setRate(Constants["Interest Rate"]);
         setFees(Constants["Loan Fees"]);
         setMaintenance(Constants["Maintenance %"]);
-        setReno(Constants["Reno Budgets as Percent of Aquisition"]);
+        setReno(2000);
         setTax(Constants["Tax"]);
         setVacancy(Constants["Vacancy %"]);
     }
@@ -128,7 +128,7 @@ const ProformaCalculator = ({ property }) => {
                     <div className="proformaCol1">
                         <ProformaConstant value={purchase} setValue={setPurchase} name={"Purchase Price $"} />
                         <ProformaConstant value={rent} setValue={setRent} name={"Rent/month $"} />
-                        <ProformaConstant value={hoa} setValue={setHoa} name={"HOA/yr $"} />
+                        <ProformaConstant value={hoa} setValue={setHoa} name={"HOA/month $"} />
                         <ProformaConstant value={markup} setValue={setMarkup} name={"Arrived Markup"} />
                         <ProformaConstant value={maintanence} setValue={setMaintenance} name={"Maintenance %"} />
                     </div>
@@ -139,7 +139,7 @@ const ProformaCalculator = ({ property }) => {
                         <ProformaConstant value={rate} setValue={setRate} name={"Interest Rate"} />
                         <ProformaConstant value={fees} setValue={setFees} name={"Loan Fees"} />
                     </div>
-                    <div className="flex-column" style={{ width: '50%', justifyContent: 'center', alignItems: 'flex-end', paddingRight: 48 }}>
+                    <div className="flex-column" style={{ width: '60%', justifyContent: 'space-between', alignItems: 'center', paddingRight: 48 }}>
                         <div className="flex-row" style={{ justifyContent: 'space-evenly' }}>
                             <div>
                                 <p>Investor Equity Required</p>
