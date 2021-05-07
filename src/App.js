@@ -4,7 +4,7 @@ import Map from './LeftPanel/Map';
 import PropertyList from './RightPanel/PropertyList.js';
 import { getAllLocations, getAllListings, getSingleListing, getAllHomeTypes } from './API/functions';
 
-//TODO: Rename top tab bar to Arrived Homes Acquisition Finder instead of whatever it is now (thing by the favicon)
+//TODO: Reload properties whenever the focused Locaiton changes from the top left search bar
 
 // FAYETTEVILLE CONSTANTS
 const LAT = 36.052437393;
