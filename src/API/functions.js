@@ -46,12 +46,13 @@ export const getAllLocations = async () => {
             curr.State = state;
         }
 
-        for (let j = 0; j < res.length; j++) {
-            if (res[j].City == curr.City && res[j].State == curr.State) {
-                alreadySaved = true;
-                break;
-            }
-        }
+        // TODO: Make this run faster. Can't be in On^2
+        // for (let j = 0; j < res.length; j++) {
+        //     if (res[j].City == curr.City && res[j].State == curr.State) {
+        //         alreadySaved = true;
+        //         break;
+        //     }
+        // }
 
         // If not already in the list of locations, add it
         if (alreadySaved === false) {

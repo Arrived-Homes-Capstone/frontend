@@ -32,6 +32,8 @@ const Map = ({ center, data, setBounds, updateListings, clickedProperty }) => {
                 }
             })
             map.setCenter(center);
+
+            console.log(bounds);
         }
     }, [center]);
 

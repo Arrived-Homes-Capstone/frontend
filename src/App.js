@@ -6,6 +6,20 @@ import { getAllLocations, getAllListings, getSingleListing, getAllHomeTypes } fr
 
 //TODO: Rename top tab bar to Arrived Homes Acquisition Finder instead of whatever it is now (thing by the favicon)
 
+// FAYETTEVILLE CONSTANTS
+const LAT = 36.052437393;
+const LONG = -94.13423309;
+const FAYETTEVILLE = {
+  City: "Fayetteville",
+  Lat: 36.052437393,
+  Long: -94.13423309,
+  PostalCode: "72701",
+  State: "AR",
+  label: "Fayetteville, AR",
+  value: 10
+}
+const BOUNDSHIFT = .08;
+
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [focusedLocation, setFocusedLocation] = useState(null);               // Currently focused location 
@@ -22,13 +36,23 @@ const App = () => {
   // Ran on application start up
   useEffect(async () => {
     if (isLoading) {
+      setFocusedLocation(FAYETTEVILLE);
+      setCenter({ lat: LAT, lng: LONG });
+      setBounds({
+        Lat: {
+          Max: LAT + BOUNDSHIFT,
+          Min: LAT - BOUNDSHIFT
+        },
+        Long: {
+          Max: LONG + BOUNDSHIFT,
+          Min: LONG - BOUNDSHIFT
+        }
+      });
+
       updateListings();
 
       const allLocations = await getAllLocations();
       setLocations(allLocations);
-
-      setFocusedLocation(allLocations[1]);
-      setCenter({ lat: allLocations[1].Lat, lng: allLocations[1].Long });
 
       const homeTypes = await getAllHomeTypes();
       setHouseTypes(homeTypes);
@@ -46,7 +70,26 @@ const App = () => {
 
   // Get all the correct data based on filtering, house type, sort by, and map location
   const updateListings = async () => {
-    const response = await getAllListings({ ...reqBody, ...bounds }, sortOrder);
+    let response;
+    // TODO: The first run needs bounds on it so it does not take forever to run. Try to implement this better by waiting for the
+    // setBounds function in the starting useEffect function.
+    if (!bounds) {
+      const temp_bounds = {
+        Lat: {
+          Max: LAT + BOUNDSHIFT,
+          Min: LAT - BOUNDSHIFT
+        },
+        Long: {
+          Max: LONG + BOUNDSHIFT,
+          Min: LONG - BOUNDSHIFT
+        }
+      }
+      console.log('first run')
+      response = await getAllListings({ ...reqBody, ...temp_bounds }, sortOrder);
+    } else {
+      response = await getAllListings({ ...reqBody, ...bounds }, sortOrder);
+    }
+
     setData(response);
     await fetchDetailedListings(response, 0, 10);
   }
