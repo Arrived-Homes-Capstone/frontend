@@ -9,7 +9,7 @@ const AuthLandingPage = () => {
         return (
             <div className="landing-container">
                 <div className="landing-module">
-                    <img src={'frontend/images/arrived-logo-sm.png'} className="landing-logo" alt="arrived homes" />
+                    <img src={'images/arrived-logo-sm.png'} className="landing-logo" alt="arrived homes" />
                     <p style={{ fontWeight: 400, marginBottom: 48 }}>Welcome to the Arrived Homes Acquisition Finder</p>
                     <button className="landing-btn" onClick={() => loginWithRedirect()}>Sign in</button>
                 </div>
