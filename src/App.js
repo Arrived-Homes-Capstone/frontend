@@ -4,9 +4,7 @@ import Map from './LeftPanel/Map';
 import PropertyList from './RightPanel/PropertyList.js';
 import { getAllLocations, getAllListings, getSingleListing, getAllHomeTypes } from './API/functions';
 
-//TODO: Reload properties whenever the focused Locaiton changes from the top left search bar
-
-// FAYETTEVILLE CONSTANTS
+// FAYETTEVILLE CONSTANTS USED ONLY FOR APP STARTUP
 const LAT = 36.052437393;
 const LONG = -94.13423309;
 const FAYETTEVILLE = {
@@ -18,7 +16,7 @@ const FAYETTEVILLE = {
   label: "Fayetteville, AR",
   value: 10
 }
-const BOUNDSHIFT = .08;
+const BOUNDSHIFT = .1;
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -49,8 +47,6 @@ const App = () => {
         }
       });
 
-      updateListings();
-
       const allLocations = await getAllLocations();
       setLocations(allLocations);
 
@@ -66,30 +62,11 @@ const App = () => {
     if (!isLoading) {
       updateListings();
     }
-  }, [sortOrder, reqBody]);
+  }, [sortOrder, reqBody, isLoading]);
 
   // Get all the correct data based on filtering, house type, sort by, and map location
   const updateListings = async () => {
-    let response;
-    // TODO: The first run needs bounds on it so it does not take forever to run. Try to implement this better by waiting for the
-    // setBounds function in the starting useEffect function.
-    if (!bounds) {
-      const temp_bounds = {
-        Lat: {
-          Max: LAT + BOUNDSHIFT,
-          Min: LAT - BOUNDSHIFT
-        },
-        Long: {
-          Max: LONG + BOUNDSHIFT,
-          Min: LONG - BOUNDSHIFT
-        }
-      }
-      console.log('first run')
-      response = await getAllListings({ ...reqBody, ...temp_bounds }, sortOrder);
-    } else {
-      response = await getAllListings({ ...reqBody, ...bounds }, sortOrder);
-    }
-
+    let response = await getAllListings({ ...reqBody, ...bounds }, sortOrder);
     setData(response);
     await fetchDetailedListings(response, 0, 10);
   }

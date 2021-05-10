@@ -3,24 +3,6 @@ import { getProformaCalcs } from '../API/functions';
 import ProformaConstant from './ProformaConstant';
 const formatter = Intl.NumberFormat();
 
-// REMOVE
-// interest rate
-// loan fees
-// offering expenses
-// property management %
-// Turns/year
-// Year 1 override appreciation
-
-// INCLUDE
-// Rent/month $
-// Purchase price $
-// HOA Fee/month $
-
-//CHANGE
-// Reno budget % -> Reno budget $
-// Tax -> Tax/yr $
-
-
 const ProformaCalculator = ({ property }) => {
     const [isLoading, setIsLoading] = useState(true);
     // Constants
@@ -48,8 +30,8 @@ const ProformaCalculator = ({ property }) => {
             const { ProformaData } = property;
             const { Constants } = ProformaData;
             setPurchase(property["ListPrice"]);
-            setRent(property["RentLow"]);
-            setHoa(property["HOAFee"]);
+            setRent(property["RentLow"] || '');
+            setHoa(property["HOAFee"] || '');
             setMarkup(Constants["Arrived Markup"]);
             setRate(Constants["Interest Rate"]);
             setFees(Constants["Loan Fees"]);
@@ -90,10 +72,8 @@ const ProformaCalculator = ({ property }) => {
 
         body.Constants = Constants;
 
-        console.log(body);
-
         const res = await getProformaCalcs(body);
-        console.log(res);
+
         setIER(res.InvestorEquityRequired)
         setIRR(res.InvestorIRR)
         setYield(res.InvestorYield)
@@ -107,8 +87,8 @@ const ProformaCalculator = ({ property }) => {
         const { ProformaData } = property;
         const { Constants } = ProformaData;
         setMarkup(Constants["Arrived Markup"]);
-        setHoa(property["HOAFee"]);
-        setRent(property["RentLow"]);
+        setHoa(property["HOAFee"] || '');
+        setRent(property["RentLow"] || '');
         setPurchase(property["ListPrice"]);
         setRate(Constants["Interest Rate"]);
         setFees(Constants["Loan Fees"]);
