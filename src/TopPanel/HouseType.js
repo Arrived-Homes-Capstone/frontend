@@ -12,7 +12,6 @@ const HouseType = ({ houseTypes, setHouseTypes, updateListings, setReqBody, reqB
         setHouseTypes(newHouseTypes);
     }
 
-    // TODO: Change below images to not have frontend in the beginning.
     const renderOptions = () => {
         return houseTypes.map((option, index) => (
             <button className="filter-type-btn flex-row" onClick={() => handleOptionChoice(option)} key={index}>

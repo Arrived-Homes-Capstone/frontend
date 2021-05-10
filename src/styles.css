@@ -26,6 +26,49 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
+/* Landing Page */
+.landing-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.landing-module {
+  padding-top: 32px;
+  padding-right: 32px;
+  padding-left: 32px;
+  padding-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid white;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
+}
+
+.landing-logo {
+  width: 250px;
+  height: auto;
+}
+
+.landing-btn {
+  width: 350px;
+  font-size: 20px;
+  font-weight: 500;
+  color: white;
+  background-color: #818cdc;
+  border-radius: 5px;
+  border: transparent;
+  outline: none;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  cursor: pointer;
+}
+
 /* Filter Bar */
 .filter-container {
   display: flex;
@@ -35,7 +78,7 @@ input[type="number"] {
   background-color: #fbfbfb;
   height: 48px;
   padding-left: 12px;
-  padding-right: 96px;
+  padding-right: 24px;
   padding-top: 8px;
   padding-bottom: 8px;
 

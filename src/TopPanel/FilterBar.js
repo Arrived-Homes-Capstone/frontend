@@ -5,6 +5,7 @@ import HouseType from './HouseType';
 import MoreFilters from './MoreFilters';
 import Select from "react-dropdown-select";
 import ProformaFilters from './ProformaFilters';
+import LogoutButton from '../auth/LogoutButton';
 import '../styles.css';
 
 const FilterBar = ({ locations, focusedLocation, setFocusedLocation,
@@ -56,7 +57,10 @@ const FilterBar = ({ locations, focusedLocation, setFocusedLocation,
         <ProformaFilters {...{ setReqBody, reqBody }} />
 
       </div>
-      <SortBy {...{ sortOrder, setSortOrder }} />
+      <div className="flex-row">
+        <SortBy {...{ sortOrder, setSortOrder }} />
+        <LogoutButton />
+      </div>
     </div>
   );
 };
