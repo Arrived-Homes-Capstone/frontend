@@ -35,27 +35,22 @@ export const getAllLocations = async () => {
     const data = await resp.json();
     let res = [];
 
+    const set = new Set();
+
     // Format the locations array to include a label and value
-    // This is O(n^2) and will need configuring in the future !!
     for (let i = 0; i < data.length; i++) {
         let curr = data[i];
-        let alreadySaved = false;
         let state = curr.State;
         if (state.length > 2) {
             state = abbrState(state, 'abbr');
             curr.State = state;
         }
 
-        // TODO: Make this run faster. Can't be in On^2
-        // for (let j = 0; j < res.length; j++) {
-        //     if (res[j].City == curr.City && res[j].State == curr.State) {
-        //         alreadySaved = true;
-        //         break;
-        //     }
-        // }
+        const obj = '' + curr.City.trim().toLowerCase() + state.trim().toLowerCase();
 
-        // If not already in the list of locations, add it
-        if (alreadySaved === false) {
+        // If not already in the list of locations, add it to the results
+        if (!set.has(obj)) {
+            set.add(obj);
             curr.label = curr.City + ", " + state;
             curr.value = i;
             res.push(curr);
