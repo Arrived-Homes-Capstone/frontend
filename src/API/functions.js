@@ -17,6 +17,7 @@ export const getAllListings = async (body, order) => {
         body: JSON.stringify(body)
     });
 
+
     const content = await resp.json();
     return content;
 }

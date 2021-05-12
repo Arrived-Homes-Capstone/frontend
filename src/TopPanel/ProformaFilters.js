@@ -27,12 +27,10 @@ const ProformaFilters = ({ setReqBody, reqBody }) => {
             getFilterData(filters[i], body);
         }
 
-        console.log(body);
-
-        // setReqBody({
-        //     ...reqBody,
-        //     ...body
-        // });
+        setReqBody({
+            ...reqBody,
+            ...body
+        });
 
         handleCloseOpen()
     }
@@ -62,12 +60,12 @@ const ProformaFilters = ({ setReqBody, reqBody }) => {
         if (filter.low !== 'Min' && /^\d+$/.test(filter.low)) {
             body[filterName + 'Low'] = (parseInt(filter.low) / 100);
         } else {
-            body[filterName + 'Low'] = null;
+            body[filterName + 'Low'] = 0;
         }
         if (filter.high !== 'Max' && /^\d+$/.test(filter.high)) {
             body[filterName + 'High'] = parseInt(filter.high) / 100;
         } else {
-            body[filterName + 'High'] = null;
+            body[filterName + 'High'] = 1;
         }
     }
 
