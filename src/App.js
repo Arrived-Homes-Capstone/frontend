@@ -16,7 +16,7 @@ const FAYETTEVILLE = {
   label: "Fayetteville, AR",
   value: 10
 }
-const BOUNDSHIFT = .1;
+const BOUNDSHIFT = .05;
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
